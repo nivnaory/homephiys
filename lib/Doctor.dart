@@ -5,7 +5,6 @@ class Doctor{
   int _doctorId;
   //Patient patient
   //TreatmentType treatmentType
-
   String get userName => _userName;
   int get doctorId => _doctorId;
   String get passWord => _passWord;

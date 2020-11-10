@@ -1,5 +1,4 @@
 class Therapist{
-
   String _userName;
   String _passWord;
   int _therapistId;
@@ -21,7 +20,4 @@ class Therapist{
   set userName(String value) {
     _userName = value;
   }
-
-
-
 }
