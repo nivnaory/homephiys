@@ -10,10 +10,14 @@ class LoginScreen extends StatefulWidget {
   LoginScreenState createState() => LoginScreenState();
 }
 class LoginScreenState extends State<LoginScreen> {
+  /*
+  create 2 attaribute of text field
+  one for the email and one for the password
+   */
 
   @override
   Widget build(BuildContext context) {
-       new Scaffold(
+       return  Scaffold(
         resizeToAvoidBottomInset:false,
         body: Column(
         children: <Widget>[
@@ -77,8 +81,9 @@ class LoginScreenState extends State<LoginScreen> {
               elevation: 7.0,
               child:GestureDetector(
                 onTap:(){
+                  //
                   //Navigator.push(context,
-                     // MaterialPageRoute(builder:(context)=>PatientHomePage()));
+                    //  MaterialPageRoute(builder:(context)=>PatientHomePage()));
                 },
                 child:Center(
                   child:Text(
