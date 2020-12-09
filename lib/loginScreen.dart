@@ -81,9 +81,8 @@ class LoginScreenState extends State<LoginScreen> {
               elevation: 7.0,
               child:GestureDetector(
                 onTap:(){
-                  //
-                  //Navigator.push(context,
-                    //  MaterialPageRoute(builder:(context)=>PatientHomePage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder:(context)=>PatientHomePage()));
                 },
                 child:Center(
                   child:Text(

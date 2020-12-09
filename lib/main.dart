@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:homephiys/PatientHomePage.dart';
 import 'loginScreen.dart';
 
 void main() => runApp(MyApp());
@@ -9,8 +10,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Login UI',
       debugShowCheckedModeBanner: false,
+      title: 'Flutter Login UI',
+      theme: ThemeData(
+    primaryColor: Colors.lightGreenAccent
+    ),
       home: LoginScreen(),
     );
   }
