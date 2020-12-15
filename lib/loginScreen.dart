@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'package:toast/toast.dart';
+
+
+
 
 import 'PatientHomePage.dart';
 
@@ -10,8 +16,10 @@ class LoginScreen extends StatefulWidget {
   LoginScreenState createState() => LoginScreenState();
 }
 class LoginScreenState extends State<LoginScreen> {
+  final myController = TextEditingController();
   /*
   create 2 attaribute of text field
+
   one for the email and one for the password
    */
 
@@ -38,12 +46,12 @@ class LoginScreenState extends State<LoginScreen> {
             padding: EdgeInsets.only(top:55.0,left:20.0,right:20.0),
             child: Column(
               children: <Widget>[
-                TextField( obscureText: false,
+                TextField( obscureText: false,controller:myController,
                 decoration: InputDecoration(
                   border:OutlineInputBorder(
                       borderRadius:BorderRadius.circular(30)
                      ),
-                     hintText:'Ex:emailName@gmail.com',
+                     hintText:'Ex:id:123456789',
                  ),
                 ),
                 SizedBox(height:30.0),
@@ -81,8 +89,19 @@ class LoginScreenState extends State<LoginScreen> {
               elevation: 7.0,
               child:GestureDetector(
                 onTap:(){
-                  Navigator.push(context,
-                      MaterialPageRoute(builder:(context)=>PatientHomePage()));
+                    setState(() {
+                        Future f=loginUser(myController.text);
+                        f.then((value){
+                        if (value==true){
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) =>
+                                  PatientHomePage()));
+                        }else {
+                          print("im here!");
+                          Toast.show("Login Faild", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+
+                         }});
+                       });
                 },
                 child:Center(
                   child:Text(
@@ -103,4 +122,24 @@ class LoginScreenState extends State<LoginScreen> {
          ),
       );
      }
+}
+
+
+//check if the user exsist on the database
+Future<bool> loginUser(String username) async {
+  final http.Response response = await http.post(
+    'http://10.0.2.2:5000/user/login/paitent',
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'username': username,
+    }),
+  );
+
+  if (response.statusCode == 200) {
+    print("ok");
+    return Future.value(true);
+  }
+  return Future.value(false);
 }
