@@ -16,7 +16,8 @@ class LoginScreen extends StatefulWidget {
   LoginScreenState createState() => LoginScreenState();
 }
 class LoginScreenState extends State<LoginScreen> {
-  final myController = TextEditingController();
+  final username = TextEditingController();
+  final password = TextEditingController();
   /*
   create 2 attaribute of text field
 
@@ -46,7 +47,7 @@ class LoginScreenState extends State<LoginScreen> {
             padding: EdgeInsets.only(top:55.0,left:20.0,right:20.0),
             child: Column(
               children: <Widget>[
-                TextField( obscureText: false,controller:myController,
+                TextField( obscureText: false,controller:username,
                 decoration: InputDecoration(
                   border:OutlineInputBorder(
                       borderRadius:BorderRadius.circular(30)
@@ -55,7 +56,7 @@ class LoginScreenState extends State<LoginScreen> {
                  ),
                 ),
                 SizedBox(height:30.0),
-                TextField( obscureText: true,
+                TextField( obscureText: true,controller:password,
                   decoration: InputDecoration(
                     border:OutlineInputBorder(
                         borderRadius:BorderRadius.circular(30)
@@ -90,7 +91,7 @@ class LoginScreenState extends State<LoginScreen> {
               child:GestureDetector(
                 onTap:(){
                     setState(() {
-                        Future f=loginUser(myController.text);
+                        Future f=loginUser(username.text,password.text);
                         f.then((value){
                         if (value==true){
                           Navigator.push(context,
@@ -98,8 +99,7 @@ class LoginScreenState extends State<LoginScreen> {
                                   PatientHomePage()));
                         }else {
                           print("im here!");
-                          Toast.show("Login Faild", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
-
+                          Toast.show("Login Faild", context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM);
                          }});
                        });
                 },
@@ -126,7 +126,7 @@ class LoginScreenState extends State<LoginScreen> {
 
 
 //check if the user exsist on the database
-Future<bool> loginUser(String username) async {
+Future<bool> loginUser(String username,String password) async {
   final http.Response response = await http.post(
     'http://10.0.2.2:5000/user/login/paitent',
     headers: <String, String>{
@@ -134,9 +134,9 @@ Future<bool> loginUser(String username) async {
     },
     body: jsonEncode(<String, String>{
       'username': username,
+      'password':password,
     }),
   );
-
   if (response.statusCode == 200) {
     print("ok");
     return Future.value(true);

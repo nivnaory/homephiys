@@ -66,10 +66,55 @@ class _PatientHomePageState extends State<PatientHomePage>{
           mainAxisSpacing: 12.0,
         padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         children: <Widget>[
-          myItems(Icons.directions_run, "Home Exercise", 0xffed622b),
-          myItems(Icons.bookmark, "Treatment Progress", 0xffff3266),
-          myItems(Icons.message, "Chat", 0xff26cb3c),
-
+          FlatButton(shape:RoundedRectangleBorder(
+              side:BorderSide(color:Colors.black26),
+              borderRadius:BorderRadius.circular(50)
+          ),
+            onPressed: () => {
+            print("exercise")
+            },
+            color: Colors.green,
+            padding: EdgeInsets.all(10.0),
+            child: Column( // Replace with a Row for horizontal icon + text
+              children: <Widget>[
+                Icon(Icons.directions_run),
+                Text("Home Exercise")
+              ],
+            ),
+          ),
+          FlatButton(shape:RoundedRectangleBorder(
+              side:BorderSide(color:Colors.white),
+              borderRadius:BorderRadius.circular(50)
+               ),
+            
+            onPressed: () => {
+              print("treatment")
+            },
+            color: Colors.black26,
+            padding: EdgeInsets.all(10.0),
+            child: Column( // Replace with a Row for horizontal icon + text
+              children: <Widget>[
+                Icon(Icons.bookmark),
+                Text("Treatment Progress"),
+              ],
+            ),
+          ),
+          FlatButton(shape:RoundedRectangleBorder(
+              side:BorderSide(color:Colors.black26),
+              borderRadius:BorderRadius.circular(50)
+          ),
+            onPressed: () => {
+              print("chat")
+            },
+            color:Colors.lightGreenAccent,
+            padding: EdgeInsets.all(10.0),
+            child: Column( // Replace with a Row for horizontal icon + text
+              children: <Widget>[
+                Icon(Icons.chat),
+                Text("Chat")
+              ],
+            ),
+          ),
         ],
         staggeredTiles: [
           StaggeredTile.extent(2, 200.0),
