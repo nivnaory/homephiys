@@ -5,19 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
 
-
-
-
 import 'PatientHomePage.dart';
 
 class LoginScreen extends StatefulWidget {
-
   @override
   LoginScreenState createState() => LoginScreenState();
 }
+
 class LoginScreenState extends State<LoginScreen> {
   final username = TextEditingController();
   final password = TextEditingController();
+
   /*
   create 2 attaribute of text field
 
@@ -26,107 +24,110 @@ class LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-       return  Scaffold(
-        resizeToAvoidBottomInset:false,
-        body: Column(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Column(
         children: <Widget>[
           Container(
-            child:Stack(
-             children: <Widget>[
-               Container(
-                 padding:EdgeInsets.fromLTRB(10.0, 150.0, 0.0, 50.0),
-                 child:Text("homePhiys",
-                   style:TextStyle(
-                  fontSize:70,fontWeight: FontWeight.bold,fontFamily:'Lobster'),
-                 ),
-               )
-             ],
-             )
-          ),
+              child: Stack(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.fromLTRB(10.0, 150.0, 0.0, 50.0),
+                child: Text(
+                  "homePhiys",
+                  style: TextStyle(
+                      fontSize: 70,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Lobster'),
+                ),
+              )
+            ],
+          )),
           Container(
-            padding: EdgeInsets.only(top:55.0,left:20.0,right:20.0),
+            padding: EdgeInsets.only(top: 55.0, left: 20.0, right: 20.0),
             child: Column(
               children: <Widget>[
-                TextField( obscureText: false,controller:username,
-                decoration: InputDecoration(
-                  border:OutlineInputBorder(
-                      borderRadius:BorderRadius.circular(30)
-                     ),
-                     hintText:'Ex:id:123456789',
-                 ),
-                ),
-                SizedBox(height:30.0),
-                TextField( obscureText: true,controller:password,
+                TextField(
+                  obscureText: false,
+                  controller: username,
                   decoration: InputDecoration(
-                    border:OutlineInputBorder(
-                        borderRadius:BorderRadius.circular(30)
-                    ),
-                    hintText:'Password  ',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                    hintText: 'Ex:id:123456789',
+                  ),
+                ),
+                SizedBox(height: 30.0),
+                TextField(
+                  obscureText: true,
+                  controller: password,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                    hintText: 'Password  ',
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(height:5.0),
+          SizedBox(height: 5.0),
           Container(
-            alignment:Alignment(1.0,0.0),
-            padding:EdgeInsets.only(top:15.0,left: 18.0),
-            child:Text("forgot password"
-           ,style: TextStyle(
-                color:Colors.black,
-                  fontWeight:FontWeight.bold,
-                  fontSize:20,
-                  fontFamily:'Lobster'
-              ),
-            )
-          ),
-          SizedBox(height:30.0),
+              alignment: Alignment(1.0, 0.0),
+              padding: EdgeInsets.only(top: 15.0, left: 18.0),
+              child: Text(
+                "forgot password",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    fontFamily: 'Lobster'),
+              )),
+          SizedBox(height: 30.0),
           Container(
-            height:50.0,
-            child:Material(
-              borderRadius:BorderRadius.circular(200.0),
-              shadowColor:Colors.greenAccent,
-              color:Colors.green,
+            height: 50.0,
+            child: Material(
+              borderRadius: BorderRadius.circular(200.0),
+              shadowColor: Colors.greenAccent,
+              color: Colors.green,
               elevation: 7.0,
-              child:GestureDetector(
-                onTap:(){
-                    setState(() {
-                        Future f=loginUser(username.text,password.text);
-                        f.then((value){
-                        if (value==true){
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) =>
-                                  PatientHomePage()));
-                        }else {
-                          print("im here!");
-                          Toast.show("Login Faild", context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM);
-                         }});
-                       });
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    Future f = loginUser(username.text, password.text);
+                    f.then((value) {
+                      if (value == true) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PatientHomePage()));
+                      } else {
+                        print("im here!");
+                        Toast.show("Login Faild", context,
+                            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                      }
+                    });
+                  });
                 },
-                child:Center(
-                  child:Text(
+                child: Center(
+                  child: Text(
                     "Login",
-                    style:TextStyle(
-                      color:Colors.black,
-                      fontWeight:FontWeight.bold,
-                      fontSize:25,
-                      fontFamily:'IndieFlower'
-                    ),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                        fontFamily: 'IndieFlower'),
                   ),
                 ),
-              )
-              ,
+              ),
             ),
           )
         ],
-         ),
-      );
-     }
+      ),
+    );
+  }
 }
 
-
 //check if the user exsist on the database
-Future<bool> loginUser(String username,String password) async {
+Future<bool> loginUser(String username, String password) async {
   final http.Response response = await http.post(
     'http://10.0.2.2:5000/user/login/paitent',
     headers: <String, String>{
@@ -134,7 +135,7 @@ Future<bool> loginUser(String username,String password) async {
     },
     body: jsonEncode(<String, String>{
       'username': username,
-      'password':password,
+      'password': password,
     }),
   );
   if (response.statusCode == 200) {

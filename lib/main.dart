@@ -12,10 +12,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Login UI',
-      theme: ThemeData(
-    primaryColor: Colors.lightGreenAccent
-    ),
-      home: LoginScreen(),
+      theme: ThemeData(primaryColor: Colors.lightGreenAccent),
+      home: PatientHomePage(),
     );
   }
 }
