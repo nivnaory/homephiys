@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:homephiys/ForgetPasswordPage.dart';
 import 'package:homephiys/PatientHomePage.dart';
 import 'loginScreen.dart';
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Login UI',
       theme: ThemeData(primaryColor: Colors.lightGreenAccent),
-      home: PatientHomePage(),
+      home: LoginScreen(),
     );
   }
 }

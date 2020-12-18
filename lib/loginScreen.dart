@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:homephiys/ForgetPasswordPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
 
@@ -70,17 +71,29 @@ class LoginScreenState extends State<LoginScreen> {
             ),
           ),
           SizedBox(height: 5.0),
-          Container(
-              alignment: Alignment(1.0, 0.0),
-              padding: EdgeInsets.only(top: 15.0, left: 18.0),
-              child: Text(
-                "forgot password",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    fontFamily: 'Lobster'),
-              )),
+          FlatButton(
+            onPressed: () => {
+              print("Forgot Password"),
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ForgetPasswordPage(username: username)),
+              ),
+            },
+            color: Colors.white10,
+            padding: EdgeInsets.all(0.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              // Replace with a Row for horizontal icon + text
+              children: <Widget>[
+                Text("Forgot Password",
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                    )),
+              ],
+            ),
+          ),
           SizedBox(height: 30.0),
           Container(
             height: 50.0,
@@ -101,7 +114,7 @@ class LoginScreenState extends State<LoginScreen> {
                                 builder: (context) => PatientHomePage()));
                       } else {
                         print("im here!");
-                        Toast.show("Login Faild", context,
+                        Toast.show("Login Failed", context,
                             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                       }
                     });
