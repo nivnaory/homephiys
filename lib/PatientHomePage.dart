@@ -4,7 +4,6 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 class PatientHomePage extends StatefulWidget {
   _PatientHomePageState createState() => _PatientHomePageState();
 }
-
 class _PatientHomePageState extends State<PatientHomePage> {
   @override
   Widget build(BuildContext context) {

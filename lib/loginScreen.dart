@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homephiys/ForgetPasswordPage.dart';
+import 'package:homephiys/Paitent.dart';
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
-
 import 'PatientHomePage.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -108,12 +108,15 @@ class LoginScreenState extends State<LoginScreen> {
                     Future f = loginUser(username.text, password.text);
                     f.then((value) {
                       if (value == true) {
+                       Future <Paitent> fatchPaitent=getPaitentFromDB(username.text);
+                       fatchPaitent.then((paitent){
+                         print(paitent.getFirstName);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => PatientHomePage()));
+                       });
                       } else {
-                        print("im here!");
                         Toast.show("Login Failed", context,
                             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                       }
@@ -141,6 +144,7 @@ class LoginScreenState extends State<LoginScreen> {
 
 //check if the user exsist on the database
 Future<bool> loginUser(String username, String password) async {
+
   final http.Response response = await http.post(
     'http://10.0.2.2:5000/user/login/paitent',
     headers: <String, String>{
@@ -155,5 +159,21 @@ Future<bool> loginUser(String username, String password) async {
     print("ok");
     return Future.value(true);
   }
+
   return Future.value(false);
 }
+
+Future<Paitent>getPaitentFromDB(String username) async{
+    final response = await http.get('http://10.0.2.2:5000/paitent/${username}');
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON
+      print(response.body);
+      return Paitent.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load Paitent');
+    }
+  }
+
