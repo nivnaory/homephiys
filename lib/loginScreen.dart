@@ -110,7 +110,6 @@ class LoginScreenState extends State<LoginScreen> {
                       if (value == true) {
                        Future <Paitent> fatchPaitent=getPaitentFromDB(username.text);
                        fatchPaitent.then((paitent){
-                         print(paitent.getFirstName);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -168,7 +167,7 @@ Future<Paitent>getPaitentFromDB(String username) async{
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON
-      print(response.body);
+
       return Paitent.fromJson(jsonDecode(response.body));
     } else {
       // If the server did not return a 200 OK response,

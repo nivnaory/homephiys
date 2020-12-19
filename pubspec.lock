@@ -88,6 +88,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.4"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.16.1"
+  json_patch:
+    dependency: transitive
+    description:
+      name: json_patch
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   matcher:
     dependency: transitive
     description:
@@ -116,11 +130,32 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.0"
+  quiver:
+    dependency: transitive
+    description:
+      name: quiver
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.5"
+  rxdart:
+    dependency: transitive
+    description:
+      name: rxdart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.25.0"
   sky_engine:
     dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.99"
+  snapshot:
+    dependency: "direct main"
+    description:
+      name: snapshot
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0-dev.4"
   source_span:
     dependency: transitive
     description:
