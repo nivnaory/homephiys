@@ -8,7 +8,7 @@ class Paitent {
   String _username;
   String _firstName;
   String _password;
- List<TreatmentType> _treatmentType;
+  List<TreatmentType> _treatmentType;
 
   //Map _highScore;
   //List _scoreList;
@@ -50,10 +50,8 @@ class Paitent {
           json['username'].toString(),
           json['password'].toString(),
           json['name'].toString());
-
       var v = Snapshot.fromJson(json['treatmentType']);
       List treatmentTypeList=List.from(v.asList());
-
       for (int i=0;i<treatmentTypeList.length;i++){
         TreatmentType newTreatment=new TreatmentType(
             treatmentTypeList[i]['type'].toString(),

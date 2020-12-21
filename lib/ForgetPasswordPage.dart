@@ -4,7 +4,6 @@ import 'package:toast/toast.dart';
 
 class ForgetPasswordPage extends StatefulWidget {
   final username;
-  final String daniel = "daniel";
 
   ForgetPasswordPage({@required this.username});
 

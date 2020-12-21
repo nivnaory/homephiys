@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:homephiys/Paitent.dart';
+import 'package:homephiys/TreatmentTypePage.dart';
 
 class PatientHomePage extends StatefulWidget {
+  final Paitent paitent;
+   PatientHomePage({@required this.paitent});
   _PatientHomePageState createState() => _PatientHomePageState();
+
+
 }
 class _PatientHomePageState extends State<PatientHomePage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +31,13 @@ class _PatientHomePageState extends State<PatientHomePage> {
           FlatButton(
             shape: RoundedRectangleBorder(
                 side: BorderSide(color: Colors.black26),
-                borderRadius: BorderRadius.circular(50)),
-            onPressed: () => {print("exercise")},
+                borderRadius: BorderRadius.circular(100)),
+            onPressed: () => {
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                      builder: (context) => TreatmentTypePage(treatmentType:widget.paitent.getTreatmentType[0],)))
+            },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
             child: Column(
@@ -44,8 +56,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
           FlatButton(
             shape: RoundedRectangleBorder(
                 side: BorderSide(color: Colors.white),
-                borderRadius: BorderRadius.circular(50)),
-            onPressed: () => {print("treatment")},
+                borderRadius: BorderRadius.circular(100)),
+            onPressed: () => {
+
+            },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
             child: Column(
@@ -61,7 +75,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
           FlatButton(
             shape: RoundedRectangleBorder(
                 side: BorderSide(color: Colors.black26),
-                borderRadius: BorderRadius.circular(50)),
+                borderRadius: BorderRadius.circular(100)),
             onPressed: () => {print("chat")},
             color: Colors.white,
             padding: EdgeInsets.all(10.0),

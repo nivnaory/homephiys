@@ -6,6 +6,7 @@ import 'package:homephiys/ForgetPasswordPage.dart';
 import 'package:homephiys/Paitent.dart';
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
+import 'Controller/PaitentController.dart';
 import 'PatientHomePage.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,6 +17,7 @@ class LoginScreen extends StatefulWidget {
 class LoginScreenState extends State<LoginScreen> {
   final username = TextEditingController();
   final password = TextEditingController();
+  PaitentController paitentController=new PaitentController();
 
   /*
   create 2 attaribute of text field
@@ -105,15 +107,15 @@ class LoginScreenState extends State<LoginScreen> {
               child: GestureDetector(
                 onTap: () {
                   setState(() {
-                    Future f = loginUser(username.text, password.text);
+                    Future f = paitentController.loginPaitent(username.text, password.text);
                     f.then((value) {
                       if (value == true) {
-                       Future <Paitent> fatchPaitent=getPaitentFromDB(username.text);
+                       Future <Paitent> fatchPaitent=paitentController.getPaitentFromDB(username.text);
                        fatchPaitent.then((paitent){
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PatientHomePage()));
+                                builder: (context) => PatientHomePage(paitent:paitent,)));
                        });
                       } else {
                         Toast.show("Login Failed", context,
@@ -140,9 +142,9 @@ class LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
-//check if the user exsist on the database
-Future<bool> loginUser(String username, String password) async {
+/*
+//check if the Paitent exsist on the database
+Future<bool> loginPaitent(String username, String password) async {
 
   final http.Response response = await http.post(
     'http://10.0.2.2:5000/user/login/paitent',
@@ -174,5 +176,5 @@ Future<Paitent>getPaitentFromDB(String username) async{
       // then throw an exception.
       throw Exception('Failed to load Paitent');
     }
-  }
-
+}
+*/
