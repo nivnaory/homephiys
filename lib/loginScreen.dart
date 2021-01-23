@@ -37,7 +37,7 @@ class LoginScreenState extends State<LoginScreen> {
               Container(
                 padding: EdgeInsets.fromLTRB(10.0, 150.0, 0.0, 50.0),
                 child: Text(
-                  "homePhiys",
+                  "homePhys",
                   style: TextStyle(
                       fontSize: 70,
                       fontWeight: FontWeight.bold,
