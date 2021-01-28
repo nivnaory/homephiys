@@ -36,7 +36,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                       Navigator.push(
                       context,
                       MaterialPageRoute(
-                      builder: (context) => TreatmentTypePage(treatmentType:widget.paitent.getTreatmentType[0],)))
+                      builder: (context) => TreatmentTypePage
+                        (treatmentType:widget.paitent.getTreatmentType[0],)))
             },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
