@@ -21,7 +21,7 @@ class _ProtocolsPageState extends State<ProtocolsPage> {
     return Scaffold(
       backgroundColor: Color.fromRGBO(245, 245, 245, 1),
       appBar: AppBar(
-        title: Text('collapse'),
+        title: Text(this.widget.protocol.name),
       ),
       body: Container(
         margin: EdgeInsets.only(top: 20),
@@ -39,7 +39,7 @@ class _ProtocolsPageState extends State<ProtocolsPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  body: SubProtocolView(),
+                  body: SubProtocolView(subProtocol:this.widget.protocol.subProtocolsList[0]),
                   value: status1,
                   onChange: (bool value) {
                     setState(() {
@@ -58,7 +58,7 @@ class _ProtocolsPageState extends State<ProtocolsPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  body: SubProtocolView(),
+                  body: SubProtocolView(subProtocol:this.widget.protocol.subProtocolsList[1]),
                   value: status2,
                   onChange: (bool value) {
                     setState(() {
@@ -71,13 +71,13 @@ class _ProtocolsPageState extends State<ProtocolsPage> {
                 margin: EdgeInsets.only(top: 20),
                 child: Collapse(
                   padding: EdgeInsets.all(10),
-                  title: Text('ביקרות 2    ',
+                  title: Text(this.widget.protocol.subProtocolsList[2].name,
                     style:TextStyle(
                       fontSize:20.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  body: SubProtocolView(),
+                  body: SubProtocolView(subProtocol:this.widget.protocol.subProtocolsList[2]),
                   value: status3,
                   onChange: (bool value) {
                     setState(() {
@@ -90,13 +90,13 @@ class _ProtocolsPageState extends State<ProtocolsPage> {
                 margin: EdgeInsets.only(top: 20),
                 child: Collapse(
                   padding: EdgeInsets.all(10),
-                  title: Text('ביקרות 3 ',
+                  title: Text(this.widget.protocol.subProtocolsList[3].name,
                     style:TextStyle(
                       fontSize:20.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  body: SubProtocolView(),
+                  body: SubProtocolView(subProtocol:this.widget.protocol.subProtocolsList[3]),
                   value: status4,
                   onChange: (bool value) {
                     setState(() {
@@ -162,13 +162,12 @@ class  _SubProtocolWidgetState extends State<SubProtocolView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          ListView.builder(
+         /* ListView.builder(
               itemCount: this.widget.subProtocol.descriptions.length,
               itemBuilder: (context, itemIndex) {
                 return Text(this.widget.subProtocol.descriptions[itemIndex]
-                );
-              }
-          ),
+                );}),*/
+          for ( var i in this.widget.subProtocol.descriptions ) Text(i),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
           ),

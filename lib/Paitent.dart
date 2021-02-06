@@ -90,6 +90,7 @@ class Paitent {
       //List<subProtocol> subProtocols=p.child('subProtocols').asList();
       List subProtocolLits=p.child('subProtocols').asList();
       for (int i=0;i<subProtocolLits.length;i++){
+        print(subProtocolLits[i]['name'].toString());
         SubProtocol subProtocol= new SubProtocol(subProtocolLits[i]['name'].toString(),
             int.parse(subProtocolLits[i]['level'].toString()));
            List des=subProtocolLits[i]['description'];
