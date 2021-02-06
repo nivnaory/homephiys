@@ -1,15 +1,16 @@
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:homephiys/ProtocolsPage.dart';
-import 'package:homephiys/StagePage.dart';
 
 import 'MedicalInspectionStage.dart';
-import 'TreatmentType.dart';
+import 'Paitent.dart';
+import 'ProtocolPage.dart';
 
 class TreatmentTypePage extends StatefulWidget {
-  final TreatmentType treatmentType;
+  final Paitent paitent;
 
-  TreatmentTypePage({@required this.treatmentType});
+  TreatmentTypePage({@required this.paitent});
 
   _TreatmentTypePage createState() => _TreatmentTypePage();
 }
@@ -40,7 +41,7 @@ class _TreatmentTypePage extends State<TreatmentTypePage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => MedicalInspectionStage
-                        (treatmentType:widget.treatmentType,)))
+                        (treatmentType:widget.paitent.getTreatmentType[0],)))
             },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
@@ -62,10 +63,10 @@ class _TreatmentTypePage extends State<TreatmentTypePage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ProtocolsPage()
-                   )
-                 )
-               },
+                      builder: (context) => ProtocolsPage(protocol:this.widget.paitent.getProtocol)
+                  )
+              )
+            },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
             child: Column(

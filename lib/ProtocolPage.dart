@@ -1,40 +1,14 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_collapse/flutter_collapse.dart';
 
-//class ProtocolsPage extends StatelessWidget {
+import 'Protocol.dart';
+import 'SubProtocol.dart';
 
-//  @override
-/*Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(15.0))),
-      elevation: 2,
-      margin: EdgeInsets.all(5.0),
-      child: SlidingUpPanel(
-        body:
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ExpansionTile(
-              backgroundColor: Colors.white,
-              title:  ProtocolWidget(name:"שחרור ממיון ",),
-              trailing: SizedBox(),
-              children: <Widget>[
-                SubProtocol_Widget(name:"שבוע ראשון ללא דריכה על הרגל "),
-                SubProtocol_Widget(name:"שימוש בקביים "),
-                SubProtocol_Widget(name:"שמירה על רגל מורמת"),
-                SubProtocol_Widget(name:"הפעלה סטטית של שרירי הרגל"),
-                SubProtocol_Widget(name:"הנעת בהונות לפי יכולת")
-              ],
-            ),
-          ),
-      ),
-    );
-  }
-}*/
 class ProtocolsPage extends StatefulWidget {
-  ProtocolsPage({Key key}) : super(key: key);
-
+  final  Protocol protocol;
+  ProtocolsPage({@required this.protocol});
   @override
   _ProtocolsPageState createState() => _ProtocolsPageState();
 }
@@ -61,13 +35,13 @@ class _ProtocolsPageState extends State<ProtocolsPage> {
                 margin: EdgeInsets.only(top: 20),
                 child: Collapse(
                   padding: EdgeInsets.all(10),
-                  title: Text('שחרור ממיון   ',
+                  title: Text(this.widget.protocol.subProtocolsList[0].name,
                     style:TextStyle(
                       fontSize:20.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  body: SubProtocol(),
+                  body: SubProtocolView(),
                   value: status1,
                   onChange: (bool value) {
                     setState(() {
@@ -80,13 +54,13 @@ class _ProtocolsPageState extends State<ProtocolsPage> {
                 margin: EdgeInsets.only(top: 20),
                 child: Collapse(
                   padding: EdgeInsets.all(10),
-                  title: Text('ביקורת 1 ',
+                  title: Text(this.widget.protocol.subProtocolsList[1].name,
                     style:TextStyle(
                       fontSize:20.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  body: SubProtocol(),
+                  body: SubProtocolView(),
                   value: status2,
                   onChange: (bool value) {
                     setState(() {
@@ -105,7 +79,7 @@ class _ProtocolsPageState extends State<ProtocolsPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  body: SubProtocol(),
+                  body: SubProtocolView(),
                   value: status3,
                   onChange: (bool value) {
                     setState(() {
@@ -124,7 +98,7 @@ class _ProtocolsPageState extends State<ProtocolsPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  body: SubProtocol(),
+                  body: SubProtocolView(),
                   value: status4,
                   onChange: (bool value) {
                     setState(() {
@@ -141,14 +115,11 @@ class _ProtocolsPageState extends State<ProtocolsPage> {
 }
 /*class Protocol_Widget extends StatefulWidget {
   Protocol_Widget({Key key}) : super(key: key);
-
   @override
   _ProtocolsWidgetState createState() => _ProtocolsWidgetState();
 }
-
 class _ProtocolsWidgetState extends State<ProtocolsPage> {
   bool status2 = true;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -173,10 +144,14 @@ class _ProtocolsWidgetState extends State<ProtocolsPage> {
   }*/
 
 
-class SubProtocol extends StatelessWidget {
-  const SubProtocol({
-    Key key,
-  }) : super(key: key);
+class SubProtocolView extends StatefulWidget {
+  final SubProtocol subProtocol;
+  SubProtocolView({@required this.subProtocol});
+  @override
+  _SubProtocolWidgetState createState() => _SubProtocolWidgetState();
+}
+class  _SubProtocolWidgetState extends State<SubProtocolView> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -186,18 +161,18 @@ class SubProtocol extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          Text('שבוע ראשון ללא דריכה על הרגל'),
-          Text('שימוש בקביים'),
-          Text('שמירה על רגל מורמת'),
-          Text('הפעלה סטטית של שרירי הרגל'),
+          ListView.builder(
+              itemCount: this.widget.subProtocol.descriptions.length,
+              itemBuilder: (context, itemIndex) {
+                return Text(this.widget.subProtocol.descriptions[itemIndex]
+                );
+              }
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-            ],
           ),
         ],
       ),
     );
   }
 }
-
