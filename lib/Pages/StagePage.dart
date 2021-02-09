@@ -10,48 +10,97 @@ class StagePage extends StatefulWidget {
   _StagePage createState() => _StagePage();
 }
 
-
 class _StagePage extends State<StagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          ' Exercise List',
+          'home Exercise',
           style: TextStyle(color: Colors.white),
         ),
       ),
       backgroundColor: Colors.lightBlue,
-      body: StaggeredGridView.count(
-        crossAxisCount: 3,
-        crossAxisSpacing: 30.0,
-        mainAxisSpacing: 80.0,
-        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 70.0),
+      body: Column(
         children: <Widget>[
-          ListView.builder(
-              itemCount:widget.stage.getExerciseList.length,
-              itemBuilder: (context, itemIndex) {
-                return FlatButton(
-                    shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.black26),
-                        borderRadius: BorderRadius.circular(50)),
-                    color: Colors.white,
-                    padding: EdgeInsets.all(65.0),
-                    child: Text("תרגיל מספר :"+widget.
-                    stage.getExerciseList[itemIndex].getLevel.toString(),style: TextStyle(fontSize: 22, color: Colors.black)),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ExercisePage(exercise:widget.stage.getExerciseList[itemIndex])));
-                    });
-              })
+          for (int i = 0; i < this.widget.stage.getExerciseList.length; i++)
+            Expanded(
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ExercisePage(
+                                    exercise:
+                                        this.widget.stage.getExerciseList[i])));
+                      },
+                      child: ReusableCard(
+                        cardChild: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              width: 400.0,
+                            ),
+                            Text(
+                              "תרגיל :" +
+                                  this
+                                      .widget
+                                      .stage
+                                      .getExerciseList[i]
+                                      .getLevel
+                                      .toString(),
+                              style: TextStyle(fontSize: 25.0),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          /*  
+          Expanded(
+            child: Column(
+              children: <Widget>[
+                Expanded(child: ReusableCard()),
+              ],
+            ),
+          ),
+          Expanded(
+              child: Column(
+            children: <Widget>[
+              Expanded(child: ReusableCard()),
+            ],
+          )),
+          Expanded(
+              child: Column(
+            children: <Widget>[
+              Expanded(child: ReusableCard()),
+            ],
+          )),
+          */
         ],
-        staggeredTiles: [
-          StaggeredTile.extent(3, 500.0),
-          StaggeredTile.extent(2, 300.0),
-          StaggeredTile.extent(2, 500.0),
-        ],
+      ),
+    );
+  }
+}
+
+class ReusableCard extends StatelessWidget {
+  final Widget cardChild;
+  ReusableCard({this.cardChild});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: cardChild,
+      margin: EdgeInsets.all(15.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(50.0),
       ),
     );
   }
