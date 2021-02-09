@@ -7,42 +7,66 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "2.5.0-nullsafety.3"
+=======
+    version: "2.4.2"
+>>>>>>> origin
   boolean_selector:
     dependency: transitive
     description:
       name: boolean_selector
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "2.1.0-nullsafety.3"
+=======
+    version: "2.0.0"
+>>>>>>> origin
   characters:
     dependency: transitive
     description:
       name: characters
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.1.0-nullsafety.5"
+=======
+    version: "1.0.0"
+>>>>>>> origin
   charcode:
     dependency: transitive
     description:
       name: charcode
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.2.0-nullsafety.3"
+=======
+    version: "1.1.3"
+>>>>>>> origin
   clock:
     dependency: transitive
     description:
       name: clock
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.1.0-nullsafety.3"
+=======
+    version: "1.0.1"
+>>>>>>> origin
   collection:
     dependency: transitive
     description:
       name: collection
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.15.0-nullsafety.5"
+=======
+    version: "1.14.13"
+>>>>>>> origin
   convert:
     dependency: transitive
     description:
@@ -70,12 +94,17 @@ packages:
       name: fake_async
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.2.0-nullsafety.3"
+=======
+    version: "1.1.0"
+>>>>>>> origin
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
+<<<<<<< HEAD
   flutter_collapse:
     dependency: "direct main"
     description:
@@ -83,6 +112,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.1"
+=======
+>>>>>>> origin
   flutter_inappwebview:
     dependency: transitive
     description:
@@ -96,7 +127,11 @@ packages:
       name: flutter_staggered_grid_view
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "0.3.3"
+=======
+    version: "0.3.2"
+>>>>>>> origin
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -123,20 +158,38 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.16.1"
+<<<<<<< HEAD
+=======
+  json_patch:
+    dependency: transitive
+    description:
+      name: json_patch
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
+>>>>>>> origin
   matcher:
     dependency: transitive
     description:
       name: matcher
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "0.12.10-nullsafety.3"
+=======
+    version: "0.12.8"
+>>>>>>> origin
   meta:
     dependency: transitive
     description:
       name: meta
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.3.0-nullsafety.6"
+=======
+    version: "1.1.8"
+>>>>>>> origin
   mime:
     dependency: transitive
     description:
@@ -150,14 +203,22 @@ packages:
       name: path
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.8.0-nullsafety.3"
+=======
+    version: "1.7.0"
+>>>>>>> origin
   pedantic:
     dependency: transitive
     description:
       name: pedantic
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.9.2"
+=======
+    version: "1.9.0"
+>>>>>>> origin
   quiver:
     dependency: transitive
     description:
@@ -177,6 +238,7 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+<<<<<<< HEAD
   sliding_up_panel:
     dependency: "direct main"
     description:
@@ -184,55 +246,85 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+=======
+>>>>>>> origin
   snapshot:
     dependency: "direct main"
     description:
       name: snapshot
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "0.1.0-dev.5"
+=======
+    version: "0.1.0-dev.4"
+>>>>>>> origin
   source_span:
     dependency: transitive
     description:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.8.0-nullsafety.4"
+=======
+    version: "1.7.0"
+>>>>>>> origin
   stack_trace:
     dependency: transitive
     description:
       name: stack_trace
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.10.0-nullsafety.6"
+=======
+    version: "1.9.5"
+>>>>>>> origin
   stream_channel:
     dependency: transitive
     description:
       name: stream_channel
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "2.1.0-nullsafety.3"
+=======
+    version: "2.0.0"
+>>>>>>> origin
   string_scanner:
     dependency: transitive
     description:
       name: string_scanner
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.1.0-nullsafety.3"
+=======
+    version: "1.0.5"
+>>>>>>> origin
   term_glyph:
     dependency: transitive
     description:
       name: term_glyph
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.2.0-nullsafety.3"
+=======
+    version: "1.1.0"
+>>>>>>> origin
   test_api:
     dependency: transitive
     description:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "0.2.19-nullsafety.6"
+=======
+    version: "0.2.17"
+>>>>>>> origin
   toast:
     dependency: "direct main"
     description:
@@ -246,7 +338,11 @@ packages:
       name: typed_data
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.3.0-nullsafety.5"
+=======
+    version: "1.2.0"
+>>>>>>> origin
   uuid:
     dependency: transitive
     description:
@@ -260,7 +356,11 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "2.1.0-nullsafety.5"
+=======
+    version: "2.0.8"
+>>>>>>> origin
   youtube_player_flutter:
     dependency: "direct main"
     description:
@@ -269,5 +369,9 @@ packages:
     source: hosted
     version: "7.0.0+7"
 sdks:
+<<<<<<< HEAD
   dart: ">=2.12.0-0.0 <3.0.0"
+=======
+  dart: ">=2.9.0-14.0.dev <3.0.0"
+>>>>>>> origin
   flutter: ">=1.17.0"

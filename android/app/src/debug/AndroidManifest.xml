@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     package="com.example.flutter_app_homephys">
     <!-- Flutter needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
@@ -6,4 +7,11 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
 
+=======
+    package="com.example.homephiys">
+    <!-- Flutter needs it to communicate with the running application
+         to allow setting breakpoints, to provide hot reload, etc.
+    -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+>>>>>>> origin
 </manifest>

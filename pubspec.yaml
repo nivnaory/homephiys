@@ -27,8 +27,11 @@ dependencies:
   toast: ^0.1.5
   snapshot: ^0.1.0-dev.4
   youtube_player_flutter: ^7.0.0+7
+<<<<<<< HEAD
   sliding_up_panel: ^1.0.2
   flutter_collapse: ^0.1.1
+=======
+>>>>>>> origin
 
 
 
@@ -68,6 +71,7 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+<<<<<<< HEAD
     - family: Lobster
       fonts:
         - asset: fonts/Lobster-Regular.ttf
@@ -75,6 +79,15 @@ flutter:
     - family: IndieFlower
       fonts:
         - asset: fonts/IndieFlower-Regular.ttf
+=======
+     - family: Lobster
+       fonts:
+         - asset: fonts/Lobster-Regular.ttf
+  #         style: italic
+     - family: IndieFlower
+       fonts:
+         - asset: fonts/IndieFlower-Regular.ttf
+>>>>>>> origin
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
