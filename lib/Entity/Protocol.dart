@@ -1,4 +1,4 @@
-import 'package:homephiys/SubProtocol.dart';
+import 'package:homephiys/Entity/SubProtocol.dart';
 
 class Protocol{
    String _name;

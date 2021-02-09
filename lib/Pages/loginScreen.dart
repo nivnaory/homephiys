@@ -1,12 +1,11 @@
-import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:homephiys/ForgetPasswordPage.dart';
-import 'package:homephiys/Paitent.dart';
-import 'package:http/http.dart' as http;
+import 'package:homephiys/Controller/PaitentController.dart';
+import 'package:homephiys/Entity/Paitent.dart';
 import 'package:toast/toast.dart';
-import 'Controller/PaitentController.dart';
+
+import 'ForgetPasswordPage.dart';
 import 'PatientHomePage.dart';
 
 class LoginScreen extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../Paitent.dart';
+import '../Entity/Paitent.dart';
 //this function  handel the connection to database
 
 
@@ -9,8 +9,8 @@ class PaitentController {
 
   Future<bool> loginPaitent(String username, String password) async {
     final http.Response response = await http.post(
-   //   'http://10.0.2.2:5000/user/login/paitent'
-      'http://192.168.1.28:5000/user/login/paitent'
+      'http://10.0.2.2:5000/user/login/paitent'
+     // 'http://192.168.1.28:5000/user/login/paitent'
 
       ,
       headers: <String, String>{
@@ -31,8 +31,8 @@ class PaitentController {
 
   Future<Paitent> getPaitentFromDB(String username) async {
     final response = await http.get(
-        //'http://10.0.2.2:5000/paitent/${username}'
-        'http://192.168.1.28:5000/paitent/${username}'
+        'http://10.0.2.2:5000/paitent/${username}'
+        //'http://192.168.1.28:5000/paitent/${username}'
     );
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,

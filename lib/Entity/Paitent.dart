@@ -1,13 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:homephiys/Exercise.dart';
-import 'package:homephiys/Protocol.dart';
-import 'package:homephiys/ProtocolsPage.dart';
-import 'package:homephiys/TreatmentType.dart';
-import 'package:homephiys/SubProtocol.dart';
-import 'package:homephiys/SubProtocol.dart';
-import 'package:homephiys/SubProtocol.dart';
 import 'package:snapshot/snapshot.dart';
+import 'Exercise.dart';
+import 'Protocol.dart';
 import 'Stage.dart';
+import 'SubProtocol.dart';
+import 'TreatmentType.dart';
 
 class Paitent {
   String _username;

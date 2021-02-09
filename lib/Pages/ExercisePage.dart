@@ -1,9 +1,9 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:homephiys/Entity/Exercise.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-
-import 'Exercise.dart';
 
 class ExercisePage extends StatefulWidget {
   final Exercise exercise;
@@ -94,7 +94,7 @@ class _ExercisePage extends State<ExercisePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "High Score:" + widget.highScore.toString(),
+                    "זמן שיא:" + widget.highScore.toString(),
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, color: Colors.black),
                   ),
@@ -113,7 +113,7 @@ class _ExercisePage extends State<ExercisePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "Timer:" ,
+                    ": שעון" ,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, color: Colors.black),
                   ),
@@ -134,7 +134,7 @@ class _ExercisePage extends State<ExercisePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "Exercise Explanation:" ,
+                    ":הסבר על התרגיל" ,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, color: Colors.black),
                   ),
@@ -153,7 +153,7 @@ class _ExercisePage extends State<ExercisePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "submit:" ,
+                    ":אישור" ,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, color: Colors.black),
                   ),

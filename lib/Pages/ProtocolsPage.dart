@@ -1,8 +1,9 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_collapse/flutter_collapse.dart';
-import 'package:homephiys/Protocol.dart';
-import 'package:homephiys/SubProtocol.dart';
+import 'package:homephiys/Entity/Protocol.dart';
+import 'package:homephiys/Entity/SubProtocol.dart';
 
 class ProtocolsPage extends StatefulWidget {
   final  Protocol protocol;

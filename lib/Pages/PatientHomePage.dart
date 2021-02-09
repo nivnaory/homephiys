@@ -1,7 +1,10 @@
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:homephiys/Paitent.dart';
-import 'package:homephiys/TreatmentTypePage.dart';
+import 'package:homephiys/Entity/Paitent.dart';
+
+import 'TreatmentTypePage.dart';
 
 class PatientHomePage extends StatefulWidget {
   final Paitent paitent;
@@ -47,7 +50,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
               children: <Widget>[
                 Icon(Icons.directions_run, size: 50.0, color: Colors.black),
                 Text(
-                  "Home Exercise",
+                  "תרגיל ביתי",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20, color: Colors.black),
                 ),
@@ -68,7 +71,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(Icons.bookmark, size: 50, color: Colors.deepOrange),
-                Text("Treatment Progress",
+                Text("התקדמות טיפול",
                     style: TextStyle(fontSize: 20, color: Colors.deepOrange)),
               ],
             ),
@@ -85,7 +88,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(Icons.chat, size: 50, color: Colors.green),
-                Text("Chat",
+                Text("צ'אט",
                     style: TextStyle(fontSize: 20, color: Colors.green))
               ],
             ),

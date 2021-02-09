@@ -1,11 +1,11 @@
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:homephiys/ProtocolsPage.dart';
-import 'package:homephiys/StagePage.dart';
+import 'package:homephiys/Entity/Paitent.dart';
 
 import 'MedicalInspectionStage.dart';
-import 'Paitent.dart';
-import 'TreatmentType.dart';
+import 'ProtocolsPage.dart';
 
 class TreatmentTypePage extends StatefulWidget {
   final Paitent paitent;
@@ -41,7 +41,7 @@ class _TreatmentTypePage extends State<TreatmentTypePage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => MedicalInspectionStage
-                        (treatmentType:widget.paitent.getTreatmentType[0],)))
+                        (treatmentType:widget.paitent.getTreatmentType[0],protocol:this.widget.paitent.getProtocol)))
             },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
@@ -50,7 +50,7 @@ class _TreatmentTypePage extends State<TreatmentTypePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(Icons.bookmark, size: 50, color: Colors.deepOrange),
-                Text("Exercise List",
+                Text("רשימת תרגילים",
                     style: TextStyle(fontSize: 20, color: Colors.deepOrange)),
               ],
             ),
@@ -74,7 +74,7 @@ class _TreatmentTypePage extends State<TreatmentTypePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(Icons.chat, size: 50, color: Colors.green),
-                Text("Protocols",
+                Text("פרוטוקולים",
                     style: TextStyle(fontSize: 20, color: Colors.green))
               ],
             ),

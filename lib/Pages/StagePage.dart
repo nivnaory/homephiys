@@ -1,11 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-
-import 'package:homephiys/Stage.dart';
-
+import 'package:homephiys/Entity/Stage.dart';
 import 'ExercisePage.dart';
-import 'TreatmentType.dart';
-
 
 class StagePage extends StatefulWidget {
   final Stage stage;
@@ -26,10 +23,10 @@ class _StagePage extends State<StagePage> {
       ),
       backgroundColor: Colors.lightBlue,
       body: StaggeredGridView.count(
-        crossAxisCount: 2,
-        crossAxisSpacing: 20.0,
-        mainAxisSpacing: 50.0,
-        padding: EdgeInsets.symmetric(horizontal: 26.0, vertical: 100.0),
+        crossAxisCount: 3,
+        crossAxisSpacing: 30.0,
+        mainAxisSpacing: 80.0,
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 70.0),
         children: <Widget>[
           ListView.builder(
               itemCount:widget.stage.getExerciseList.length,
@@ -39,8 +36,9 @@ class _StagePage extends State<StagePage> {
                         side: BorderSide(color: Colors.black26),
                         borderRadius: BorderRadius.circular(50)),
                     color: Colors.white,
-                    padding: EdgeInsets.all(10.0),
-                    child: Text("Exercies :"+widget.stage.getExerciseList[itemIndex].getLevel.toString()),
+                    padding: EdgeInsets.all(65.0),
+                    child: Text("תרגיל מספר :"+widget.
+                    stage.getExerciseList[itemIndex].getLevel.toString(),style: TextStyle(fontSize: 22, color: Colors.black)),
                     onPressed: () {
                       Navigator.push(
                           context,
@@ -50,9 +48,9 @@ class _StagePage extends State<StagePage> {
               })
         ],
         staggeredTiles: [
-          StaggeredTile.extent(2, 200.0),
-          StaggeredTile.extent(2, 200.0),
-          StaggeredTile.extent(2, 200.0),
+          StaggeredTile.extent(3, 500.0),
+          StaggeredTile.extent(2, 300.0),
+          StaggeredTile.extent(2, 500.0),
         ],
       ),
     );

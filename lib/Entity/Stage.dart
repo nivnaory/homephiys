@@ -1,4 +1,4 @@
-import 'package:homephiys/Exercise.dart';
+import 'package:homephiys/Entity/Exercise.dart';
 
 class Stage{
  int _currentLevel;

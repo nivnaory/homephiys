@@ -1,7 +1,7 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:homephiys/ForgetPasswordPage.dart';
-import 'package:homephiys/PatientHomePage.dart';
+
 import 'loginScreen.dart';
 
 void main() => runApp(MyApp());

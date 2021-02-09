@@ -1,4 +1,6 @@
-import 'package:homephiys/Stage.dart';
+
+
+import 'package:homephiys/Entity/Stage.dart';
 
 class TreatmentType{
   String _type;
