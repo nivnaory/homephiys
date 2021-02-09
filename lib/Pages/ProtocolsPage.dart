@@ -112,39 +112,6 @@ class _ProtocolsPageState extends State<ProtocolsPage> {
     );
   }
 }
-/*class Protocol_Widget extends StatefulWidget {
-  Protocol_Widget({Key key}) : super(key: key);
-
-  @override
-  _ProtocolsWidgetState createState() => _ProtocolsWidgetState();
-}
-
-class _ProtocolsWidgetState extends State<ProtocolsPage> {
-  bool status2 = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 20),
-      child: Collapse(
-        padding: EdgeInsets.all(10),
-        title: Text('שחרור ממיון ',
-          style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        body: SubProtocol(),
-        value: status2,
-        onChange: (bool value) {
-          setState(() {
-            status2 = value;
-          });
-        },
-      ),
-    );
-  }*/
-
 
 class SubProtocolView extends StatefulWidget {
   final SubProtocol subProtocol;
@@ -163,11 +130,6 @@ class  _SubProtocolWidgetState extends State<SubProtocolView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-         /* ListView.builder(
-              itemCount: this.widget.subProtocol.descriptions.length,
-              itemBuilder: (context, itemIndex) {
-                return Text(this.widget.subProtocol.descriptions[itemIndex]
-                );}),*/
           for ( var i in this.widget.subProtocol.descriptions ) Text(i),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

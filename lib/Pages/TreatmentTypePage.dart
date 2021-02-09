@@ -46,7 +46,7 @@ class _TreatmentTypePage extends State<TreatmentTypePage> {
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
             child: Column(
-// Replace with a Row for horizontal icon + text
+        // Replace with a Row for horizontal icon + text
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(Icons.bookmark, size: 50, color: Colors.deepOrange),

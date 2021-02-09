@@ -62,27 +62,6 @@ class _StagePage extends State<StagePage> {
                 ],
               ),
             ),
-          /*  
-          Expanded(
-            child: Column(
-              children: <Widget>[
-                Expanded(child: ReusableCard()),
-              ],
-            ),
-          ),
-          Expanded(
-              child: Column(
-            children: <Widget>[
-              Expanded(child: ReusableCard()),
-            ],
-          )),
-          Expanded(
-              child: Column(
-            children: <Widget>[
-              Expanded(child: ReusableCard()),
-            ],
-          )),
-          */
         ],
       ),
     );
