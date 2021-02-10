@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:homephiys/Entity/Paitent.dart';
 
-import 'TreatmentTypePage.dart';
+import 'TreatmentAndProtocolPage.dart';
 
 class PatientHomePage extends StatefulWidget {
   final Paitent paitent;
@@ -39,7 +39,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                       Navigator.push(
                       context,
                       MaterialPageRoute(
-                      builder: (context) => TreatmentTypePage
+                      builder: (context) => TreatmentAndProtocolPage
                         (paitent:this.widget.paitent,)))
             },
             color: Colors.white,

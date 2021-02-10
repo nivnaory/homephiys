@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:homephiys/Entity/Protocol.dart';
 import 'package:homephiys/Entity/TreatmentType.dart';
-import 'package:homephiys/Pages/ExercisePage.dart';
-
 import 'StagePage.dart';
 
 class MedicalInspectionStage extends StatefulWidget {
@@ -63,27 +60,6 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
                 ],
               ),
             ),
-          /*  
-          Expanded(
-            child: Column(
-              children: <Widget>[
-                Expanded(child: ReusableCard()),
-              ],
-            ),
-          ),
-          Expanded(
-              child: Column(
-            children: <Widget>[
-              Expanded(child: ReusableCard()),
-            ],
-          )),
-          Expanded(
-              child: Column(
-            children: <Widget>[
-              Expanded(child: ReusableCard()),
-            ],
-          )),
-          */
         ],
       ),
     );

@@ -112,39 +112,6 @@ class _ProtocolsPageState extends State<ProtocolsPage> {
     );
   }
 }
-/*class Protocol_Widget extends StatefulWidget {
-  Protocol_Widget({Key key}) : super(key: key);
-
-  @override
-  _ProtocolsWidgetState createState() => _ProtocolsWidgetState();
-}
-
-class _ProtocolsWidgetState extends State<ProtocolsPage> {
-  bool status2 = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 20),
-      child: Collapse(
-        padding: EdgeInsets.all(10),
-        title: Text('שחרור ממיון ',
-          style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        body: SubProtocol(),
-        value: status2,
-        onChange: (bool value) {
-          setState(() {
-            status2 = value;
-          });
-        },
-      ),
-    );
-  }*/
-
 
 class SubProtocolView extends StatefulWidget {
   final SubProtocol subProtocol;
