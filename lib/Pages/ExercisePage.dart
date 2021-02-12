@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -94,7 +93,7 @@ class _ExercisePage extends State<ExercisePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "זמן שיא:" + widget.highScore.toString(),
+                    "זמן שיא :" + widget.highScore.toString(),
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, color: Colors.black),
                   ),
@@ -113,7 +112,7 @@ class _ExercisePage extends State<ExercisePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    ": שעון" ,
+                    "שעון",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, color: Colors.black),
                   ),
@@ -125,16 +124,20 @@ class _ExercisePage extends State<ExercisePage> {
                   side: BorderSide(color: Colors.black26),
                   borderRadius: BorderRadius.circular(50)),
               onPressed: () => {
-
+                showDialog(
+                    context: context,
+                    builder: (context) => CustomDialog(
+                        title: "הסבר תרגיל ",
+                        descritpion: this.widget.exercise.getDescription))
               },
-              color: Colors.white,
+              color: Colors.blueGrey,
               padding: EdgeInsets.all(10.0),
               child: Column(
                 // Replace with a Row for horizontal icon + text
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    ":הסבר על התרגיל" ,
+                    "הסבר על התרגיל",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, color: Colors.black),
                   ),
@@ -146,14 +149,14 @@ class _ExercisePage extends State<ExercisePage> {
                   side: BorderSide(color: Colors.black26),
                   borderRadius: BorderRadius.circular(50)),
               onPressed: () => {},
-              color: Colors.white,
+              color: Colors.green,
               padding: EdgeInsets.all(10.0),
               child: Column(
                 // Replace with a Row for horizontal icon + text
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    ":אישור" ,
+                    "אישור",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, color: Colors.black),
                   ),
@@ -167,8 +170,59 @@ class _ExercisePage extends State<ExercisePage> {
             StaggeredTile.extent(1, 100.0),
             StaggeredTile.extent(2, 150.0),
             StaggeredTile.extent(2, 50.0),
-
           ],
         ));
+  }
+}
+
+class CustomDialog extends StatelessWidget {
+  final String title, descritpion;
+  CustomDialog({this.title, this.descritpion});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
+      elevation: 0,
+      backgroundColor: Colors.white,
+      child: dialogContent(context),
+    );
+  }
+
+  dialogContent(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.only(top: 20, bottom: 26, left: 40, right: 20),
+          margin: EdgeInsets.only(top: 5.0),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(25),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black,
+                    blurRadius: 20.0,
+                    offset: Offset(10.0, 10.0))
+              ]),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(title,
+                  style: TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 1.0)),
+              SizedBox(
+                height: 10.0,
+              ),
+              Text(descritpion,
+                  style: TextStyle(fontSize: 18.0, letterSpacing: 1.0)),
+              SizedBox(height: 20.0)
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }
