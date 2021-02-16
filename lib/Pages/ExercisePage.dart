@@ -125,10 +125,11 @@ class _ExercisePage extends State<ExercisePage> {
                   borderRadius: BorderRadius.circular(50)),
               onPressed: () => {
                 showDialog(
-                    context: context,
-                    builder: (context) => CustomDialog(
-                        title: "הסבר תרגיל ",
-                        descritpion: this.widget.exercise.getDescription))
+                  context: context,
+                  builder: (context) => CustomDialog(
+                      title: "הסבר תרגיל ",
+                      descritpion: this.widget.exercise.getDescription),
+                )
               },
               color: Colors.blueGrey,
               padding: EdgeInsets.all(10.0),
