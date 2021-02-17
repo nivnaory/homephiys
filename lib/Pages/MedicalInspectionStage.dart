@@ -4,15 +4,11 @@ import 'package:homephiys/Entity/Protocol.dart';
 import 'package:homephiys/Entity/TreatmentType.dart';
 import 'StagePage.dart';
 
-class MedicalInspectionStage extends StatefulWidget {
+class MedicalInspectionStage extends StatelessWidget {
   final TreatmentType treatmentType;
   final Protocol protocol;
-  MedicalInspectionStage(
-      {@required this.treatmentType, @required this.protocol});
-  _MedicalInspectionStage createState() => _MedicalInspectionStage();
-}
+  MedicalInspectionStage({@required this.treatmentType, @required this.protocol});
 
-class _MedicalInspectionStage extends State<MedicalInspectionStage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +21,7 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
       backgroundColor: Colors.lightBlue,
       body: Column(
         children: <Widget>[
-          for (int i = 0; i < this.widget.protocol.subProtocolsList.length; i++)
+          for (int i = 0; i < protocol.subProtocolsList.length; i++)
             Expanded(
               child: Column(
                 children: <Widget>[
@@ -36,9 +32,7 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => StagePage(
-                                    stage: this
-                                        .widget
-                                        .treatmentType
+                                    stage:treatmentType
                                         .getStageList[i])));
                       },
                       child: ReusableCard(
@@ -49,7 +43,7 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
                               width: 400.0,
                             ),
                             Text(
-                              this.widget.protocol.subProtocolsList[i].name,
+                              protocol.subProtocolsList[i].name,
                               style: TextStyle(fontSize: 25.0),
                             ),
                           ],
@@ -63,8 +57,8 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
         ],
       ),
     );
-  }
-}
+  }}
+
 
 class ReusableCard extends StatelessWidget {
   final Widget cardChild;

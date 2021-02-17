@@ -29,7 +29,6 @@ class _ProtocolsPageState extends State<ProtocolsPage> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              //Protocol_Widget(),
               Container(
                 margin: EdgeInsets.only(top: 20),
                 child: Collapse(

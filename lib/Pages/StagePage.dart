@@ -4,13 +4,9 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:homephiys/Entity/Stage.dart';
 import 'ExercisePage.dart';
 
-class StagePage extends StatefulWidget {
+class StagePage extends StatelessWidget {
   final Stage stage;
   StagePage({@required this.stage});
-  _StagePage createState() => _StagePage();
-}
-
-class _StagePage extends State<StagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +19,7 @@ class _StagePage extends State<StagePage> {
       backgroundColor: Colors.lightBlue,
       body: Column(
         children: <Widget>[
-          for (int i = 0; i < this.widget.stage.getExerciseList.length; i++)
+          for (int i = 0; i < stage.getExerciseList.length; i++)
             Expanded(
               child: Column(
                 children: <Widget>[
@@ -35,7 +31,7 @@ class _StagePage extends State<StagePage> {
                             MaterialPageRoute(
                                 builder: (context) => ExercisePage(
                                     exercise:
-                                        this.widget.stage.getExerciseList[i])));
+                                    stage.getExerciseList[i])));
                       },
                       child: ReusableCard(
                         cardChild: Column(
@@ -46,9 +42,7 @@ class _StagePage extends State<StagePage> {
                             ),
                             Text(
                               "תרגיל :" +
-                                  this
-                                      .widget
-                                      .stage
+                                      stage
                                       .getExerciseList[i]
                                       .getLevel
                                       .toString(),
@@ -62,32 +56,11 @@ class _StagePage extends State<StagePage> {
                 ],
               ),
             ),
-          /*  
-          Expanded(
-            child: Column(
-              children: <Widget>[
-                Expanded(child: ReusableCard()),
-              ],
-            ),
-          ),
-          Expanded(
-              child: Column(
-            children: <Widget>[
-              Expanded(child: ReusableCard()),
-            ],
-          )),
-          Expanded(
-              child: Column(
-            children: <Widget>[
-              Expanded(child: ReusableCard()),
-            ],
-          )),
-          */
         ],
       ),
     );
-  }
-}
+  }}
+
 
 class ReusableCard extends StatelessWidget {
   final Widget cardChild;

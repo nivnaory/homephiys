@@ -4,6 +4,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:homephiys/Entity/Exercise.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import 'QuestionsPage.dart';
+
 class ExercisePage extends StatefulWidget {
   final Exercise exercise;
   final url = 'https://www.youtube.com/watch?v=tr6XsZVb-ZE';
@@ -45,7 +47,6 @@ class _ExercisePage extends State<ExercisePage> {
     _controller.dispose();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,7 +86,9 @@ class _ExercisePage extends State<ExercisePage> {
               shape: RoundedRectangleBorder(
                   side: BorderSide(color: Colors.black26),
                   borderRadius: BorderRadius.circular(50)),
-              onPressed: () => {},
+              onPressed: () => {
+
+              },
               color: Colors.white,
               padding: EdgeInsets.all(10.0),
               child: Column(
@@ -149,7 +152,15 @@ class _ExercisePage extends State<ExercisePage> {
               shape: RoundedRectangleBorder(
                   side: BorderSide(color: Colors.black26),
                   borderRadius: BorderRadius.circular(50)),
-              onPressed: () => {},
+              onPressed: () => {
+               print(this.widget.exercise.getQuestions),
+              Navigator.push(
+              context,
+              MaterialPageRoute(
+
+              builder: (context) => QuestionsPage(questions:this.widget.exercise.getQuestions,
+              )))
+              },
               color: Colors.green,
               padding: EdgeInsets.all(10.0),
               child: Column(
