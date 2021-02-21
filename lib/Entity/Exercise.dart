@@ -16,6 +16,7 @@ String _description;
     this._description=description;
     this._level=level;
     this._exerciseId=exerciseId;
+    this._questions=[];
    // need to handle the array of question!
   }
   set setDescription(String value) {

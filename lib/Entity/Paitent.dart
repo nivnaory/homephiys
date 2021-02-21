@@ -116,6 +116,11 @@ class Paitent {
             exerciseList[k]['description'].toString(),
             int.parse(exerciseList[k]['level'].toString()),
             int.parse(exerciseList[k]['exerciseId'].toString()));
+             List questions_list = List.from(exerciseList[k]['questions']);
+             for (int i = 0; i < questions_list.length; i++) {
+                  newExercise.addQuestion(questions_list[i]);
+                }
+
         newStage.addExercise(newExercise);
       }
       newTreatment.addNewStage(newStage);
