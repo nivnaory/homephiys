@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homephiys/Controller/PaitentController.dart';
+import 'package:homephiys/Controller/ReportController.dart';
 import 'package:homephiys/Entity/Paitent.dart';
 import 'package:toast/toast.dart';
 import 'ForgetPasswordPage.dart';
@@ -93,10 +94,8 @@ class LoginScreen extends StatelessWidget {
               elevation: 7.0,
               child: GestureDetector (
                 onTap: () {
-
                     Future f = paitentController.loginPaitent(username.text, password.text);
                     f.then((value) {
-                      print(value);
                       if (value == true) {
                         Future <Paitent> fatchPaitent=paitentController.getPaitentFromDB(username.text);
                         fatchPaitent.then((paitent){

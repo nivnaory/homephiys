@@ -8,6 +8,7 @@ import 'QuestionsPage.dart';
 
 class ExercisePage extends StatefulWidget {
   final Exercise exercise;
+
   final url = 'https://www.youtube.com/watch?v=tr6XsZVb-ZE';
   final title = 'Player';
   final highScore = 13.0000;
@@ -159,6 +160,7 @@ class _ExercisePage extends State<ExercisePage> {
               MaterialPageRoute(
 
               builder: (context) => QuestionsPage(questions:this.widget.exercise.getQuestions,
+                  exercieLevel:this.widget.exercise.getLevel,stageLevel:1
               )))
               },
               color: Colors.green,
