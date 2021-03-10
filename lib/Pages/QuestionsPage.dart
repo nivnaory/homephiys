@@ -7,13 +7,14 @@ class QuestionsPage extends StatefulWidget {
   final List<String> questions;
 
   final int stageLevel;
+  List<int>answers=[];
   final int exercieLevel;
   final List<String> option_answers = [
-    " במידה רבה מאוד ",
-    " במידה רבה ",
-    "מידה בינונית",
-    "במידה מועטה",
-    "במידה מועטה מאוד"
+    " במידה רבה מאוד ",//0
+    " במידה רבה ",//1
+    "מידה בינונית",//2
+    "במידה מועטה",//3
+    "במידה מועטה מאוד"//4
   ];
 
 
@@ -24,8 +25,10 @@ class QuestionsPage extends StatefulWidget {
 }
 
 class _QuestionsPage extends State<QuestionsPage> {
+
   @override
   Widget build(BuildContext context) {
+    this.widget.answers=List<int>.filled(this.widget.questions.length, 0);
     return Scaffold(
       appBar: AppBar(
         title: Text("HomePhiys Questions:"),
@@ -36,6 +39,7 @@ class _QuestionsPage extends State<QuestionsPage> {
   }
 
   Widget _body() {
+
     return Container(
       child: Column(
         children: <Widget>[
@@ -43,10 +47,11 @@ class _QuestionsPage extends State<QuestionsPage> {
               child: ListView.builder(
                   itemCount: widget.questions.length,
                   itemBuilder: (context, itemIndex) {
+                    int index;
                     Report report;
                     ReportController reportController;
                     Future<bool> f;
-                    List<int>answers=List(this.widget.questions.length);
+                   // List<int>answers=List();
                     return Column(children: <Widget>[
                       Container(
                         padding: const EdgeInsets.only(left: 14.0, top: 14.0),
@@ -59,11 +64,42 @@ class _QuestionsPage extends State<QuestionsPage> {
                       RadioButtonGroup(
                         labels: this.widget.option_answers,
                         disabled: [],
-                        onChange: (String label, int index) => print(
-                            "label: $label index: $index question: $itemIndex"),
-                        onSelected: (String label) =>
-                        answers[itemIndex]=1,
+                        onChange: (String label, int choose_index) {
+                             index=choose_index;
+
+                        },
+                        onSelected: (String label)=>{
+                          this.widget.answers[itemIndex]=index,
+                        },
                       ),
+
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      if (itemIndex == this.widget.questions.length-1)
+                        new TextFormField(
+                          decoration: new InputDecoration(
+                            labelText: "Write the Answer",
+                            fillColor: Colors.white,
+                            border: new OutlineInputBorder(
+                              borderRadius: new BorderRadius.circular(25.0),
+                              borderSide: new BorderSide(
+                              ),
+                            ),
+                            //fillColor: Colors.green
+                          ),
+                          validator: (val) {
+                            if(val.length==0) {
+                              return " ";
+                            }else{
+                              return null;
+                            }
+                          },
+                          keyboardType: TextInputType.emailAddress,
+                          style: new TextStyle(
+                            fontFamily: "Poppins",
+                          ),
+                        ),
                       if (itemIndex == this.widget.questions.length-1)
                         FlatButton(
                           shape: RoundedRectangleBorder(
@@ -71,17 +107,17 @@ class _QuestionsPage extends State<QuestionsPage> {
                               borderRadius: BorderRadius.circular(50)),
                           onPressed: () => {
                             //crete new Report
-                             report = new Report(this.widget.stageLevel,this.widget.exercieLevel,
-                             this.widget.questions,answers,
-                             "hello",1),
-                             print(answers),
-                             print(report.getAnswers()),
-                              reportController= new ReportController(report),
+                            //here we need to calculate the score according to the answers.\
 
+                             report = new Report(this.widget.stageLevel,this.widget.exercieLevel,
+                             this.widget.questions,this.widget.answers,
+                             "hello",1),
+                              reportController= new ReportController(report),
                               f=  reportController.createReport("411111111"),
                               f.then((value){
                              if(value==true){
                                print("successs get back to exercise page");
+                               //get back to the exercie list page
                              }else{
                                print("Eror");
                              }
@@ -115,6 +151,5 @@ class _QuestionsPage extends State<QuestionsPage> {
         ],
       ),
     );
-
   }
 }

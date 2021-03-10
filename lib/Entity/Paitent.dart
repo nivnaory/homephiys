@@ -1,3 +1,4 @@
+import 'package:homephiys/Entity/Report.dart';
 import 'package:snapshot/snapshot.dart';
 import 'Exercise.dart';
 import 'Protocol.dart';
@@ -11,9 +12,10 @@ class Paitent {
   String _password;
   List<TreatmentType> _treatmentType;
   Protocol _protocol;
+  List <Report>_reports;
 
-  //Treatment treatment
-  //Accessing acess
+
+
 
   Paitent(String userName, String password, String firstName) {
     this._username = userName;
@@ -25,6 +27,9 @@ class Paitent {
   String get getFirstName => this._firstName;
   String get getPassWord => this._password;
   String get getUserName => this._username;
+  List<Report> get reports => _reports;
+
+
   List<TreatmentType> get getTreatmentType => _treatmentType;
   Protocol get getProtocol => _protocol;
   set password(String value) {
@@ -43,61 +48,13 @@ class Paitent {
     _protocol = value;
   }
 
+  set reports(List<Report> value) {
+    _reports = value;
+  } //Treatment treatment
   void addTreatmentype(TreatmentType newTreatmentType) {
     this._treatmentType.add(newTreatmentType);
   }
-/*
-  //create Paitent
-  factory Paitent.fromJson(Map<String, dynamic> json) {
-    Paitent newPaitent = new Paitent(json['username'].toString(),
-        json['password'].toString(), json['name'].toString());
-    var v = Snapshot.fromJson(json['treatmentType']);
-    List treatmentTypeList = List.from(v.asList());
 
-    for (int i = 0; i < treatmentTypeList.length; i++) {
-    
-      TreatmentType newTreatment = new TreatmentType(
-          treatmentTypeList[i]['type'].toString(),
-          int.parse(treatmentTypeList[i]['treatmentId'].toString()));
-
-      List stageList = List.from(treatmentTypeList[i]['stageList']);
-      for (int j = 0; j < stageList.length; j++) {
-        Stage newStage =
-            new Stage(int.parse(stageList[j]['currentLevel'].toString()));
-
-        List exerciseList = List.from(stageList[j]['exerciseList']);
-        for (int k = 0; k < exerciseList.length; k++) {
-          Exercise newExercise = new Exercise(
-              exerciseList[k]['name'].toString(),
-              exerciseList[k]['description'].toString(),
-              int.parse(exerciseList[k]['level'].toString()),
-              int.parse(exerciseList[k]['exerciseId'].toString()));
-          newStage.addExercise(newExercise);
-        }
-        newTreatment.addNewStage(newStage);
-      }
-      newPaitent.addTreatmentype(newTreatment);
-    }
-
-    var p = Snapshot.fromJson(json['protocol']);
-    String name = p.child('name').as<String>();
-    int protocolId = p.child('protocolId').as<int>();
-    Protocol protocol = new Protocol(name, protocolId);
-    List subProtocolLits = p.child('subProtocols').asList();
-
-    for (int i = 0; i < subProtocolLits.length; i++) {
-      SubProtocol subProtocol = new SubProtocol(
-          subProtocolLits[i]['name'].toString(),
-          int.parse(subProtocolLits[i]['level'].toString()));
-      List des = subProtocolLits[i]['description'];
-      subProtocol.setDescriptions(des.cast<String>());
-      protocol.addSubProtocol(subProtocol);
-    }
-    newPaitent.SetProtocol(protocol);
-    return newPaitent;
-  }
-}
-*/
 
   static TreatmentType createTreatmentTypeFromJson(var jsonTreatmentType) {
     TreatmentType newTreatment = new TreatmentType(
@@ -162,6 +119,8 @@ class Paitent {
     var porotocolJson = Snapshot.fromJson(json['protocol']);
     Protocol newProtocol = createProtocolFromJson(porotocolJson);
     newPaitent.SetProtocol(newProtocol);
+    //if(newPaintent.report isnot empty)
+    //here add createReportFunctions;
     return newPaitent;
   }
 }

@@ -102,7 +102,7 @@ class LoginScreen extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => PatientHomePage(paitent:paitent,)));
+                                  builder: (context) => PatientHomePage(paitent:paitent)));
                         });
                       } else {
                         Toast.show("Login Failed", context,

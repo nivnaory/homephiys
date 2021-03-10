@@ -11,6 +11,7 @@ class Report{
     this._stageLevel = stageLevel;
     this._exerciseLevel = exerciseLevel;
     this._questions = questions;
+    this.answers=answers;
     this._openAnswers = openAnswer;
     this._scores = score;
 
