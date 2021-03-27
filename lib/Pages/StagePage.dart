@@ -1,48 +1,76 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:homephiys/Entity/Exercise.dart';
+
 import 'package:homephiys/Entity/Stage.dart';
+import 'package:toast/toast.dart';
 import 'ExercisePage.dart';
 
-class StagePage extends StatelessWidget {
+class StagePage extends StatefulWidget {
   final Stage stage;
   final String username;
   final int currentScore;
-  StagePage({@required this.stage, this.username, this.currentScore});
+  final List<bool> accessExerciseList;
+  StagePage(
+      {@required this.stage,
+      this.username,
+      this.currentScore,
+      this.accessExerciseList});
+
+  _StagePage createState() => _StagePage();
+}
+
+class _StagePage extends State<StagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'home Exercise',
-          style: TextStyle(color: Colors.white),
+        appBar: AppBar(
+          title: Text(
+            'home Exercise',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
-      ),
-      backgroundColor: Colors.lightBlue,
-      body: Column(
-        children:<Widget>[
-          for (int i = 0; i < stage.getExerciseList.length; i++)
-            // List.generate(stage.getExerciseList.length,(i){
-                   //if(painten/Acesss.array[j][i]==true
-                        ExerciseButton(stage:stage,i:i,username:"niv"),
-              //  },
-     ]
-    ),
-    );
-  }}
+        backgroundColor: Colors.lightBlue,
+        body: Column(
+          children:
+              List.generate(this.widget.stage.getExerciseList.length, (index) {
+            if (this.widget.accessExerciseList[index] == true) {
+              return ExerciseButton(
+                exercise: this.widget.stage.getExerciseList[index],
+                username: this.widget.username,
+                enable: this.widget.accessExerciseList[index],
+                color: Colors.white,
+              );
+            } else {
+              return ExerciseButton(
+                exercise: this.widget.stage.getExerciseList[index],
+                username: this.widget.username,
+                enable: this.widget.accessExerciseList[index],
+                color: Colors.grey,
+              );
+            }
+          }),
+        ));
+  }
+}
 
-class ExerciseButton extends StatelessWidget {
+class ExerciseButton extends StatefulWidget {
   const ExerciseButton({
     Key key,
-    @required this.stage,
-    @required this.i,
     @required this.username,
+    this.exercise,
+    this.enable,
+    this.color,
   }) : super(key: key);
 
-  final Stage stage;
-  final int i;
+  final Exercise exercise;
   final String username;
+  final Color color;
+  final bool enable;
+  _ExerciseButton createState() => _ExerciseButton();
+}
 
+class _ExerciseButton extends State<ExerciseButton> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -51,12 +79,17 @@ class ExerciseButton extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ExercisePage(
-                            exercise:
-                            stage.getExerciseList[i], username: this.username)));
+                if (this.widget.enable) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ExercisePage(
+                              exercise: this.widget.exercise,
+                              username: this.widget.username)));
+                } else {
+                  Toast.show("not have access yet", context,
+                      duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                }
               },
               child: ReusableCard(
                 cardChild: Column(
@@ -66,15 +99,12 @@ class ExerciseButton extends StatelessWidget {
                       width: 400.0,
                     ),
                     Text(
-                      "תרגיל :" +
-                              stage
-                              .getExerciseList[i]
-                              .getLevel
-                              .toString(),
+                      "תרגיל :" + this.widget.exercise.getLevel.toString(),
                       style: TextStyle(fontSize: 25.0),
                     ),
                   ],
                 ),
+                color: this.widget.color,
               ),
             ),
           ),
@@ -84,18 +114,22 @@ class ExerciseButton extends StatelessWidget {
   }
 }
 
-
-class ReusableCard extends StatelessWidget {
+class ReusableCard extends StatefulWidget {
   final Widget cardChild;
-  ReusableCard({this.cardChild});
+  final Color color;
+  ReusableCard({this.cardChild, this.color});
 
+  _ReusableCard createState() => _ReusableCard();
+}
+
+class _ReusableCard extends State<ReusableCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: cardChild,
+      child: this.widget.cardChild,
       margin: EdgeInsets.all(15.0),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: this.widget.color,
         borderRadius: BorderRadius.circular(50.0),
       ),
     );

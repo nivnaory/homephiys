@@ -16,13 +16,16 @@ class MedicalInspectionStage extends StatefulWidget {
   final int currentScore;
 
   MedicalInspectionStage(
-      {@required this.treatmentType, @required this.protocol, this.username, this.currentScore, this.accessStageList});
+      {@required this.treatmentType,
+      @required this.protocol,
+      this.username,
+      this.currentScore,
+      this.accessStageList});
 
   _MedicalInspectionStage createState() => _MedicalInspectionStage();
 }
 
 class _MedicalInspectionStage extends State<MedicalInspectionStage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,44 +37,54 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
       ),
       backgroundColor: Colors.lightBlue,
       body: Column(
-        children: List.generate(
-            this.widget.protocol.subProtocolsList.length, (index) {
+        children: List.generate(this.widget.protocol.subProtocolsList.length,
+            (index) {
           if (this.widget.accessStageList[index].stageAccess == true) {
             return StageWidget(
                 stage: this.widget.treatmentType.getStageList[index],
                 username: this.widget.username,
-                subProtocol: this.widget.protocol.subProtocolsList[index], enable: true,color:Colors.white,);
+                subProtocol: this.widget.protocol.subProtocolsList[index],
+                enable: true,
+                color: Colors.white,
+                exerciseAccessList:
+                    this.widget.accessStageList[index].exerciseAccess);
           } else {
             return StageWidget(
                 stage: this.widget.treatmentType.getStageList[index],
                 username: this.widget.username,
-                subProtocol: this.widget.protocol.subProtocolsList[index],color:Colors.grey,);
+                subProtocol: this.widget.protocol.subProtocolsList[index],
+                color: Colors.grey,
+                exerciseAccessList:
+                    this.widget.accessStageList[index].exerciseAccess);
           }
-        }
-        ),
+        }),
       ),
     );
   }
 }
 
-
 class StageWidget extends StatefulWidget {
+  const StageWidget(
+      {Key key,
+      @required this.stage,
+      this.username,
+      this.subProtocol,
+      this.enable,
+      this.color,
+      this.exerciseAccessList})
+      : super(key: key);
 
-  const StageWidget({
-    Key key,
-    @required this.stage, this.username, this.subProtocol, this.enable, this.color
-  }) : super(key: key);
   final Color color;
   final bool enable;
   final Stage stage;
   final String username;
   final SubProtocol subProtocol;
-
+  final List<bool> exerciseAccessList;
 
   _StageWidget createState() => _StageWidget();
 }
-  class _StageWidget extends State<StageWidget>{
 
+class _StageWidget extends State<StageWidget> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -80,26 +93,22 @@ class StageWidget extends StatefulWidget {
           Expanded(
             child: GestureDetector(
               //stage1 stag
-              onTap:() {
-                if(this.widget.enable==true) {
+              onTap: () {
+                if (this.widget.enable == true) {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              StagePage(
-                                stage: this.widget.stage
-                                , username: this.widget.username,
-                                currentScore: this.widget.stage
-                                    .currentScore,)));
-                 }
-                else{
-
-                  Toast.show("not have access yet", context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-
-
+                          builder: (context) => StagePage(
+                              stage: this.widget.stage,
+                              username: this.widget.username,
+                              currentScore: this.widget.stage.currentScore,
+                              accessExerciseList:
+                                  this.widget.exerciseAccessList)));
+                } else {
+                  Toast.show("not have access yet", context,
+                      duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                 }
               },
-
               child: ReusableCard(
                 cardChild: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -113,7 +122,7 @@ class StageWidget extends StatefulWidget {
                     ),
                   ],
                 ),
-               color:this.widget.color,
+                color: this.widget.color,
               ),
             ),
           ),
@@ -121,10 +130,7 @@ class StageWidget extends StatefulWidget {
       ),
     );
   }
-
-
 }
-
 
 class ReusableCard extends StatefulWidget {
   final Widget cardChild;
@@ -134,7 +140,7 @@ class ReusableCard extends StatefulWidget {
   _ReusableCard createState() => _ReusableCard();
 }
 
-class _ReusableCard  extends State<ReusableCard>{
+class _ReusableCard extends State<ReusableCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
