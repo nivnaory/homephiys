@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:homephiys/Entity/Paitent.dart';
+import 'package:homephiys/Pages/ChatPage.dart';
 
 import 'TreatmentAndProtocolPage.dart';
 
@@ -80,7 +81,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
             shape: RoundedRectangleBorder(
                 side: BorderSide(color: Colors.black26),
                 borderRadius: BorderRadius.circular(100)),
-            onPressed: () => {print("chat")},
+            onPressed: () => {print("chat"),
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ChatPage()))
+            },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
             child: Column(
@@ -88,7 +94,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(Icons.chat, size: 50, color: Colors.green),
-                Text("צ'אט",
+                Text("צור קשר",
                     style: TextStyle(fontSize: 20, color: Colors.green))
               ],
             ),

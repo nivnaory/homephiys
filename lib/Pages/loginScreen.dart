@@ -20,12 +20,14 @@ class LoginScreen extends StatelessWidget {
       body: Column(
         children: <Widget>[
           Container(
+            //width: MediaQuery.of(context).size.width,
+             // height: MediaQuery.of(context).size.height*0.50,
               child: Stack(
                 children: <Widget>[
                   Container(
                     padding: EdgeInsets.fromLTRB(10.0, 150.0, 0.0, 50.0),
                     child: Text(
-                      "homePhys",
+                      "homePhiys",
                       style: TextStyle(
                           fontSize: 70,
                           fontWeight: FontWeight.bold,

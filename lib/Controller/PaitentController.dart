@@ -10,11 +10,17 @@ class PaitentController {
   Future<bool> loginPaitent(String username, String password) async {
     final http.Response response = await http.post(
       'http://10.0.2.2:5000/user/login/paitent'
-     // 'http://192.168.1.28:5000/user/login/paitent'
+      //'http://192.168.1.28:5000/user/login/paitent'
 
       ,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+        "Access-Control-Allow-Credentials":
+        'true', // Required for cookies, authorization headers with HTTPS
+        "Access-Control-Allow-Headers":
+        "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
+        "Access-Control-Allow-Methods": "POST, OPTIONS"
       },
       body: jsonEncode(<String, String>{
         'username': username,
@@ -32,7 +38,7 @@ class PaitentController {
   Future<Paitent> getPaitentFromDB(String username) async {
     final response = await http.get(
         'http://10.0.2.2:5000/paitent/${username}'
-        //'http://192.168.1.28:5000/paitent/${username}'
+       // 'http://192.168.1.28:5000/paitent/${username}'
     );
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,

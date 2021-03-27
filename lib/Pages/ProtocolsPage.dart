@@ -38,6 +38,7 @@ class _ProtocolsPageState extends State<ProtocolsPage> {
                       fontSize:20.0,
                       fontWeight: FontWeight.bold,
                     ),
+                    textDirection: TextDirection.rtl,
                   ),
                   body: SubProtocolView(subProtocol:this.widget.protocol.subProtocolsList[0]),
                   value: status1,
@@ -57,6 +58,7 @@ class _ProtocolsPageState extends State<ProtocolsPage> {
                       fontSize:20.0,
                       fontWeight: FontWeight.bold,
                     ),
+                    textDirection: TextDirection.rtl,
                   ),
                   body: SubProtocolView(subProtocol:this.widget.protocol.subProtocolsList[1]),
                   value: status2,
@@ -76,6 +78,7 @@ class _ProtocolsPageState extends State<ProtocolsPage> {
                       fontSize:20.0,
                       fontWeight: FontWeight.bold,
                     ),
+                    textDirection: TextDirection.rtl,
                   ),
                   body: SubProtocolView(subProtocol:this.widget.protocol.subProtocolsList[2]),
                   value: status3,
@@ -95,6 +98,7 @@ class _ProtocolsPageState extends State<ProtocolsPage> {
                       fontSize:20.0,
                       fontWeight: FontWeight.bold,
                     ),
+                    textDirection: TextDirection.rtl,
                   ),
                   body: SubProtocolView(subProtocol:this.widget.protocol.subProtocolsList[3]),
                   value: status4,
@@ -129,12 +133,8 @@ class  _SubProtocolWidgetState extends State<SubProtocolView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-         /* ListView.builder(
-              itemCount: this.widget.subProtocol.descriptions.length,
-              itemBuilder: (context, itemIndex) {
-                return Text(this.widget.subProtocol.descriptions[itemIndex]
-                );}),*/
-          for ( var i in this.widget.subProtocol.descriptions ) Text(i),
+
+          for (var i in this.widget.subProtocol.descriptions) Text(i),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
           ),

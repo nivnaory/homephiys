@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:homephiys/Controller/ReportController.dart';
@@ -9,6 +10,8 @@ class QuestionsPage extends StatefulWidget {
   final int stageLevel;
   List<int>answers=[];
   final int exercieLevel;
+  final String username;
+
   final List<String> option_answers = [
     " במידה רבה מאוד ",//0
     " במידה רבה ",//1
@@ -18,13 +21,14 @@ class QuestionsPage extends StatefulWidget {
   ];
 
 
-  QuestionsPage({@required this.questions,this.stageLevel,this.exercieLevel});
+  QuestionsPage({@required this.questions,this.stageLevel,this.exercieLevel, this.username});
 
   @override
   _QuestionsPage createState() => _QuestionsPage();
 }
 
 class _QuestionsPage extends State<QuestionsPage> {
+  TextEditingController textController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +55,7 @@ class _QuestionsPage extends State<QuestionsPage> {
                     Report report;
                     ReportController reportController;
                     Future<bool> f;
+                    String openAnswer;
                    // List<int>answers=List();
                     return Column(children: <Widget>[
                       Container(
@@ -62,24 +67,28 @@ class _QuestionsPage extends State<QuestionsPage> {
                         ),
                       ),
                       RadioButtonGroup(
+                       // orientation: GroupedButtonsOrientation.VERTICAL,
+                        margin: const EdgeInsets.fromLTRB(0, 0, 1, 0),
                         labels: this.widget.option_answers,
                         disabled: [],
                         onChange: (String label, int choose_index) {
                              index=choose_index;
-
                         },
                         onSelected: (String label)=>{
-                          this.widget.answers[itemIndex]=index,
+                          this.widget.answers[itemIndex]=index+1,
                         },
+
                       ),
 
                       SizedBox(
                         height: 10.0,
                       ),
                       if (itemIndex == this.widget.questions.length-1)
-                        new TextFormField(
+                        new TextField(
+                          controller:textController,
                           decoration: new InputDecoration(
-                            labelText: "Write the Answer",
+                            hintText:"הערות " ,
+                            labelText:",רשום הערות",
                             fillColor: Colors.white,
                             border: new OutlineInputBorder(
                               borderRadius: new BorderRadius.circular(25.0),
@@ -88,13 +97,6 @@ class _QuestionsPage extends State<QuestionsPage> {
                             ),
                             //fillColor: Colors.green
                           ),
-                          validator: (val) {
-                            if(val.length==0) {
-                              return " ";
-                            }else{
-                              return null;
-                            }
-                          },
                           keyboardType: TextInputType.emailAddress,
                           style: new TextStyle(
                             fontFamily: "Poppins",
@@ -111,9 +113,9 @@ class _QuestionsPage extends State<QuestionsPage> {
 
                              report = new Report(this.widget.stageLevel,this.widget.exercieLevel,
                              this.widget.questions,this.widget.answers,
-                             "hello",1),
+                             textController.text,1),
                               reportController= new ReportController(report),
-                              f=  reportController.createReport("411111111"),
+                              f=  reportController.createReport(this.widget.username),
                               f.then((value){
                              if(value==true){
                                print("successs get back to exercise page");

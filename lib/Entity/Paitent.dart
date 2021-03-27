@@ -1,3 +1,6 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:homephiys/Entity/AccessStage.dart';
 import 'package:homephiys/Entity/Report.dart';
 import 'package:snapshot/snapshot.dart';
 import 'Exercise.dart';
@@ -13,6 +16,7 @@ class Paitent {
   List<TreatmentType> _treatmentType;
   Protocol _protocol;
   List <Report>_reports;
+  List<AccessStage> _accessesStageList;
 
 
 
@@ -22,11 +26,13 @@ class Paitent {
     this._password = password;
     this._firstName = firstName;
     this._treatmentType = new List();
+    this._accessesStageList=[];
   }
 
   String get getFirstName => this._firstName;
   String get getPassWord => this._password;
   String get getUserName => this._username;
+  List<AccessStage> get accessesStageList => _accessesStageList;
   List<Report> get reports => _reports;
 
 
@@ -51,20 +57,31 @@ class Paitent {
   set reports(List<Report> value) {
     _reports = value;
   } //Treatment treatment
+
+
+  void addAccess(AccessStage access){
+    this._accessesStageList.add(access);
+  }
   void addTreatmentype(TreatmentType newTreatmentType) {
     this._treatmentType.add(newTreatmentType);
   }
 
 
   static TreatmentType createTreatmentTypeFromJson(var jsonTreatmentType) {
+
+
     TreatmentType newTreatment = new TreatmentType(
         jsonTreatmentType['type'].toString(),
-        int.parse(jsonTreatmentType['treatmentId'].toString()));
+        int.parse(jsonTreatmentType['treatmentId'].toString()),
+            int.parse(jsonTreatmentType['currentScore'].toString()));
 
     List stageList = List.from(jsonTreatmentType['stageList']);
     for (int j = 0; j < stageList.length; j++) {
+
+      print(stageList[j]['currentScore'].toString());
       Stage newStage =
-          new Stage(int.parse(stageList[j]['currentLevel'].toString()));
+          new Stage(int.parse(stageList[j]['currentLevel'].toString()),
+              int.parse(stageList[j]['currentScore'].toString()));
 
       List exerciseList = List.from(stageList[j]['exerciseList']);
       for (int k = 0; k < exerciseList.length; k++) {
@@ -103,6 +120,18 @@ class Paitent {
     return protocol;
   }
 
+  static AccessStage createAccessFromjson(var jsonAccess){
+    bool stageBool =jsonAccess['stageBool'];
+
+    List<bool> exerciseBoolList=List.from(jsonAccess['exerciseBool']);
+    for (int i =0;i<exerciseBoolList.length;i++){
+
+    }
+    AccessStage  newStageAccess=new AccessStage(stageBool,exerciseBoolList);
+
+    return newStageAccess;
+  }
+
   //read from json
   factory Paitent.fromJson(Map<String, dynamic> json) {
     Paitent newPaitent = new Paitent(json['username'].toString(),
@@ -115,10 +144,19 @@ class Paitent {
       TreatmentType newTreatmentType = createTreatmentTypeFromJson(treatmentTypeList[i]);
       newPaitent.addTreatmentype(newTreatmentType);
     }
-
+    //create protocol
     var porotocolJson = Snapshot.fromJson(json['protocol']);
     Protocol newProtocol = createProtocolFromJson(porotocolJson);
     newPaitent.SetProtocol(newProtocol);
+
+
+    //create Access
+    var a= Snapshot.fromJson(json['access']);
+    List accessList = List.from(a.asList());
+    for(int i=0;i<accessList.length;i++) {
+      AccessStage newAccess = createAccessFromjson(accessList[i]);
+       newPaitent.addAccess(newAccess);
+    }
     //if(newPaintent.report isnot empty)
     //here add createReportFunctions;
     return newPaitent;
