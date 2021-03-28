@@ -2,18 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:homephiys/Entity/Exercise.dart';
+import 'package:homephiys/Entity/Paitent.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import 'QuestionsPage.dart';
 
 class ExercisePage extends StatefulWidget {
-  final Exercise exercise;
-  final String username;
   final url = 'https://www.youtube.com/watch?v=tr6XsZVb-ZE';
   final title = 'Player';
   final highScore = 13.0000;
+  final Paitent paitent;
+  final int stageIndex;
+  final int exerciseIndex;
 
-  ExercisePage({@required this.exercise,this.username});
+
+  ExercisePage({this.paitent, this.stageIndex, this.exerciseIndex});
 
   _ExercisePage createState() => _ExercisePage();
 }
@@ -132,7 +135,10 @@ class _ExercisePage extends State<ExercisePage> {
                   context: context,
                   builder: (context) => CustomDialog(
                       title: "הסבר תרגיל ",
-                      descritpion: this.widget.exercise.getDescription),
+                      descritpion: this.widget.paitent.getTreatmentType[0].
+                           getStageList[this.widget.stageIndex]
+                          .getExerciseList[this.widget.exerciseIndex].
+                          getDescription),
                 )
               },
               color: Colors.blueGrey,
@@ -154,15 +160,19 @@ class _ExercisePage extends State<ExercisePage> {
                   side: BorderSide(color: Colors.black26),
                   borderRadius: BorderRadius.circular(50)),
               onPressed: () => {
-               print(this.widget.exercise.getQuestions),
               Navigator.push(
               context,
               MaterialPageRoute(
 
-              builder: (context) => QuestionsPage(questions:this.widget.exercise.getQuestions,
-                  exercieLevel:this.widget.exercise.getLevel,stageLevel:1, username:this.widget.username
-              )))
-              },
+              builder: (context) => QuestionsPage(questions:this.widget.paitent.getTreatmentType[0].
+            getStageList[this.widget.stageIndex]
+           .getExerciseList[this.widget.exerciseIndex].
+            getQuestions,
+                  exerciseLevel:this.widget.exerciseIndex,
+                 stageLevel:this.widget.stageIndex,
+                   paitent:this.widget.paitent,
+                    )))
+                    },
               color: Colors.green,
               padding: EdgeInsets.all(10.0),
               child: Column(

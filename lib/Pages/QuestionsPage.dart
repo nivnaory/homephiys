@@ -1,16 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
+import 'package:homephiys/Controller/AccessController.dart';
 import 'package:homephiys/Controller/ReportController.dart';
+import 'package:homephiys/Entity/Paitent.dart';
 import 'package:homephiys/Entity/Report.dart';
+import 'package:homephiys/Pages/MedicalInspectionStage.dart';
+import 'package:homephiys/Pages/StagePage.dart';
+
+import 'ExercisePage.dart';
 
 class QuestionsPage extends StatefulWidget {
   final List<String> questions;
 
   final int stageLevel;
   List<int>answers=[];
-  final int exercieLevel;
-  final String username;
+  final int exerciseLevel;
+ final Paitent paitent;
 
   final List<String> option_answers = [
     " במידה רבה מאוד ",//0
@@ -21,7 +27,7 @@ class QuestionsPage extends StatefulWidget {
   ];
 
 
-  QuestionsPage({@required this.questions,this.stageLevel,this.exercieLevel, this.username});
+  QuestionsPage({@required this.questions,this.stageLevel,this.exerciseLevel, this.paitent});
 
   @override
   _QuestionsPage createState() => _QuestionsPage();
@@ -29,7 +35,15 @@ class QuestionsPage extends StatefulWidget {
 
 class _QuestionsPage extends State<QuestionsPage> {
   TextEditingController textController = new TextEditingController();
+   int threshold=0;
 
+   AccessController accessController=new AccessController();
+
+  @override
+  void initState() {
+    super.initState();
+    threshold=((this.widget.questions.length *5)*0.8).toInt();
+  }
   @override
   Widget build(BuildContext context) {
     this.widget.answers=List<int>.filled(this.widget.questions.length, 0);
@@ -55,6 +69,8 @@ class _QuestionsPage extends State<QuestionsPage> {
                     Report report;
                     ReportController reportController;
                     Future<bool> f;
+                    Future<bool> f1;
+                    int score=0;
                     String openAnswer;
                    // List<int>answers=List();
                     return Column(children: <Widget>[
@@ -108,22 +124,56 @@ class _QuestionsPage extends State<QuestionsPage> {
                               side: BorderSide(color: Colors.black26),
                               borderRadius: BorderRadius.circular(50)),
                           onPressed: () => {
+                            score=calculateScoreOfQuestions(this.widget.answers),
+                            report = new Report(this.widget.stageLevel,this.widget.exerciseLevel,
+                                this.widget.questions,this.widget.answers,
+                                textController.text,score),
+                            reportController= new ReportController(report),
+                            f=  reportController.createReport(this.widget.paitent.getUserName),
+                            /*f.then((value){
+                              if(value==true){
+                                print("successs get back to exercise page");
+                                //get back to the exercie list page
+                              }else{
+                                print("Eror");
+                              }
+                            }
+                            ),*/
                             //crete new Report
                             //here we need to calculate the score according to the answers.\
+                            if (score > threshold){
+                              if(this.widget.exerciseLevel==this.widget.paitent.getTreatmentType[0].getStageList
+                              [this.widget.stageLevel].
+                              getExerciseList.length-1)
+                              {
+                                f1=accessController.updateAccess(this.widget.stageLevel+1,
+                                    0,this.widget.paitent.getUserName),
+                               //  this.widget.paitent.accessesStageList[this.widget.stageLevel+1].stageAccess=true,
+                                //this.widget.paitent.accessesStageList[this.widget.stageLevel+1].exerciseAccess[0]=true,
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MedicalInspectionStage(
+                                       this.widget.paitent,
+                                        )))
+                              }else{
 
-                             report = new Report(this.widget.stageLevel,this.widget.exercieLevel,
-                             this.widget.questions,this.widget.answers,
-                             textController.text,1),
-                              reportController= new ReportController(report),
-                              f=  reportController.createReport(this.widget.username),
-                              f.then((value){
-                             if(value==true){
-                               print("successs get back to exercise page");
-                               //get back to the exercie list page
-                             }else{
-                               print("Eror");
-                             }
-                            })
+                                     f1=accessController.updateAccess(this.widget.stageLevel,
+                                    this.widget.exerciseLevel,this.widget.paitent.getUserName),
+                              //  this.widget.paitent.accessesStageList[this.widget.stageLevel]
+                                //    .exerciseAccess[this.widget.exerciseLevel+1]=true,
+                              },
+                            },
+                          /*
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                          builder: (context) => StagePage(
+                          paitent:this.widget.paitent,
+                          stageIndex:this.widget.stageLevel,
+                          )))
+
+                           */
                           },
 
                            // Report report=new Report(this.widget.stageLevel,this.widget.exercieLevel,
@@ -154,4 +204,13 @@ class _QuestionsPage extends State<QuestionsPage> {
       ),
     );
   }
+}
+
+
+int  calculateScoreOfQuestions(List<int> answers){
+  int sum=0;
+  for (int i=0;i<answers.length;i++){
+     sum+=answers[i]+1;
+  }
+  return sum;
 }

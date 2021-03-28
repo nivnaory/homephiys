@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homephiys/Entity/AccessStage.dart';
+import 'package:homephiys/Entity/Paitent.dart';
 import 'package:homephiys/Entity/Protocol.dart';
 import 'package:homephiys/Entity/Stage.dart';
 import 'package:homephiys/Entity/SubProtocol.dart';
@@ -9,18 +10,8 @@ import 'package:toast/toast.dart';
 import 'StagePage.dart';
 
 class MedicalInspectionStage extends StatefulWidget {
-  final TreatmentType treatmentType;
-  final List<AccessStage> accessStageList;
-  final Protocol protocol;
-  final String username;
-  final int currentScore;
-
-  MedicalInspectionStage(
-      {@required this.treatmentType,
-      @required this.protocol,
-      this.username,
-      this.currentScore,
-      this.accessStageList});
+  final Paitent paitent;
+  MedicalInspectionStage(@required this.paitent);
 
   _MedicalInspectionStage createState() => _MedicalInspectionStage();
 }
@@ -37,25 +28,22 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
       ),
       backgroundColor: Colors.lightBlue,
       body: Column(
-        children: List.generate(this.widget.protocol.subProtocolsList.length,
+        children: List.generate(this.widget.paitent.getProtocol.subProtocolsList.length,
             (index) {
-          if (this.widget.accessStageList[index].stageAccess == true) {
+          if (this.widget.paitent.accessesStageList[index].stageAccess == true) {
             return StageWidget(
-                stage: this.widget.treatmentType.getStageList[index],
-                username: this.widget.username,
-                subProtocol: this.widget.protocol.subProtocolsList[index],
+               paitent:this.widget.paitent,
                 enable: true,
                 color: Colors.white,
-                exerciseAccessList:
-                    this.widget.accessStageList[index].exerciseAccess);
+                 index: index,
+            );
           } else {
             return StageWidget(
-                stage: this.widget.treatmentType.getStageList[index],
-                username: this.widget.username,
-                subProtocol: this.widget.protocol.subProtocolsList[index],
+               paitent:this.widget.paitent,
                 color: Colors.grey,
-                exerciseAccessList:
-                    this.widget.accessStageList[index].exerciseAccess);
+                enable:false,
+                index: index,
+            );
           }
         }),
       ),
@@ -66,20 +54,15 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
 class StageWidget extends StatefulWidget {
   const StageWidget(
       {Key key,
-      @required this.stage,
-      this.username,
-      this.subProtocol,
       this.enable,
-      this.color,
-      this.exerciseAccessList})
+      this.color, this.paitent, this.index,})
       : super(key: key);
 
   final Color color;
   final bool enable;
-  final Stage stage;
-  final String username;
-  final SubProtocol subProtocol;
-  final List<bool> exerciseAccessList;
+  final Paitent paitent;
+  final  int index;
+
 
   _StageWidget createState() => _StageWidget();
 }
@@ -99,11 +82,7 @@ class _StageWidget extends State<StageWidget> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => StagePage(
-                              stage: this.widget.stage,
-                              username: this.widget.username,
-                              currentScore: this.widget.stage.currentScore,
-                              accessExerciseList:
-                                  this.widget.exerciseAccessList)));
+                            paitent:this.widget.paitent,stageIndex:this.widget.index)));
                 } else {
                   Toast.show("not have access yet", context,
                       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -117,7 +96,7 @@ class _StageWidget extends State<StageWidget> {
                       width: 400.0,
                     ),
                     Text(
-                      this.widget.subProtocol.name,
+                      this.widget.paitent.getProtocol.subProtocolsList[this.widget.index].name,
                       style: TextStyle(fontSize: 25.0),
                     ),
                   ],

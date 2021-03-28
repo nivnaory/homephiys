@@ -1,21 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homephiys/Entity/Exercise.dart';
+import 'package:homephiys/Entity/Paitent.dart';
 
 import 'package:homephiys/Entity/Stage.dart';
 import 'package:toast/toast.dart';
 import 'ExercisePage.dart';
 
 class StagePage extends StatefulWidget {
-  final Stage stage;
-  final String username;
-  final int currentScore;
-  final List<bool> accessExerciseList;
+  final Paitent paitent;
+  final int stageIndex;
+
   StagePage(
-      {@required this.stage,
-      this.username,
-      this.currentScore,
-      this.accessExerciseList});
+      {
+      this.paitent, this.stageIndex
+      });
 
   _StagePage createState() => _StagePage();
 }
@@ -33,20 +32,22 @@ class _StagePage extends State<StagePage> {
         backgroundColor: Colors.lightBlue,
         body: Column(
           children:
-              List.generate(this.widget.stage.getExerciseList.length, (index) {
-            if (this.widget.accessExerciseList[index] == true) {
+              List.generate(this.widget.paitent.getTreatmentType[0].getStageList[this.widget.stageIndex].getExerciseList.length, (index) {
+            if (this.widget.paitent.accessesStageList[this.widget.stageIndex].exerciseAccess[index] == true) {
               return ExerciseButton(
-                exercise: this.widget.stage.getExerciseList[index],
-                username: this.widget.username,
-                enable: this.widget.accessExerciseList[index],
                 color: Colors.white,
+                enable: true,
+                paitent:this.widget.paitent,
+                stageIndex:this.widget.stageIndex,
+                exerciseIndex:index,
               );
             } else {
               return ExerciseButton(
-                exercise: this.widget.stage.getExerciseList[index],
-                username: this.widget.username,
-                enable: this.widget.accessExerciseList[index],
                 color: Colors.grey,
+                enable: false,
+                paitent:this.widget.paitent,
+                stageIndex:this.widget.stageIndex,
+                exerciseIndex:index,
               );
             }
           }),
@@ -57,16 +58,15 @@ class _StagePage extends State<StagePage> {
 class ExerciseButton extends StatefulWidget {
   const ExerciseButton({
     Key key,
-    @required this.username,
-    this.exercise,
     this.enable,
-    this.color,
+    this.color, this.paitent, this.exerciseIndex, this.stageIndex,
   }) : super(key: key);
 
-  final Exercise exercise;
-  final String username;
   final Color color;
   final bool enable;
+  final Paitent paitent;
+  final int exerciseIndex;
+  final int stageIndex;
   _ExerciseButton createState() => _ExerciseButton();
 }
 
@@ -84,8 +84,11 @@ class _ExerciseButton extends State<ExerciseButton> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => ExercisePage(
-                              exercise: this.widget.exercise,
-                              username: this.widget.username)));
+                               paitent:this.widget.paitent,
+                               stageIndex:this.widget.stageIndex,
+                               exerciseIndex: this.widget.exerciseIndex,
+
+                          )));
                 } else {
                   Toast.show("not have access yet", context,
                       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -99,7 +102,7 @@ class _ExerciseButton extends State<ExerciseButton> {
                       width: 400.0,
                     ),
                     Text(
-                      "תרגיל :" + this.widget.exercise.getLevel.toString(),
+                      "תרגיל :" + (this.widget.exerciseIndex+1).toString(),
                       style: TextStyle(fontSize: 25.0),
                     ),
                   ],

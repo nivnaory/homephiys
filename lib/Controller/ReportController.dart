@@ -20,8 +20,8 @@ class ReportController {
   Future<bool> createReport(String username) async {
 
   final response = await http.post(
-   // 'http://10.0.2.2:5000/paitent/${username}/report'
-        'http://192.168.1.28:5000/paitent/${username}/report'
+    'http://10.0.2.2:5000/paitent/${username}/report'
+      //  'http://192.168.1.28:5000/paitent/${username}/report'
 
     ,
     headers: <String, String>{

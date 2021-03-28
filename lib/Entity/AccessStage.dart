@@ -1,5 +1,7 @@
 class AccessStage{
   bool _stageAccess;
+
+
   List<bool> _exerciseAccess;
 
 
@@ -11,4 +13,12 @@ class AccessStage{
   }
   bool get stageAccess => _stageAccess;
   List<bool> get exerciseAccess => _exerciseAccess;
+
+  set exerciseAccess(List<bool> value) {
+    _exerciseAccess = value;
+  }
+  set stageAccess(bool value) {
+    _stageAccess = value;
+  }
+
 }

@@ -27,8 +27,7 @@ class TreatmentAndProtocolPage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MedicalInspectionStage(treatmentType:
-                              paitent.getTreatmentType[0],protocol:paitent.getProtocol, username: paitent.getUserName, currentScore: paitent.getTreatmentType[0].currentScore,accessStageList:paitent.accessesStageList,)));
+                              builder: (context) => MedicalInspectionStage(paitent)));
                     },
                     child: Container(
                       margin: EdgeInsets.all(15.0),
