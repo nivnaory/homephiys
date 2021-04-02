@@ -36,6 +36,7 @@ class QuestionsPage extends StatefulWidget {
 class _QuestionsPage extends State<QuestionsPage> {
   TextEditingController textController = new TextEditingController();
    int threshold=0;
+   int numberOfExercises=0;
 
    AccessController accessController=new AccessController();
 
@@ -43,6 +44,10 @@ class _QuestionsPage extends State<QuestionsPage> {
   void initState() {
     super.initState();
     threshold=((this.widget.questions.length *5)*0.8).toInt();
+    numberOfExercises = this.widget.paitent.getTreatmentType[0].getStageList
+    [this.widget.stageLevel].
+    getExerciseList.length-1;
+
   }
   @override
   Widget build(BuildContext context) {
@@ -130,26 +135,14 @@ class _QuestionsPage extends State<QuestionsPage> {
                                 textController.text,score),
                             reportController= new ReportController(report),
                             f=  reportController.createReport(this.widget.paitent.getUserName),
-                            /*f.then((value){
-                              if(value==true){
-                                print("successs get back to exercise page");
-                                //get back to the exercie list page
-                              }else{
-                                print("Eror");
-                              }
-                            }
-                            ),*/
-                            //crete new Report
-                            //here we need to calculate the score according to the answers.\
                             if (score > threshold){
-                              if(this.widget.exerciseLevel==this.widget.paitent.getTreatmentType[0].getStageList
-                              [this.widget.stageLevel].
-                              getExerciseList.length-1)
+                              if(this.widget.exerciseLevel==numberOfExercises)
                               {
                                 f1=accessController.updateAccess(this.widget.stageLevel+1,
-                                    0,this.widget.paitent.getUserName),
-                               //  this.widget.paitent.accessesStageList[this.widget.stageLevel+1].stageAccess=true,
-                                //this.widget.paitent.accessesStageList[this.widget.stageLevel+1].exerciseAccess[0]=true,
+                                    0,this.widget.paitent.getUserName,true),
+                                print(numberOfExercises),
+                                 this.widget.paitent.accessesStageList[this.widget.stageLevel+1].stageAccess=true,
+                                 this.widget.paitent.accessesStageList[this.widget.stageLevel+1].exerciseAccess[0]=true,
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -157,23 +150,21 @@ class _QuestionsPage extends State<QuestionsPage> {
                                        this.widget.paitent,
                                         )))
                               }else{
-
-                                     f1=accessController.updateAccess(this.widget.stageLevel,
-                                    this.widget.exerciseLevel,this.widget.paitent.getUserName),
-                              //  this.widget.paitent.accessesStageList[this.widget.stageLevel]
-                                //    .exerciseAccess[this.widget.exerciseLevel+1]=true,
+                                f1=accessController.updateAccess(this.widget.stageLevel, this.widget.exerciseLevel+1,this.widget.paitent.getUserName,false),
+                                this.widget.paitent.accessesStageList[this.widget.stageLevel].exerciseAccess[this.widget.exerciseLevel+1]=true,
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => StagePage(
+                                          paitent:this.widget.paitent,
+                                          stageIndex:this.widget.stageLevel,
+                                        )))
                               },
                             },
-                          /*
-                          Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                          builder: (context) => StagePage(
-                          paitent:this.widget.paitent,
-                          stageIndex:this.widget.stageLevel,
-                          )))
 
-                           */
+
+
+
                           },
 
                            // Report report=new Report(this.widget.stageLevel,this.widget.exercieLevel,
