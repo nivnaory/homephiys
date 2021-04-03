@@ -54,12 +54,16 @@ class Paitent {
   }
 
   static TreatmentType createTreatmentTypeFromJson(var jsonTreatmentType) {
-    TreatmentType newTreatment = new TreatmentType(
-        jsonTreatmentType['type'].toString(),
+    String type = jsonTreatmentType.child('type').as<String>();
+    int treatmentId =jsonTreatmentType.child('treatmentId').as<int>();
+    int currentScore = jsonTreatmentType.child('currentScore').as<int>();
+    TreatmentType newTreatment = new TreatmentType(type,treatmentId,currentScore
+    /*    jsonTreatmentType['type'].toString(),
         int.parse(jsonTreatmentType['treatmentId'].toString()),
-        int.parse(jsonTreatmentType['currentScore'].toString()));
+        int.parse(jsonTreatmentType['currentScore'].toString())*/
+    );
+    List stageList = jsonTreatmentType.child('stageList').asList();
 
-    List stageList = List.from(jsonTreatmentType['stageList']);
     for (int j = 0; j < stageList.length; j++) {
       print(stageList[j]['currentScore'].toString());
       Stage newStage = new Stage(
@@ -125,11 +129,12 @@ class Paitent {
     newPaitent.SetTreatmentType(newTreatmentType);
 
     //create protocol
+   // print(json);
     var porotocolJson = Snapshot.fromJson(json['protocol']);
     Protocol newProtocol = createProtocolFromJson(porotocolJson);
     newPaitent.getTreatmentType.SetProtocol(newProtocol);
 
-    //create Access
+     //create Access
     var a = Snapshot.fromJson(json['access']);
     List accessList = List.from(a.asList());
     for (int i = 0; i < accessList.length; i++) {

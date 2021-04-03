@@ -96,10 +96,10 @@ class LoginScreen extends StatelessWidget {
               elevation: 7.0,
               child: GestureDetector (
                 onTap: () {
-                    Future f = paitentController.loginPaitent(username.text, password.text);
+                    Future f = paitentController.loginPaitent(username.text.trim(), password.text.trim());
                     f.then((value) {
                       if (value == true) {
-                        Future <Paitent> fatchPaitent=paitentController.getPaitentFromDB(username.text);
+                        Future <Paitent> fatchPaitent=paitentController.getPaitentFromDB(username.text.trim());
                         fatchPaitent.then((paitent){
                           Navigator.push(
                               context,

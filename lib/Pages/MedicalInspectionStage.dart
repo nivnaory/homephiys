@@ -22,6 +22,7 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
         ),
       ),
       backgroundColor: Colors.lightBlue,
+
       body: Column(
         children: List.generate(
             this

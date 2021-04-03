@@ -38,7 +38,7 @@ class _ProtocolsPageState extends State<ProtocolsPage> {
                       fontSize:20.0,
                       fontWeight: FontWeight.bold,
                     ),
-                    textDirection: TextDirection.rtl,
+                    //textDirection: TextDirection.rtl,
                   ),
                   body: SubProtocolView(subProtocol:this.widget.protocol.subProtocolsList[0]),
                   value: status1,
@@ -134,7 +134,7 @@ class  _SubProtocolWidgetState extends State<SubProtocolView> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
 
-          for (var i in this.widget.subProtocol.descriptions) Text(i),
+          for (var i in this.widget.subProtocol.descriptions) Text(i) ,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
           ),
