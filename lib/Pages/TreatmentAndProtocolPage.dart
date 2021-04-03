@@ -1,7 +1,6 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
 import 'package:homephiys/Entity/Paitent.dart';
 
 import 'MedicalInspectionStage.dart';
@@ -27,7 +26,8 @@ class TreatmentAndProtocolPage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MedicalInspectionStage(paitent)));
+                              builder: (context) =>
+                                  MedicalInspectionStage(paitent)));
                     },
                     child: Container(
                       margin: EdgeInsets.all(15.0),
@@ -38,26 +38,28 @@ class TreatmentAndProtocolPage extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-
                           Text(
                             ":רשימת תרגילים",
-                            style: TextStyle(fontSize: 30, color: Colors.deepOrange),
+                            style: TextStyle(
+                                fontSize: 30, color: Colors.deepOrange),
                           ),
                           SizedBox(
                             width: 400.0,
                           ),
-                          Icon(Icons.bookmark, size: 50, color: Colors.deepOrange),
+                          Icon(Icons.bookmark,
+                              size: 50, color: Colors.deepOrange),
                         ],
                       ),
-                    )
-                )),
+                    ))),
             Expanded(
                 child: GestureDetector(
                     onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProtocolsPage(protocol:paitent.getProtocol)));
+                              builder: (context) => ProtocolsPage(
+                                  protocol:
+                                      paitent.getTreatmentType.getProtocol)));
                     },
                     child: Container(
                       margin: EdgeInsets.all(15.0),
@@ -78,12 +80,8 @@ class TreatmentAndProtocolPage extends StatelessWidget {
                           Icon(Icons.chat, size: 50, color: Colors.green),
                         ],
                       ),
-                    )
-                )),
+                    ))),
           ],
-        )
-    );
+        ));
   }
 }
-
-

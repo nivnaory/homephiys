@@ -15,7 +15,6 @@ class ExercisePage extends StatefulWidget {
   final int stageIndex;
   final int exerciseIndex;
 
-
   ExercisePage({this.paitent, this.stageIndex, this.exerciseIndex});
 
   _ExercisePage createState() => _ExercisePage();
@@ -51,6 +50,7 @@ class _ExercisePage extends State<ExercisePage> {
     _controller.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,9 +90,7 @@ class _ExercisePage extends State<ExercisePage> {
               shape: RoundedRectangleBorder(
                   side: BorderSide(color: Colors.black26),
                   borderRadius: BorderRadius.circular(50)),
-              onPressed: () => {
-
-              },
+              onPressed: () => {},
               color: Colors.white,
               padding: EdgeInsets.all(10.0),
               child: Column(
@@ -135,10 +133,13 @@ class _ExercisePage extends State<ExercisePage> {
                   context: context,
                   builder: (context) => CustomDialog(
                       title: "הסבר תרגיל ",
-                      descritpion: this.widget.paitent.getTreatmentType[0].
-                           getStageList[this.widget.stageIndex]
-                          .getExerciseList[this.widget.exerciseIndex].
-                          getDescription),
+                      descritpion: this
+                          .widget
+                          .paitent
+                          .getTreatmentType
+                          .getStageList[this.widget.stageIndex]
+                          .getExerciseList[this.widget.exerciseIndex]
+                          .getDescription),
                 )
               },
               color: Colors.blueGrey,
@@ -160,19 +161,22 @@ class _ExercisePage extends State<ExercisePage> {
                   side: BorderSide(color: Colors.black26),
                   borderRadius: BorderRadius.circular(50)),
               onPressed: () => {
-              Navigator.push(
-              context,
-              MaterialPageRoute(
-
-              builder: (context) => QuestionsPage(questions:this.widget.paitent.getTreatmentType[0].
-            getStageList[this.widget.stageIndex]
-           .getExerciseList[this.widget.exerciseIndex].
-            getQuestions,
-                  exerciseLevel:this.widget.exerciseIndex,
-                 stageLevel:this.widget.stageIndex,
-                   paitent:this.widget.paitent,
-                    )))
-                    },
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => QuestionsPage(
+                              questions: this
+                                  .widget
+                                  .paitent
+                                  .getTreatmentType
+                                  .getStageList[this.widget.stageIndex]
+                                  .getExerciseList[this.widget.exerciseIndex]
+                                  .getQuestions,
+                              exerciseLevel: this.widget.exerciseIndex,
+                              stageLevel: this.widget.stageIndex,
+                              paitent: this.widget.paitent,
+                            )))
+              },
               color: Colors.green,
               padding: EdgeInsets.all(10.0),
               child: Column(

@@ -11,10 +11,7 @@ class StagePage extends StatefulWidget {
   final Paitent paitent;
   final int stageIndex;
 
-  StagePage(
-      {
-      this.paitent, this.stageIndex
-      });
+  StagePage({this.paitent, this.stageIndex});
 
   _StagePage createState() => _StagePage();
 }
@@ -31,23 +28,34 @@ class _StagePage extends State<StagePage> {
         ),
         backgroundColor: Colors.lightBlue,
         body: Column(
-          children:
-              List.generate(this.widget.paitent.getTreatmentType[0].getStageList[this.widget.stageIndex].getExerciseList.length, (index) {
-            if (this.widget.paitent.accessesStageList[this.widget.stageIndex].exerciseAccess[index] == true) {
+          children: List.generate(
+              this
+                  .widget
+                  .paitent
+                  .getTreatmentType
+                  .getStageList[this.widget.stageIndex]
+                  .getExerciseList
+                  .length, (index) {
+            if (this
+                    .widget
+                    .paitent
+                    .accessesStageList[this.widget.stageIndex]
+                    .exerciseAccess[index] ==
+                true) {
               return ExerciseButton(
                 color: Colors.white,
                 enable: true,
-                paitent:this.widget.paitent,
-                stageIndex:this.widget.stageIndex,
-                exerciseIndex:index,
+                paitent: this.widget.paitent,
+                stageIndex: this.widget.stageIndex,
+                exerciseIndex: index,
               );
             } else {
               return ExerciseButton(
                 color: Colors.grey,
                 enable: false,
-                paitent:this.widget.paitent,
-                stageIndex:this.widget.stageIndex,
-                exerciseIndex:index,
+                paitent: this.widget.paitent,
+                stageIndex: this.widget.stageIndex,
+                exerciseIndex: index,
               );
             }
           }),
@@ -59,7 +67,10 @@ class ExerciseButton extends StatefulWidget {
   const ExerciseButton({
     Key key,
     this.enable,
-    this.color, this.paitent, this.exerciseIndex, this.stageIndex,
+    this.color,
+    this.paitent,
+    this.exerciseIndex,
+    this.stageIndex,
   }) : super(key: key);
 
   final Color color;
@@ -84,11 +95,10 @@ class _ExerciseButton extends State<ExerciseButton> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => ExercisePage(
-                               paitent:this.widget.paitent,
-                               stageIndex:this.widget.stageIndex,
-                               exerciseIndex: this.widget.exerciseIndex,
-
-                          )));
+                                paitent: this.widget.paitent,
+                                stageIndex: this.widget.stageIndex,
+                                exerciseIndex: this.widget.exerciseIndex,
+                              )));
                 } else {
                   Toast.show("not have access yet", context,
                       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -102,7 +112,7 @@ class _ExerciseButton extends State<ExerciseButton> {
                       width: 400.0,
                     ),
                     Text(
-                      "תרגיל :" + (this.widget.exerciseIndex+1).toString(),
+                      "תרגיל :" + (this.widget.exerciseIndex + 1).toString(),
                       style: TextStyle(fontSize: 25.0),
                     ),
                   ],

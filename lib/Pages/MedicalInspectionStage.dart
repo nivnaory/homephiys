@@ -1,11 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:homephiys/Entity/AccessStage.dart';
 import 'package:homephiys/Entity/Paitent.dart';
-import 'package:homephiys/Entity/Protocol.dart';
-import 'package:homephiys/Entity/Stage.dart';
-import 'package:homephiys/Entity/SubProtocol.dart';
-import 'package:homephiys/Entity/TreatmentType.dart';
 import 'package:toast/toast.dart';
 import 'StagePage.dart';
 
@@ -28,21 +23,28 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
       ),
       backgroundColor: Colors.lightBlue,
       body: Column(
-        children: List.generate(this.widget.paitent.getProtocol.subProtocolsList.length,
-            (index) {
-          if (this.widget.paitent.accessesStageList[index].stageAccess == true) {
+        children: List.generate(
+            this
+                .widget
+                .paitent
+                .getTreatmentType
+                .getProtocol
+                .subProtocolsList
+                .length, (index) {
+          if (this.widget.paitent.accessesStageList[index].stageAccess ==
+              true) {
             return StageWidget(
-               paitent:this.widget.paitent,
-                enable: true,
-                color: Colors.white,
-                 index: index,
+              paitent: this.widget.paitent,
+              enable: true,
+              color: Colors.white,
+              index: index,
             );
           } else {
             return StageWidget(
-               paitent:this.widget.paitent,
-                color: Colors.grey,
-                enable:false,
-                index: index,
+              paitent: this.widget.paitent,
+              color: Colors.grey,
+              enable: false,
+              index: index,
             );
           }
         }),
@@ -52,17 +54,18 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
 }
 
 class StageWidget extends StatefulWidget {
-  const StageWidget(
-      {Key key,
-      this.enable,
-      this.color, this.paitent, this.index,})
-      : super(key: key);
+  const StageWidget({
+    Key key,
+    this.enable,
+    this.color,
+    this.paitent,
+    this.index,
+  }) : super(key: key);
 
   final Color color;
   final bool enable;
   final Paitent paitent;
-  final  int index;
-
+  final int index;
 
   _StageWidget createState() => _StageWidget();
 }
@@ -82,7 +85,8 @@ class _StageWidget extends State<StageWidget> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => StagePage(
-                            paitent:this.widget.paitent,stageIndex:this.widget.index)));
+                              paitent: this.widget.paitent,
+                              stageIndex: this.widget.index)));
                 } else {
                   Toast.show("not have access yet", context,
                       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -96,7 +100,13 @@ class _StageWidget extends State<StageWidget> {
                       width: 400.0,
                     ),
                     Text(
-                      this.widget.paitent.getProtocol.subProtocolsList[this.widget.index].name,
+                      this
+                          .widget
+                          .paitent
+                          .getTreatmentType
+                          .getProtocol
+                          .subProtocolsList[this.widget.index]
+                          .name,
                       style: TextStyle(fontSize: 25.0),
                     ),
                   ],

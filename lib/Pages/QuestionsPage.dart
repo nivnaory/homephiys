@@ -14,20 +14,23 @@ class QuestionsPage extends StatefulWidget {
   final List<String> questions;
 
   final int stageLevel;
-  List<int>answers=[];
+  List<int> answers = [];
   final int exerciseLevel;
- final Paitent paitent;
+  final Paitent paitent;
 
   final List<String> option_answers = [
-    " במידה רבה מאוד ",//0
-    " במידה רבה ",//1
-    "מידה בינונית",//2
-    "במידה מועטה",//3
-    "במידה מועטה מאוד"//4
+    " במידה רבה מאוד ", //0
+    " במידה רבה ", //1
+    "מידה בינונית", //2
+    "במידה מועטה", //3
+    "במידה מועטה מאוד" //4
   ];
 
-
-  QuestionsPage({@required this.questions,this.stageLevel,this.exerciseLevel, this.paitent});
+  QuestionsPage(
+      {@required this.questions,
+      this.stageLevel,
+      this.exerciseLevel,
+      this.paitent});
 
   @override
   _QuestionsPage createState() => _QuestionsPage();
@@ -35,23 +38,28 @@ class QuestionsPage extends StatefulWidget {
 
 class _QuestionsPage extends State<QuestionsPage> {
   TextEditingController textController = new TextEditingController();
-   int threshold=0;
-   int numberOfExercises=0;
+  int threshold = 0;
+  int numberOfExercises = 0;
 
-   AccessController accessController=new AccessController();
+  AccessController accessController = new AccessController();
 
   @override
   void initState() {
     super.initState();
-    threshold=((this.widget.questions.length *5)*0.8).toInt();
-    numberOfExercises = this.widget.paitent.getTreatmentType[0].getStageList
-    [this.widget.stageLevel].
-    getExerciseList.length-1;
-
+    threshold = ((this.widget.questions.length * 5) * 0.8).toInt();
+    numberOfExercises = this
+            .widget
+            .paitent
+            .getTreatmentType
+            .getStageList[this.widget.stageLevel]
+            .getExerciseList
+            .length -
+        1;
   }
+
   @override
   Widget build(BuildContext context) {
-    this.widget.answers=List<int>.filled(this.widget.questions.length, 0);
+    this.widget.answers = List<int>.filled(this.widget.questions.length, 0);
     return Scaffold(
       appBar: AppBar(
         title: Text("HomePhiys Questions:"),
@@ -62,7 +70,6 @@ class _QuestionsPage extends State<QuestionsPage> {
   }
 
   Widget _body() {
-
     return Container(
       child: Column(
         children: <Widget>[
@@ -75,9 +82,9 @@ class _QuestionsPage extends State<QuestionsPage> {
                     ReportController reportController;
                     Future<bool> f;
                     Future<bool> f1;
-                    int score=0;
+                    int score = 0;
                     String openAnswer;
-                   // List<int>answers=List();
+                    // List<int>answers=List();
                     return Column(children: <Widget>[
                       Container(
                         padding: const EdgeInsets.only(left: 14.0, top: 14.0),
@@ -88,33 +95,30 @@ class _QuestionsPage extends State<QuestionsPage> {
                         ),
                       ),
                       RadioButtonGroup(
-                       // orientation: GroupedButtonsOrientation.VERTICAL,
+                        // orientation: GroupedButtonsOrientation.VERTICAL,
                         margin: const EdgeInsets.fromLTRB(0, 0, 1, 0),
                         labels: this.widget.option_answers,
                         disabled: [],
                         onChange: (String label, int choose_index) {
-                             index=choose_index;
+                          index = choose_index;
                         },
-                        onSelected: (String label)=>{
-                          this.widget.answers[itemIndex]=index+1,
+                        onSelected: (String label) => {
+                          this.widget.answers[itemIndex] = index + 1,
                         },
-
                       ),
-
                       SizedBox(
                         height: 10.0,
                       ),
-                      if (itemIndex == this.widget.questions.length-1)
+                      if (itemIndex == this.widget.questions.length - 1)
                         new TextField(
-                          controller:textController,
+                          controller: textController,
                           decoration: new InputDecoration(
-                            hintText:"הערות " ,
-                            labelText:",רשום הערות",
+                            hintText: "הערות ",
+                            labelText: ",רשום הערות",
                             fillColor: Colors.white,
                             border: new OutlineInputBorder(
                               borderRadius: new BorderRadius.circular(25.0),
-                              borderSide: new BorderSide(
-                              ),
+                              borderSide: new BorderSide(),
                             ),
                             //fillColor: Colors.green
                           ),
@@ -123,54 +127,85 @@ class _QuestionsPage extends State<QuestionsPage> {
                             fontFamily: "Poppins",
                           ),
                         ),
-                      if (itemIndex == this.widget.questions.length-1)
+                      if (itemIndex == this.widget.questions.length - 1)
                         FlatButton(
                           shape: RoundedRectangleBorder(
                               side: BorderSide(color: Colors.black26),
                               borderRadius: BorderRadius.circular(50)),
                           onPressed: () => {
-                            score=calculateScoreOfQuestions(this.widget.answers),
-                            report = new Report(this.widget.stageLevel,this.widget.exerciseLevel,
-                                this.widget.questions,this.widget.answers,
-                                textController.text,score),
-                            reportController= new ReportController(report),
-                            f=  reportController.createReport(this.widget.paitent.getUserName),
-                            if (score > threshold){
-                              if(this.widget.exerciseLevel==numberOfExercises)
+                            score =
+                                calculateScoreOfQuestions(this.widget.answers),
+                            report = new Report(
+                                this.widget.stageLevel,
+                                this.widget.exerciseLevel,
+                                this.widget.questions,
+                                this.widget.answers,
+                                textController.text,
+                                score),
+                            reportController = new ReportController(report),
+                            f = reportController
+                                .createReport(this.widget.paitent.getUserName),
+                            if (score > threshold)
                               {
-                                f1=accessController.updateAccess(this.widget.stageLevel+1,
-                                    0,this.widget.paitent.getUserName,true),
-                                print(numberOfExercises),
-                                 this.widget.paitent.accessesStageList[this.widget.stageLevel+1].stageAccess=true,
-                                 this.widget.paitent.accessesStageList[this.widget.stageLevel+1].exerciseAccess[0]=true,
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MedicalInspectionStage(
-                                       this.widget.paitent,
-                                        )))
-                              }else{
-                                f1=accessController.updateAccess(this.widget.stageLevel, this.widget.exerciseLevel+1,this.widget.paitent.getUserName,false),
-                                this.widget.paitent.accessesStageList[this.widget.stageLevel].exerciseAccess[this.widget.exerciseLevel+1]=true,
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => StagePage(
-                                          paitent:this.widget.paitent,
-                                          stageIndex:this.widget.stageLevel,
-                                        )))
+                                if (this.widget.exerciseLevel ==
+                                    numberOfExercises)
+                                  {
+                                    f1 = accessController.updateAccess(
+                                        this.widget.stageLevel + 1,
+                                        0,
+                                        this.widget.paitent.getUserName,
+                                        true),
+                                    print(numberOfExercises),
+                                    this
+                                        .widget
+                                        .paitent
+                                        .accessesStageList[
+                                            this.widget.stageLevel + 1]
+                                        .stageAccess = true,
+                                    this
+                                        .widget
+                                        .paitent
+                                        .accessesStageList[
+                                            this.widget.stageLevel + 1]
+                                        .exerciseAccess[0] = true,
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                MedicalInspectionStage(
+                                                  this.widget.paitent,
+                                                )))
+                                  }
+                                else
+                                  {
+                                    f1 = accessController.updateAccess(
+                                        this.widget.stageLevel,
+                                        this.widget.exerciseLevel + 1,
+                                        this.widget.paitent.getUserName,
+                                        false),
+                                    this
+                                            .widget
+                                            .paitent
+                                            .accessesStageList[
+                                                this.widget.stageLevel]
+                                            .exerciseAccess[
+                                        this.widget.exerciseLevel + 1] = true,
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => StagePage(
+                                                  paitent: this.widget.paitent,
+                                                  stageIndex:
+                                                      this.widget.stageLevel,
+                                                )))
+                                  },
                               },
-                            },
-
-
-
-
                           },
 
-                           // Report report=new Report(this.widget.stageLevel,this.widget.exercieLevel,
-                            //this.widget.questions,this.widget.answers,"open answer",10)
-                            //ReportController reportController=new ReportController(newReport);
-                            //reportcontroller.setReport()
+                          // Report report=new Report(this.widget.stageLevel,this.widget.exercieLevel,
+                          //this.widget.questions,this.widget.answers,"open answer",10)
+                          //ReportController reportController=new ReportController(newReport);
+                          //reportcontroller.setReport()
                           color: Colors.green,
                           padding: EdgeInsets.all(10.0),
                           child: Column(
@@ -182,26 +217,22 @@ class _QuestionsPage extends State<QuestionsPage> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 20, color: Colors.black),
-                                ),
-                              ],
-                             ),
-                           ),
-                         ]
-                       );
-                     }
-                  )
-            ),
+                              ),
+                            ],
+                          ),
+                        ),
+                    ]);
+                  })),
         ],
       ),
     );
   }
 }
 
-
-int  calculateScoreOfQuestions(List<int> answers){
-  int sum=0;
-  for (int i=0;i<answers.length;i++){
-     sum+=answers[i]+1;
+int calculateScoreOfQuestions(List<int> answers) {
+  int sum = 0;
+  for (int i = 0; i < answers.length; i++) {
+    sum += answers[i] + 1;
   }
   return sum;
 }
