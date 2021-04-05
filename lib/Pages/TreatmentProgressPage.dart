@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homephiys/Entity/Paitent.dart';
+import 'package:homephiys/Pages/QuestionReportPage.dart';
+import 'package:toast/toast.dart';
 
 class TreatmentProgressPage extends StatefulWidget {
   final Widget child;
@@ -237,48 +239,81 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Container(
-                  child: Center(
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          'Time spent on daily tasks',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
-                        SizedBox(height: 10.0,),
-                        Expanded(
-                          child: charts.PieChart(
-                              _seriesPieData,
-                              animate: true,
-                              animationDuration: Duration(seconds: 5),
-                              behaviors: [
-                                new charts.DatumLegend(
-                                  outsideJustification: charts.OutsideJustification.endDrawArea,
-                                  horizontalFirst: false,
-                                  desiredMaxRows: 2,
-                                  cellPadding: new EdgeInsets.only(right: 4.0, bottom: 4.0),
-                                  entryTextStyle: charts.TextStyleSpec(
-                                      color: charts.MaterialPalette.purple.shadeDefault,
-                                      fontFamily: 'Georgia',
-                                      fontSize: 11),
-                                )
-                              ],
-                              defaultRenderer: new charts.ArcRendererConfig(
-                                  arcWidth: 100,
-                                  arcRendererDecorators: [
-                                    new charts.ArcLabelDecorator(
-                                        labelPosition: charts.ArcLabelPosition.inside)
-                                  ])),
-                        ),
-                      ],
+
+              Column(
+                children:<Widget>[
+                   Flexible(
+                     flex:1,
+                      fit:FlexFit.tight,
+                      child:new  Text(
+                    'דוחות תרגילים',
+                        style: TextStyle(fontSize: 22.0,fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      )
+                   ),
+                  Flexible(
+                  flex:10,
+                  child: Container(
+
+                    child: Center(
+                      child: Column(
+                              children: List.generate(
+                                  3, (index) {
+                              return ExerciseButton();
+                            }
+                            ),
                     ),
                   ),
+                 ),
                 ),
+                ]
               ),
             ],
           ),
         )
     );
+  }
+}
+
+class ExerciseButton extends StatelessWidget {
+  const ExerciseButton({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: GestureDetector(
+              onTap: () {
+                print("im here");
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => QuestionReportPage()));
+              },
+              child: ReusableCard(
+                cardChild: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      width: 400.0,
+                    ),
+                    Text(
+                      "דוחות תרגיל  # ",
+                      style: TextStyle(fontSize: 25.0),
+                    ),
+                  ],
+                ),
+                color:Colors.blue,
+              ),
+            ),
+          ),
+        ],
+      ),
+      );
   }
 }
 
@@ -303,4 +338,26 @@ class Sales {
   int salesval;
 
   Sales(this.yearval, this.salesval);
+}
+
+class ReusableCard extends StatefulWidget {
+  final Widget cardChild;
+  final Color color;
+  ReusableCard({this.cardChild, this.color});
+
+  _ReusableCard createState() => _ReusableCard();
+}
+
+class _ReusableCard extends State<ReusableCard> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: this.widget.cardChild,
+      margin: EdgeInsets.all(15.0),
+      decoration: BoxDecoration(
+        color: this.widget.color,
+        borderRadius: BorderRadius.circular(50.0),
+      ),
+    );
+  }
 }

@@ -59,7 +59,8 @@ class _StagePage extends State<StagePage> {
               );
             }
           }),
-        ));
+        )
+    );
   }
 }
 
