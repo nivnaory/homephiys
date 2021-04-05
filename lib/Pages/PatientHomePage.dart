@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:homephiys/Entity/Paitent.dart';
 import 'package:homephiys/Pages/ChatPage.dart';
+import 'package:homephiys/Pages/TreatmentProgressPage.dart';
 
 import 'TreatmentAndProtocolPage.dart';
 
@@ -63,7 +64,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                 side: BorderSide(color: Colors.white),
                 borderRadius: BorderRadius.circular(100)),
             onPressed: () => {
-
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => TreatmentProgressPage()))
             },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
