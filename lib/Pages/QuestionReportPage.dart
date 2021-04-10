@@ -72,7 +72,6 @@ class ExerciseButton extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                print(this.paitent.getReports[0].getAnswers().toString());
                 Navigator.push(
                     context,
                     MaterialPageRoute(

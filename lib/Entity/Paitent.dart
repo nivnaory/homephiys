@@ -168,7 +168,6 @@ class Paitent {
         Report newReport = createReportFromJson(reportList[i]);
         newPaitent.addReport(newReport);
       }
-      ;
     }
 
     //here add createReportFunctions;

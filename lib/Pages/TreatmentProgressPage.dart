@@ -293,9 +293,8 @@ class ExerciseButton extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => QuestionReportPage(
-                              paitent: this.paitent,
-                            )));
+                        builder: (context) =>
+                            QuestionReportPage(paitent: this.paitent)));
               },
               child: ReusableCard(
                 cardChild: Column(
