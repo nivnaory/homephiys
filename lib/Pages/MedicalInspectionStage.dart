@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homephiys/Entity/Paitent.dart';
+import 'package:homephiys/Pages/TreatmentProgressPage.dart';
 import 'package:toast/toast.dart';
 import 'StagePage.dart';
 
 class MedicalInspectionStage extends StatefulWidget {
   final Paitent paitent;
-  MedicalInspectionStage(@required this.paitent);
+  final bool StagePageBool;
+  MedicalInspectionStage(this.paitent, this.StagePageBool);
 
   _MedicalInspectionStage createState() => _MedicalInspectionStage();
 }
@@ -22,7 +24,6 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
         ),
       ),
       backgroundColor: Colors.lightBlue,
-
       body: Column(
         children: List.generate(
             this
@@ -39,6 +40,7 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
               enable: true,
               color: Colors.white,
               index: index,
+              StagePageBool: this.widget.StagePageBool,
             );
           } else {
             return StageWidget(
@@ -46,6 +48,7 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
               color: Colors.grey,
               enable: false,
               index: index,
+              StagePageBool: this.widget.StagePageBool,
             );
           }
         }),
@@ -61,8 +64,9 @@ class StageWidget extends StatefulWidget {
     this.color,
     this.paitent,
     this.index,
+    this.StagePageBool,
   }) : super(key: key);
-
+  final bool StagePageBool;
   final Color color;
   final bool enable;
   final Paitent paitent;
@@ -82,12 +86,21 @@ class _StageWidget extends State<StageWidget> {
               //stage1 stag
               onTap: () {
                 if (this.widget.enable == true) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => StagePage(
-                              paitent: this.widget.paitent,
-                              stageIndex: this.widget.index)));
+                  if (this.widget.StagePageBool)
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => StagePage(
+                                paitent: this.widget.paitent,
+                                stageIndex: this.widget.index)));
+                  else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TreatmentProgressPage(
+                                paitent: this.widget.paitent,
+                                stageIndex: this.widget.index)));
+                  }
                 } else {
                   Toast.show("not have access yet", context,
                       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);

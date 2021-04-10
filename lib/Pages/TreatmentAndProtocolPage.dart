@@ -27,7 +27,7 @@ class TreatmentAndProtocolPage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  MedicalInspectionStage(paitent)));
+                                  MedicalInspectionStage(paitent, true)));
                     },
                     child: Container(
                       margin: EdgeInsets.all(15.0),

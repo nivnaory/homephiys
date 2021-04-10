@@ -1,20 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:homephiys/Entity/Exercise.dart';
+
 import 'package:homephiys/Entity/Paitent.dart';
+import 'package:homephiys/Entity/Report.dart';
 import 'ReportPage.dart';
 
 class QuestionReportPage extends StatefulWidget {
   final Paitent paitent;
+  final int stageIndex;
+  final int exercieIndex;
 
-  const QuestionReportPage({Key key, this.paitent}) : super(key: key);
+  const QuestionReportPage(
+      {Key key, this.paitent, this.stageIndex, this.exercieIndex})
+      : super(key: key);
 
   _QuestionReportPage createState() => _QuestionReportPage();
 }
 
 class _QuestionReportPage extends State<QuestionReportPage> {
+  List<Report> reportList;
+
   @override
   void initState() {
+    reportList = getReprotOfCurrentExerciseAndStage(
+        this.widget.paitent.getReports,
+        this.widget.stageIndex,
+        this.widget.exercieIndex);
     super.initState();
   }
 
@@ -44,8 +55,12 @@ class _QuestionReportPage extends State<QuestionReportPage> {
             child: Container(
               child: Center(
                 child: Column(
-                  children: List.generate(5, (index) {
-                    return ExerciseButton(paitent: this.widget.paitent);
+                  children: List.generate(this.reportList.length, (index) {
+                    return ExerciseButton(
+                      paitent: this.widget.paitent,
+                      reportIndex: index,
+                      reprot: this.reportList[index],
+                    );
                   }),
                 ),
               ),
@@ -59,9 +74,13 @@ class _QuestionReportPage extends State<QuestionReportPage> {
 
 class ExerciseButton extends StatelessWidget {
   final Paitent paitent;
+  final int reportIndex;
+  final Report reprot;
   const ExerciseButton({
     Key key,
     this.paitent,
+    this.reportIndex,
+    this.reprot,
   }) : super(key: key);
 
   @override
@@ -86,7 +105,7 @@ class ExerciseButton extends StatelessWidget {
                       width: 400.0,
                     ),
                     Text(
-                      ":שאלון מספר ",
+                      "שאלון מספר " + this.reportIndex.toString(),
                       style: TextStyle(fontSize: 25.0),
                     ),
                   ],
@@ -144,4 +163,19 @@ class _ReusableCard extends State<ReusableCard> {
       ),
     );
   }
+}
+
+List<Report> getReprotOfCurrentExerciseAndStage(
+    List<Report> allReport, int stageLevel, int exerciseLevel) {
+  print(stageLevel.toString());
+  print(exerciseLevel.toString());
+  List<Report> reports = [];
+  for (int i = 0; i < allReport.length; i++) {
+    if (allReport[i].getStage() == stageLevel &&
+        allReport[i].getExercise() == exerciseLevel) {
+      reports.add(allReport[i]);
+    }
+  }
+  print(reports.length.toString());
+  return reports;
 }

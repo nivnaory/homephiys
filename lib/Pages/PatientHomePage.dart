@@ -5,6 +5,7 @@ import 'package:homephiys/Entity/Paitent.dart';
 import 'package:homephiys/Pages/ChatPage.dart';
 import 'package:homephiys/Pages/TreatmentProgressPage.dart';
 
+import 'MedicalInspectionStage.dart';
 import 'TreatmentAndProtocolPage.dart';
 
 class PatientHomePage extends StatefulWidget {
@@ -39,8 +40,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => TreatmentAndProtocolPage(
-                            paitent: this.widget.paitent,
-                          )))
+                          paitent: this.widget.paitent))),
             },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
@@ -66,7 +66,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          TreatmentProgressPage(paitent: this.widget.paitent)))
+                          MedicalInspectionStage(this.widget.paitent, false)))
             },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),

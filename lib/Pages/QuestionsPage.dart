@@ -16,6 +16,7 @@ class QuestionsPage extends StatefulWidget {
   List<int> answers = [];
   final int exerciseLevel;
   final Paitent paitent;
+  final stageIndex;
 
   final List<String> option_answers = [
     " במידה רבה מאוד ", //0
@@ -29,7 +30,8 @@ class QuestionsPage extends StatefulWidget {
       {@required this.questions,
       this.stageLevel,
       this.exerciseLevel,
-      this.paitent});
+      this.paitent,
+      this.stageIndex});
 
   @override
   _QuestionsPage createState() => _QuestionsPage();
@@ -172,8 +174,7 @@ class _QuestionsPage extends State<QuestionsPage> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 MedicalInspectionStage(
-                                                  this.widget.paitent,
-                                                )))
+                                                    this.widget.paitent, true)))
                                   }
                                 else
                                   {

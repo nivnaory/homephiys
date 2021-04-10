@@ -7,8 +7,9 @@ import 'package:homephiys/Pages/QuestionReportPage.dart';
 class TreatmentProgressPage extends StatefulWidget {
   final Widget child;
   final Paitent paitent;
-
-  TreatmentProgressPage({Key key, this.child, this.paitent}) : super(key: key);
+  final int stageIndex;
+  TreatmentProgressPage({Key key, this.child, this.paitent, this.stageIndex})
+      : super(key: key);
 
   _TreatmentProgressPage createState() => _TreatmentProgressPage();
 }
@@ -261,8 +262,24 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
                   child: Container(
                     child: Center(
                       child: Column(
-                        children: List.generate(3, (index) {
-                          return ExerciseButton(paitent: this.widget.paitent);
+                        children: List.generate(
+                            this
+                                .widget
+                                .paitent
+                                .getTreatmentType
+                                .getStageList[this.widget.stageIndex]
+                                .getExerciseList
+                                .length, (index) {
+                          return ExerciseButton(
+                              paitent: this.widget.paitent,
+                              exerciseIndex: this
+                                  .widget
+                                  .paitent
+                                  .getTreatmentType
+                                  .getStageList[this.widget.stageIndex]
+                                  .getExerciseList[index]
+                                  .getLevel,
+                              stageIndex: this.widget.stageIndex);
                         }),
                       ),
                     ),
@@ -277,9 +294,14 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
 
 class ExerciseButton extends StatelessWidget {
   final Paitent paitent;
+  final int stageIndex;
+  final int exerciseIndex;
+
   const ExerciseButton({
     Key key,
     this.paitent,
+    this.exerciseIndex,
+    this.stageIndex,
   }) : super(key: key);
 
   @override
@@ -293,8 +315,10 @@ class ExerciseButton extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            QuestionReportPage(paitent: this.paitent)));
+                        builder: (context) => QuestionReportPage(
+                            paitent: this.paitent,
+                            stageIndex: this.stageIndex,
+                            exercieIndex: this.exerciseIndex)));
               },
               child: ReusableCard(
                 cardChild: Column(
@@ -304,7 +328,7 @@ class ExerciseButton extends StatelessWidget {
                       width: 400.0,
                     ),
                     Text(
-                      "דוחות תרגיל  # ",
+                      "דוחות תרגיל:" + (exerciseIndex + 1).toString(),
                       style: TextStyle(fontSize: 25.0),
                     ),
                   ],
