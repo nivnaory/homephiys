@@ -33,9 +33,9 @@ class _StagePage extends State<StagePage> {
               this
                   .widget
                   .paitent
-                  .getTreatmentType
-                  .getStageList[this.widget.stageIndex]
-                  .getExerciseList
+                  .treatmentType
+                  .stageList[this.widget.stageIndex]
+                  .exerciseList
                   .length, (index) {
             if (this
                     .widget
@@ -92,31 +92,17 @@ class _ExerciseButton extends State<ExerciseButton> {
             child: GestureDetector(
               onTap: () {
                 if (this.widget.enable) {
-                  /*
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => ExercisePage(
+
                                 paitent: this.widget.paitent,
                                 stageIndex: this.widget.stageIndex,
                                 exerciseIndex: this.widget.exerciseIndex,
-                              )));
-                              */
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => QuestionsPage(
-                                questions: this
-                                    .widget
-                                    .paitent
-                                    .getTreatmentType
-                                    .getStageList[this.widget.stageIndex]
-                                    .getExerciseList[this.widget.exerciseIndex]
-                                    .getQuestions,
-                                exerciseLevel: this.widget.exerciseIndex,
-                                stageLevel: this.widget.stageIndex,
-                                paitent: this.widget.paitent,
-                              )));
+                              )
+                      )
+                  );
                 } else {
                   Toast.show("not have access yet", context,
                       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -144,7 +130,6 @@ class _ExerciseButton extends State<ExerciseButton> {
     );
   }
 }
-
 class ReusableCard extends StatefulWidget {
   final Widget cardChild;
   final Color color;

@@ -2,20 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:homephiys/Controller/AccessController.dart';
-
-import 'package:homephiys/Entity/Paitent.dart';
+import 'package:homephiys/Entity/Report.dart';
 
 class ReportPage extends StatefulWidget {
-  final Paitent paitent;
+  final Report reprot;
   final List<String> option_answers = [
-    " במידה רבה מאוד ", //0
-    " במידה רבה ", //1
+    "במידה מועטה מאוד", //0
+    "במידה מועטה", //1
     "מידה בינונית", //2
-    "במידה מועטה", //3
-    "במידה מועטה מאוד" //4
+    " במידה רבה ", //3
+    " במידה רבה מאוד ", //4
   ];
 
-  ReportPage({this.paitent});
+  ReportPage({this.reprot});
 
   @override
   _ReportPage createState() => _ReportPage();
@@ -30,7 +29,7 @@ class _ReportPage extends State<ReportPage> {
 
   @override
   void initState() {
-    print(this.widget.paitent.getReports[0]);
+    print(this.widget.reprot);
     super.initState();
   }
 
@@ -38,7 +37,7 @@ class _ReportPage extends State<ReportPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(" שאלון  :"),
+        title: Text(" Report:"),
       ),
       body: _body(),
     );
@@ -66,12 +65,8 @@ class _ReportPage extends State<ReportPage> {
                       RadioButtonGroup(
                         // orientation: GroupedButtonsOrientation.VERTICAL,
                         margin: const EdgeInsets.fromLTRB(0, 0, 1, 0),
-                        picked: this.widget.option_answers[this
-                            .widget
-                            .paitent
-                            .getReports[
-                                0] ////need to find the report by stage and exrcise according to what to user chosse
-                            .getAnswers()[itemIndex]],
+                        picked: this.widget.option_answers[
+                            this.widget.reprot.answers[itemIndex]],
                         labels: this.widget.option_answers,
                         disabled: this.widget.option_answers,
                       ),
@@ -87,12 +82,9 @@ class _ReportPage extends State<ReportPage> {
                             showDialog(
                                 context: context,
                                 builder: (context) => CustomDialog(
-                                      title: "הערה",
-                                      descritpion: this
-                                          .widget
-                                          .paitent
-                                          .getReports[1]
-                                          .getOpenAnswer(),
+                                      title: "תשובה פתוחה",
+                                      descritpion:
+                                          this.widget.reprot.openAnswers,
                                     )),
                           },
                           color: Colors.green,
@@ -123,6 +115,7 @@ class _ReportPage extends State<ReportPage> {
 
 class CustomDialog extends StatelessWidget {
   final String title, descritpion;
+
   CustomDialog({this.title, this.descritpion});
 
   @override

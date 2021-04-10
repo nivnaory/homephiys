@@ -59,7 +59,7 @@ class TreatmentAndProtocolPage extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (context) => ProtocolsPage(
                                   protocol:
-                                      paitent.getTreatmentType.getProtocol)));
+                                      paitent.treatmentType.protocol)));
                     },
                     child: Container(
                       margin: EdgeInsets.all(15.0),

@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:homephiys/Controller/ReportController.dart';
 import 'package:homephiys/Entity/AccessStage.dart';
 import 'package:homephiys/Entity/Report.dart';
 import 'package:snapshot/snapshot.dart';
+
 import 'Exercise.dart';
 import 'Protocol.dart';
 import 'Stage.dart';
@@ -12,9 +10,13 @@ import 'TreatmentType.dart';
 
 class Paitent {
   String _username;
+
+  String get username => _username;
   String _firstName;
   String _password;
   TreatmentType _treatmentType;
+
+
   List<Report> _reportList;
   List<AccessStage> _accessesStageList;
 
@@ -25,13 +27,16 @@ class Paitent {
     this._accessesStageList = [];
     this._reportList = [];
   }
+  String get firstName => _firstName;
 
-  String get getFirstName => this._firstName;
-  String get getPassWord => this._password;
-  String get getUserName => this._username;
+  String get password => _password;
+
+  TreatmentType get treatmentType => _treatmentType;
+
+  List<Report> get reportList => _reportList;
+
   List<AccessStage> get accessesStageList => _accessesStageList;
-  List<Report> get getReports => _reportList;
-  TreatmentType get getTreatmentType => _treatmentType;
+
 
   set password(String value) {
     password = value;
@@ -41,7 +46,7 @@ class Paitent {
     firstName = value;
   }
 
-  void SetTreatmentType(TreatmentType value) {
+  set treatmentType(TreatmentType value) {
     _treatmentType = value;
   }
 
@@ -59,10 +64,10 @@ class Paitent {
     int currentScore = jsonTreatmentType.child('currentScore').as<int>();
     TreatmentType newTreatment = new TreatmentType(
         type, treatmentId, currentScore
-        /*    jsonTreatmentType['type'].toString(),
+      /*    jsonTreatmentType['type'].toString(),
         int.parse(jsonTreatmentType['treatmentId'].toString()),
         int.parse(jsonTreatmentType['currentScore'].toString())*/
-        );
+    );
     List stageList = jsonTreatmentType.child('stageList').asList();
 
     for (int j = 0; j < stageList.length; j++) {
@@ -101,7 +106,7 @@ class Paitent {
           subProtocolLits[i]['name'].toString(),
           int.parse(subProtocolLits[i]['level'].toString()));
       List des = subProtocolLits[i]['description'];
-      subProtocol.setDescriptions(des.cast<String>());
+      subProtocol.descriptions = (des.cast<String>());
       protocol.addSubProtocol(subProtocol);
     }
 
@@ -143,13 +148,13 @@ class Paitent {
     //create treament type
     var treatmentJson = Snapshot.fromJson(json['treatmentType']);
     TreatmentType newTreatmentType = createTreatmentTypeFromJson(treatmentJson);
-    newPaitent.SetTreatmentType(newTreatmentType);
+    newPaitent.treatmentType = newTreatmentType;
 
     //create protocol
     // print(json);
     var porotocolJson = Snapshot.fromJson(json['protocol']);
     Protocol newProtocol = createProtocolFromJson(porotocolJson);
-    newPaitent.getTreatmentType.SetProtocol(newProtocol);
+    newPaitent.treatmentType.protocol = (newProtocol);
 
     //create Access
     var a = Snapshot.fromJson(json['accesses']);
@@ -174,4 +179,6 @@ class Paitent {
     //on the treatment progress page
     return newPaitent;
   }
+
+
 }

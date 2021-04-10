@@ -19,7 +19,7 @@ class ReportController {
   }
 
   Future<bool> createReport(String username) async {
-    print(this._report.getScore());
+    print(this._report.scores);
     final response = await http.post(
       'http://10.0.2.2:5000/paitent/${username}/report'
       //  'http://192.168.1.28:5000/paitent/${username}/report'
@@ -29,12 +29,12 @@ class ReportController {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, Object>{
-        'stageLevel': this._report.getStage(),
-        'exerciseLevel': this._report.getExercise(),
-        'questions': this._report.getQuestions(),
-        'answers': this._report.getAnswers(),
-        'openAnswer': this._report.getOpenAnswer(),
-        'score': this._report.getScore(),
+        'stageLevel': this._report.stageLevel,
+        'exerciseLevel': this._report.exerciseLevel,
+        'questions': this._report.questions,
+        'answers': this._report.answers,
+        'openAnswer': this._report.openAnswers,
+        'score': this._report.scores,
       }),
     );
     if (response.statusCode == 200) {

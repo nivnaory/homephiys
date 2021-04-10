@@ -136,10 +136,10 @@ class _ExercisePage extends State<ExercisePage> {
                       descritpion: this
                           .widget
                           .paitent
-                          .getTreatmentType
-                          .getStageList[this.widget.stageIndex]
-                          .getExerciseList[this.widget.exerciseIndex]
-                          .getDescription),
+                          .treatmentType
+                          .stageList[this.widget.stageIndex]
+                          .exerciseList[this.widget.exerciseIndex]
+                          .description),
                 )
               },
               color: Colors.blueGrey,
@@ -168,10 +168,10 @@ class _ExercisePage extends State<ExercisePage> {
                               questions: this
                                   .widget
                                   .paitent
-                                  .getTreatmentType
-                                  .getStageList[this.widget.stageIndex]
-                                  .getExerciseList[this.widget.exerciseIndex]
-                                  .getQuestions,
+                                  .treatmentType
+                                  .stageList[this.widget.stageIndex]
+                                  .exerciseList[this.widget.exerciseIndex]
+                                  .questions,
                               exerciseLevel: this.widget.exerciseIndex,
                               stageLevel: this.widget.stageIndex,
                               paitent: this.widget.paitent,

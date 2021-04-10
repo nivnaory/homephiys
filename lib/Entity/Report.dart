@@ -40,27 +40,15 @@ class Report {
     _stageLevel = value;
   }
 
-  int getStage() {
-    return this._stageLevel;
-  }
+  int get exerciseLevel => _exerciseLevel;
 
-  int getExercise() {
-    return this._exerciseLevel;
-  }
+  List<String> get questions => _questions;
 
-  List<String> getQuestions() {
-    return this._questions;
-  }
+  List<int> get answers => _answers;
 
-  List<int> getAnswers() {
-    return this._answers;
-  }
+  String get openAnswers => _openAnswers;
 
-  int getScore() {
-    return this._scores;
-  }
+  int get scores => _scores;
 
-  String getOpenAnswer() {
-    return this._openAnswers;
-  }
+  int get stageLevel => _stageLevel;
 }

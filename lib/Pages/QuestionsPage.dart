@@ -8,8 +8,6 @@ import 'package:homephiys/Entity/Report.dart';
 import 'package:homephiys/Pages/MedicalInspectionStage.dart';
 import 'package:homephiys/Pages/StagePage.dart';
 
-import 'ExercisePage.dart';
-
 class QuestionsPage extends StatefulWidget {
   final List<String> questions; //no need for this
   final int stageLevel;
@@ -19,11 +17,11 @@ class QuestionsPage extends StatefulWidget {
   final stageIndex;
 
   final List<String> option_answers = [
-    " במידה רבה מאוד ", //0
-    " במידה רבה ", //1
-    "מידה בינונית", //2
-    "במידה מועטה", //3
-    "במידה מועטה מאוד" //4
+    "במידה מועטה מאוד",//0
+    "במידה מועטה",//1
+    "מידה בינונית",//2
+    " במידה רבה ", //3
+    " במידה רבה מאוד ",//4
   ];
 
   QuestionsPage(
@@ -51,9 +49,9 @@ class _QuestionsPage extends State<QuestionsPage> {
     numberOfExercises = this
             .widget
             .paitent
-            .getTreatmentType
-            .getStageList[this.widget.stageLevel]
-            .getExerciseList
+            .treatmentType
+            .stageList[this.widget.stageLevel]
+            .exerciseList
             .length -
         1;
   }
@@ -145,7 +143,7 @@ class _QuestionsPage extends State<QuestionsPage> {
                                 score),
                             reportController = new ReportController(report),
                             f = reportController
-                                .createReport(this.widget.paitent.getUserName),
+                                .createReport(this.widget.paitent.username),
                             if (score > threshold)
                               {
                                 if (this.widget.exerciseLevel ==
@@ -154,9 +152,9 @@ class _QuestionsPage extends State<QuestionsPage> {
                                     f1 = accessController.updateAccess(
                                         this.widget.stageLevel + 1,
                                         0,
-                                        this.widget.paitent.getUserName,
+                                        this.widget.paitent.username,
                                         true),
-                                    print(numberOfExercises),
+
                                     this
                                         .widget
                                         .paitent
@@ -181,7 +179,7 @@ class _QuestionsPage extends State<QuestionsPage> {
                                     f1 = accessController.updateAccess(
                                         this.widget.stageLevel,
                                         this.widget.exerciseLevel + 1,
-                                        this.widget.paitent.getUserName,
+                                        this.widget.paitent.username,
                                         false),
                                     this
                                             .widget

@@ -4,10 +4,14 @@ import 'Protocol.dart';
 
 class TreatmentType {
   String _type;
+
+  String get type => _type;
   int _treatmenId;
   List<Stage> _stageList;
   int _currentScore;
   Protocol _protocol;
+
+
 
   TreatmentType(String type, int treatmentId, int currentScore) {
     this._type = type;
@@ -15,11 +19,13 @@ class TreatmentType {
     this._stageList = new List();
     this._currentScore = currentScore;
   }
-  int get getTreatmenId => _treatmenId;
-  String get getType => _type;
-  List<Stage> get getStageList => _stageList;
+  int get treatmenId => _treatmenId;
+
+  List<Stage> get stageList => _stageList;
+
   int get currentScore => _currentScore;
-  Protocol get getProtocol => _protocol;
+
+  Protocol get protocol => _protocol;
 
   set setTreatmenId(int value) {
     _treatmenId = value;
@@ -33,7 +39,7 @@ class TreatmentType {
     _stageList = value;
   }
 
-  void SetProtocol(Protocol value) {
+  set protocol(Protocol value) {
     _protocol = value;
   }
 
@@ -44,4 +50,6 @@ class TreatmentType {
   set currentScore(int value) {
     _currentScore = value;
   }
+
+
 }

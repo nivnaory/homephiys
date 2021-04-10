@@ -23,7 +23,7 @@ class _QuestionReportPage extends State<QuestionReportPage> {
   @override
   void initState() {
     reportList = getReprotOfCurrentExerciseAndStage(
-        this.widget.paitent.getReports,
+        this.widget.paitent.reportList,
         this.widget.stageIndex,
         this.widget.exercieIndex);
     super.initState();
@@ -95,7 +95,7 @@ class ExerciseButton extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            ReportPage(paitent: this.paitent)));
+                            ReportPage(reprot:this.reprot)));
               },
               child: ReusableCard(
                 cardChild: Column(
@@ -105,7 +105,7 @@ class ExerciseButton extends StatelessWidget {
                       width: 400.0,
                     ),
                     Text(
-                      "שאלון מספר " + this.reportIndex.toString(),
+                      "שאלון מספר " + (this.reportIndex+1).toString(),
                       style: TextStyle(fontSize: 25.0),
                     ),
                   ],
@@ -171,8 +171,8 @@ List<Report> getReprotOfCurrentExerciseAndStage(
   print(exerciseLevel.toString());
   List<Report> reports = [];
   for (int i = 0; i < allReport.length; i++) {
-    if (allReport[i].getStage() == stageLevel &&
-        allReport[i].getExercise() == exerciseLevel) {
+    if (allReport[i].stageLevel == stageLevel &&
+        allReport[i].exerciseLevel == exerciseLevel) {
       reports.add(allReport[i]);
     }
   }

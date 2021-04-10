@@ -4,6 +4,7 @@ class SubProtocol {
   List<String> _descriptions;
 
 
+
   SubProtocol(String name, int level) {
     this._name = name;
     this._level = level;
@@ -16,7 +17,8 @@ class SubProtocol {
 
   int get level => _level;
 
-  void setDescriptions(List<String> value) {
+  set descriptions(List<String> value) {
     _descriptions = value;
   }
+
 }

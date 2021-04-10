@@ -29,8 +29,8 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
             this
                 .widget
                 .paitent
-                .getTreatmentType
-                .getProtocol
+                .treatmentType
+                .protocol
                 .subProtocolsList
                 .length, (index) {
           if (this.widget.paitent.accessesStageList[index].stageAccess ==
@@ -117,8 +117,8 @@ class _StageWidget extends State<StageWidget> {
                       this
                           .widget
                           .paitent
-                          .getTreatmentType
-                          .getProtocol
+                          .treatmentType
+                          .protocol
                           .subProtocolsList[this.widget.index]
                           .name,
                       style: TextStyle(fontSize: 25.0),

@@ -1,13 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homephiys/Entity/Paitent.dart';
 import 'package:homephiys/Pages/QuestionReportPage.dart';
+import 'package:toast/toast.dart';
 
 class TreatmentProgressPage extends StatefulWidget {
   final Widget child;
   final Paitent paitent;
   final int stageIndex;
+
   TreatmentProgressPage({Key key, this.child, this.paitent, this.stageIndex})
       : super(key: key);
 
@@ -266,20 +268,44 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
                             this
                                 .widget
                                 .paitent
-                                .getTreatmentType
-                                .getStageList[this.widget.stageIndex]
-                                .getExerciseList
+                                .treatmentType
+                                .stageList[this.widget.stageIndex]
+                                .exerciseList
                                 .length, (index) {
-                          return ExerciseButton(
-                              paitent: this.widget.paitent,
-                              exerciseIndex: this
+                          if (this
                                   .widget
                                   .paitent
-                                  .getTreatmentType
-                                  .getStageList[this.widget.stageIndex]
-                                  .getExerciseList[index]
-                                  .getLevel,
-                              stageIndex: this.widget.stageIndex);
+                                  .accessesStageList[this.widget.stageIndex]
+                                  .exerciseAccess[index] ==
+                              true) {
+                            return ExerciseButton(
+                                paitent: this.widget.paitent,
+                                exerciseIndex: this
+                                    .widget
+                                    .paitent
+                                    .treatmentType
+                                    .stageList[this.widget.stageIndex]
+                                    .exerciseList[index]
+                                    .level,
+                                stageIndex: this.widget.stageIndex,
+                              color: Colors.blue,
+                              enable: true,
+                            );
+                          } else {
+                            return ExerciseButton(
+                                paitent: this.widget.paitent,
+                                exerciseIndex: this
+                                    .widget
+                                    .paitent
+                                    .treatmentType
+                                    .stageList[this.widget.stageIndex]
+                                    .exerciseList[index]
+                                    .level,
+                                stageIndex: this.widget.stageIndex,
+                              color: Colors.grey,
+                              enable: false,
+                            );
+                          }
                         }),
                       ),
                     ),
@@ -296,12 +322,16 @@ class ExerciseButton extends StatelessWidget {
   final Paitent paitent;
   final int stageIndex;
   final int exerciseIndex;
+  final Color color;
+  final bool enable;
 
   const ExerciseButton({
     Key key,
     this.paitent,
     this.exerciseIndex,
     this.stageIndex,
+    this.color,
+    this.enable,
   }) : super(key: key);
 
   @override
@@ -312,13 +342,19 @@ class ExerciseButton extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => QuestionReportPage(
-                            paitent: this.paitent,
-                            stageIndex: this.stageIndex,
-                            exercieIndex: this.exerciseIndex)));
+           if (this.enable) {
+             Navigator.push(
+                 context,
+                 MaterialPageRoute(
+                     builder: (context) =>
+                         QuestionReportPage(
+                             paitent: this.paitent,
+                             stageIndex: this.stageIndex,
+                             exercieIndex: this.exerciseIndex)));
+           }else{
+             Toast.show("not have access yet", context,
+                 duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+           }
               },
               child: ReusableCard(
                 cardChild: Column(
@@ -333,7 +369,7 @@ class ExerciseButton extends StatelessWidget {
                     ),
                   ],
                 ),
-                color: Colors.blue,
+                color: this.color,
               ),
             ),
           ),
@@ -369,6 +405,7 @@ class Sales {
 class ReusableCard extends StatefulWidget {
   final Widget cardChild;
   final Color color;
+
   ReusableCard({this.cardChild, this.color});
 
   _ReusableCard createState() => _ReusableCard();
