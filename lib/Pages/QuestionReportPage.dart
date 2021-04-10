@@ -2,66 +2,66 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homephiys/Entity/Exercise.dart';
 import 'package:homephiys/Entity/Paitent.dart';
-
-import 'package:homephiys/Entity/Stage.dart';
-import 'package:toast/toast.dart';
-import 'ExercisePage.dart';
 import 'ReportPage.dart';
 
 class QuestionReportPage extends StatefulWidget {
+  final Paitent paitent;
 
-
-
+  const QuestionReportPage({Key key, this.paitent}) : super(key: key);
 
   _QuestionReportPage createState() => _QuestionReportPage();
 }
 
 class _QuestionReportPage extends State<QuestionReportPage> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Reports',
-            style: TextStyle(color: Colors.white),
-          ),
+      appBar: AppBar(
+        title: Text(
+          'Reports',
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.white,
-        body: Column(
-              children:<Widget>[
-                Flexible(
-                    flex:0,
-                    fit:FlexFit.tight,
-                    child:new  Text(
-                      'שאלונים קודמים',
-                      style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    )
+      ),
+      backgroundColor: Colors.white,
+      body: Column(
+        children: <Widget>[
+          Flexible(
+              flex: 0,
+              fit: FlexFit.tight,
+              child: new Text(
+                'שאלונים קודמים',
+                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              )),
+          Flexible(
+            flex: 2,
+            fit: FlexFit.tight,
+            child: Container(
+              child: Center(
+                child: Column(
+                  children: List.generate(5, (index) {
+                    return ExerciseButton(paitent: this.widget.paitent);
+                  }),
                 ),
-                Flexible(
-                  flex:2,
-                  fit:FlexFit.tight,
-                  child: Container(
-                    child: Center(
-                      child: Column(
-                        children: List.generate(
-                            5, (index) {
-                          return ExerciseButton();
-                        }
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
+            ),
           ),
-        );
+        ],
+      ),
+    );
   }
 }
 
 class ExerciseButton extends StatelessWidget {
+  final Paitent paitent;
   const ExerciseButton({
     Key key,
+    this.paitent,
   }) : super(key: key);
 
   @override
@@ -72,11 +72,12 @@ class ExerciseButton extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               onTap: () {
+                print(this.paitent.getReports[0].getAnswers().toString());
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ReportPage(
-                        )));
+                        builder: (context) =>
+                            ReportPage(paitent: this.paitent)));
               },
               child: ReusableCard(
                 cardChild: Column(
@@ -91,7 +92,7 @@ class ExerciseButton extends StatelessWidget {
                     ),
                   ],
                 ),
-                color:Colors.blue,
+                color: Colors.blue,
               ),
             ),
           ),

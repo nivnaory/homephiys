@@ -3,14 +3,12 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homephiys/Entity/Paitent.dart';
 import 'package:homephiys/Pages/QuestionReportPage.dart';
-import 'package:toast/toast.dart';
 
 class TreatmentProgressPage extends StatefulWidget {
   final Widget child;
+  final Paitent paitent;
 
-
-
-  TreatmentProgressPage({Key key, this.child}) : super(key: key);
+  TreatmentProgressPage({Key key, this.child, this.paitent}) : super(key: key);
 
   _TreatmentProgressPage createState() => _TreatmentProgressPage();
 }
@@ -171,7 +169,7 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
             ),
             bottom: TabBar(
               //indicatorColor: Color(0xff9962D0),
-              tabs:<Widget> [
+              tabs: <Widget>[
                 Tab(
                   icon: Icon(FontAwesomeIcons.solidChartBar),
                 ),
@@ -179,7 +177,6 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
                 Tab(icon: Icon(FontAwesomeIcons.book)),
               ],
             ),
-
           ),
           body: TabBarView(
             children: [
@@ -190,7 +187,10 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          'SO₂ emissions, by world region (in million tonnes)',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
+                          'SO₂ emissions, by world region (in million tonnes)',
+                          style: TextStyle(
+                              fontSize: 24.0, fontWeight: FontWeight.bold),
+                        ),
                         Expanded(
                           child: charts.BarChart(
                             _seriesData,
@@ -212,72 +212,74 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          'Sales for the first 5 years',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
+                          'Sales for the first 5 years',
+                          style: TextStyle(
+                              fontSize: 24.0, fontWeight: FontWeight.bold),
+                        ),
                         Expanded(
-                          child: charts.LineChart(
-                              _seriesLineData,
+                          child: charts.LineChart(_seriesLineData,
                               defaultRenderer: new charts.LineRendererConfig(
                                   includeArea: true, stacked: true),
                               animate: true,
                               animationDuration: Duration(seconds: 5),
                               behaviors: [
                                 new charts.ChartTitle('Years',
-                                    behaviorPosition: charts.BehaviorPosition.bottom,
-                                    titleOutsideJustification:charts.OutsideJustification.middleDrawArea),
+                                    behaviorPosition:
+                                        charts.BehaviorPosition.bottom,
+                                    titleOutsideJustification: charts
+                                        .OutsideJustification.middleDrawArea),
                                 new charts.ChartTitle('Sales',
-                                    behaviorPosition: charts.BehaviorPosition.start,
-                                    titleOutsideJustification: charts.OutsideJustification.middleDrawArea),
-                                new charts.ChartTitle('Departments',
+                                    behaviorPosition:
+                                        charts.BehaviorPosition.start,
+                                    titleOutsideJustification: charts
+                                        .OutsideJustification.middleDrawArea),
+                                new charts.ChartTitle(
+                                  'Departments',
                                   behaviorPosition: charts.BehaviorPosition.end,
-                                  titleOutsideJustification:charts.OutsideJustification.middleDrawArea,
+                                  titleOutsideJustification: charts
+                                      .OutsideJustification.middleDrawArea,
                                 )
-                              ]
-                          ),
+                              ]),
                         ),
                       ],
                     ),
                   ),
                 ),
               ),
-
-              Column(
-                children:<Widget>[
-                   Flexible(
-                     flex:1,
-                      fit:FlexFit.tight,
-                      child:new  Text(
-                    'דוחות תרגילים',
-                        style: TextStyle(fontSize: 22.0,fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      )
-                   ),
-                  Flexible(
-                  flex:10,
+              Column(children: <Widget>[
+                Flexible(
+                    flex: 1,
+                    fit: FlexFit.tight,
+                    child: new Text(
+                      'דוחות תרגילים',
+                      style: TextStyle(
+                          fontSize: 22.0, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    )),
+                Flexible(
+                  flex: 10,
                   child: Container(
-
                     child: Center(
                       child: Column(
-                              children: List.generate(
-                                  3, (index) {
-                              return ExerciseButton();
-                            }
-                            ),
+                        children: List.generate(3, (index) {
+                          return ExerciseButton(paitent: this.widget.paitent);
+                        }),
+                      ),
                     ),
                   ),
-                 ),
                 ),
-                ]
-              ),
+              ]),
             ],
           ),
-        )
-    );
+        ));
   }
 }
 
 class ExerciseButton extends StatelessWidget {
+  final Paitent paitent;
   const ExerciseButton({
     Key key,
+    this.paitent,
   }) : super(key: key);
 
   @override
@@ -288,11 +290,12 @@ class ExerciseButton extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                print("im here");
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => QuestionReportPage()));
+                        builder: (context) => QuestionReportPage(
+                              paitent: this.paitent,
+                            )));
               },
               child: ReusableCard(
                 cardChild: Column(
@@ -307,13 +310,13 @@ class ExerciseButton extends StatelessWidget {
                     ),
                   ],
                 ),
-                color:Colors.blue,
+                color: Colors.blue,
               ),
             ),
           ),
         ],
       ),
-      );
+    );
   }
 }
 

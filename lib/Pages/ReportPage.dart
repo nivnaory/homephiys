@@ -2,16 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:homephiys/Controller/AccessController.dart';
-import 'package:homephiys/Controller/ReportController.dart';
-import 'package:homephiys/Entity/Paitent.dart';
-import 'package:homephiys/Entity/Report.dart';
-import 'package:homephiys/Pages/MedicalInspectionStage.dart';
-import 'package:homephiys/Pages/StagePage.dart';
 
-import 'ExercisePage.dart';
+import 'package:homephiys/Entity/Paitent.dart';
 
 class ReportPage extends StatefulWidget {
-
+  final Paitent paitent;
   final List<String> option_answers = [
     " במידה רבה מאוד ", //0
     " במידה רבה ", //1
@@ -20,8 +15,7 @@ class ReportPage extends StatefulWidget {
     "במידה מועטה מאוד" //4
   ];
 
-
-  ReportPage();
+  ReportPage({this.paitent});
 
   @override
   _ReportPage createState() => _ReportPage();
@@ -36,12 +30,12 @@ class _ReportPage extends State<ReportPage> {
 
   @override
   void initState() {
+    print(this.widget.paitent.getReports[0]);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(" שאלון  :"),
@@ -59,7 +53,6 @@ class _ReportPage extends State<ReportPage> {
               child: ListView.builder(
                   itemCount: 3,
                   itemBuilder: (context, itemIndex) {
-                    Report report;
                     // List<int>answers=List();
                     return Column(children: <Widget>[
                       Container(
@@ -73,10 +66,14 @@ class _ReportPage extends State<ReportPage> {
                       RadioButtonGroup(
                         // orientation: GroupedButtonsOrientation.VERTICAL,
                         margin: const EdgeInsets.fromLTRB(0, 0, 1, 0),
-                        picked:this.widget.option_answers[1],
+                        picked: this.widget.option_answers[this
+                            .widget
+                            .paitent
+                            .getReports[
+                                0] ////need to find the report by stage and exrcise according to what to user chosse
+                            .getAnswers()[itemIndex]],
                         labels: this.widget.option_answers,
                         disabled: this.widget.option_answers,
-
                       ),
                       SizedBox(
                         height: 30.0,
@@ -86,21 +83,18 @@ class _ReportPage extends State<ReportPage> {
                           shape: RoundedRectangleBorder(
                               side: BorderSide(color: Colors.black26),
                               borderRadius: BorderRadius.circular(50)),
-                          onPressed: () =>
-                          {
+                          onPressed: () => {
                             showDialog(
-                              context: context,
-                              builder: (context) => CustomDialog(
-                                  title: "תשובה פתוחה  ",
-                                  descritpion: "זאת הערת המשתמש של ניב נאורי ",
-
-                            )
-                            ),
+                                context: context,
+                                builder: (context) => CustomDialog(
+                                      title: "הערה",
+                                      descritpion: this
+                                          .widget
+                                          .paitent
+                                          .getReports[1]
+                                          .getOpenAnswer(),
+                                    )),
                           },
-                          // Report report=new Report(this.widget.stageLevel,this.widget.exercieLevel,
-                          //this.widget.questions,this.widget.answers,"open answer",10)
-                          //ReportController reportController=new ReportController(newReport);
-                          //reportcontroller.setReport()
                           color: Colors.green,
                           padding: EdgeInsets.all(10.0),
                           child: Column(
@@ -119,12 +113,8 @@ class _ReportPage extends State<ReportPage> {
                       SizedBox(
                         height: 30.0,
                       ),
-                    ]
-
-                    );
-                    }
-                  )
-          ),
+                    ]);
+                  })),
         ],
       ),
     );

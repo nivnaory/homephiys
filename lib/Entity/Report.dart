@@ -1,4 +1,4 @@
-class Report{
+class Report {
   int _stageLevel;
   int _exerciseLevel;
   List<String> _questions;
@@ -6,16 +6,14 @@ class Report{
   String _openAnswers;
   int _scores;
 
- Report (int stageLevel, int exerciseLevel, List<String> questions, List<int> answers,
-      String openAnswer, int score){
+  Report(int stageLevel, int exerciseLevel, List<String> questions,
+      List<int> answers, String openAnswer, int score) {
     this._stageLevel = stageLevel;
     this._exerciseLevel = exerciseLevel;
     this._questions = questions;
-    this.answers=answers;
+    this.answers = answers;
     this._openAnswers = openAnswer;
     this._scores = score;
-
-
   }
 
   set scores(int value) {
@@ -41,23 +39,28 @@ class Report{
   set stageLevel(int value) {
     _stageLevel = value;
   }
-  int getStage(){
+
+  int getStage() {
     return this._stageLevel;
   }
-  int getExercise(){
+
+  int getExercise() {
     return this._exerciseLevel;
   }
-  List <String> getQuestions(){
+
+  List<String> getQuestions() {
     return this._questions;
   }
-  List <int> getAnswers(){
+
+  List<int> getAnswers() {
     return this._answers;
   }
-  int getScore(){
+
+  int getScore() {
     return this._scores;
   }
-  String getOpenAnswer(){
-    return this._openAnswers;
-}
 
+  String getOpenAnswer() {
+    return this._openAnswers;
+  }
 }

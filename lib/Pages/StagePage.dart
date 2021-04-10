@@ -6,6 +6,7 @@ import 'package:homephiys/Entity/Paitent.dart';
 import 'package:homephiys/Entity/Stage.dart';
 import 'package:toast/toast.dart';
 import 'ExercisePage.dart';
+import 'QuestionsPage.dart';
 
 class StagePage extends StatefulWidget {
   final Paitent paitent;
@@ -59,8 +60,7 @@ class _StagePage extends State<StagePage> {
               );
             }
           }),
-        )
-    );
+        ));
   }
 }
 
@@ -92,6 +92,7 @@ class _ExerciseButton extends State<ExerciseButton> {
             child: GestureDetector(
               onTap: () {
                 if (this.widget.enable) {
+                  /*
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -99,6 +100,22 @@ class _ExerciseButton extends State<ExerciseButton> {
                                 paitent: this.widget.paitent,
                                 stageIndex: this.widget.stageIndex,
                                 exerciseIndex: this.widget.exerciseIndex,
+                              )));
+                              */
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => QuestionsPage(
+                                questions: this
+                                    .widget
+                                    .paitent
+                                    .getTreatmentType
+                                    .getStageList[this.widget.stageIndex]
+                                    .getExerciseList[this.widget.exerciseIndex]
+                                    .getQuestions,
+                                exerciseLevel: this.widget.exerciseIndex,
+                                stageLevel: this.widget.stageIndex,
+                                paitent: this.widget.paitent,
                               )));
                 } else {
                   Toast.show("not have access yet", context,

@@ -11,8 +11,7 @@ import 'package:homephiys/Pages/StagePage.dart';
 import 'ExercisePage.dart';
 
 class QuestionsPage extends StatefulWidget {
-  final List<String> questions;
-
+  final List<String> questions; //no need for this
   final int stageLevel;
   List<int> answers = [];
   final int exerciseLevel;
@@ -103,7 +102,7 @@ class _QuestionsPage extends State<QuestionsPage> {
                           index = choose_index;
                         },
                         onSelected: (String label) => {
-                          this.widget.answers[itemIndex] = index + 1,
+                          this.widget.answers[itemIndex] = index,
                         },
                       ),
                       SizedBox(
@@ -200,12 +199,14 @@ class _QuestionsPage extends State<QuestionsPage> {
                                                 )))
                                   },
                               },
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => StagePage(
+                                          paitent: this.widget.paitent,
+                                          stageIndex: this.widget.stageLevel,
+                                        )))
                           },
-
-                          // Report report=new Report(this.widget.stageLevel,this.widget.exercieLevel,
-                          //this.widget.questions,this.widget.answers,"open answer",10)
-                          //ReportController reportController=new ReportController(newReport);
-                          //reportcontroller.setReport()
                           color: Colors.green,
                           padding: EdgeInsets.all(10.0),
                           child: Column(

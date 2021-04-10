@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -10,13 +9,11 @@ import 'TreatmentAndProtocolPage.dart';
 
 class PatientHomePage extends StatefulWidget {
   final Paitent paitent;
-   PatientHomePage({@required this.paitent});
+  PatientHomePage({@required this.paitent});
   _PatientHomePageState createState() => _PatientHomePageState();
-
-
 }
-class _PatientHomePageState extends State<PatientHomePage> {
 
+class _PatientHomePageState extends State<PatientHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,11 +35,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
                 side: BorderSide(color: Colors.black26),
                 borderRadius: BorderRadius.circular(100)),
             onPressed: () => {
-                      Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                      builder: (context) => TreatmentAndProtocolPage
-                        (paitent:this.widget.paitent,)))
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => TreatmentAndProtocolPage(
+                            paitent: this.widget.paitent,
+                          )))
             },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
@@ -67,7 +65,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => TreatmentProgressPage()))
+                      builder: (context) =>
+                          TreatmentProgressPage(paitent: this.widget.paitent)))
             },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
@@ -85,11 +84,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
             shape: RoundedRectangleBorder(
                 side: BorderSide(color: Colors.black26),
                 borderRadius: BorderRadius.circular(100)),
-            onPressed: () => {print("chat"),
+            onPressed: () => {
+              print("chat"),
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ChatPage()))
+                  context, MaterialPageRoute(builder: (context) => ChatPage()))
             },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
