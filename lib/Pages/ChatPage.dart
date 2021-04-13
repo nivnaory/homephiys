@@ -5,6 +5,12 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Assistance Page",
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
       body: Column(
           children: <Widget>[
                    Container(

@@ -4,6 +4,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:homephiys/Entity/Exercise.dart';
 import 'package:homephiys/Entity/Paitent.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:flip_card/flip_card.dart';
+
 
 import 'QuestionsPage.dart';
 
@@ -124,6 +126,7 @@ class _ExercisePage extends State<ExercisePage> {
                 ],
               ),
             ),
+
             FlatButton(
               shape: RoundedRectangleBorder(
                   side: BorderSide(color: Colors.black26),
@@ -184,7 +187,7 @@ class _ExercisePage extends State<ExercisePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "אישור",
+                    ":המשך",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, color: Colors.black),
                   ),
