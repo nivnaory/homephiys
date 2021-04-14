@@ -29,7 +29,7 @@ class _ReportPage extends State<ReportPage> {
 
   @override
   void initState() {
-    print(this.widget.reprot);
+
     super.initState();
   }
 

@@ -4,7 +4,7 @@ class Report {
   List<String> _questions;
   List<int> _answers;
   String _openAnswers;
-  int _scores;
+  int _score;
 
   Report(int stageLevel, int exerciseLevel, List<String> questions,
       List<int> answers, String openAnswer, int score) {
@@ -13,11 +13,11 @@ class Report {
     this._questions = questions;
     this.answers = answers;
     this._openAnswers = openAnswer;
-    this._scores = score;
+    this._score = score;
   }
 
-  set scores(int value) {
-    _scores = value;
+  set score(int value) {
+    _score = value;
   }
 
   set openAnswers(String value) {
@@ -48,7 +48,7 @@ class Report {
 
   String get openAnswers => _openAnswers;
 
-  int get scores => _scores;
+  int get score => _score;
 
   int get stageLevel => _stageLevel;
 }

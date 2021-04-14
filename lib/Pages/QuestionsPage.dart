@@ -5,6 +5,7 @@ import 'package:homephiys/Controller/AccessController.dart';
 import 'package:homephiys/Controller/ReportController.dart';
 import 'package:homephiys/Entity/Paitent.dart';
 import 'package:homephiys/Entity/Report.dart';
+import 'package:homephiys/Helpers/LogicHelpers.dart';
 import 'package:homephiys/Pages/MedicalInspectionStage.dart';
 import 'package:homephiys/Pages/StagePage.dart';
 
@@ -44,8 +45,9 @@ class _QuestionsPage extends State<QuestionsPage> {
 
   @override
   void initState() {
-    super.initState();
     threshold = ((this.widget.questions.length * 5) * 0.8).toInt();
+    super.initState();
+
     numberOfExercises = this
             .widget
             .paitent
@@ -133,7 +135,7 @@ class _QuestionsPage extends State<QuestionsPage> {
                               borderRadius: BorderRadius.circular(50)),
                           onPressed: () => {
                             score =
-                                calculateScoreOfQuestions(this.widget.answers),
+                                LogicHelpers.calculateScoreOfQuestions(this.widget.answers),
                             report = new Report(
                                 this.widget.stageLevel,
                                 this.widget.exerciseLevel,
@@ -229,10 +231,3 @@ class _QuestionsPage extends State<QuestionsPage> {
   }
 }
 
-int calculateScoreOfQuestions(List<int> answers) {
-  int sum = 0;
-  for (int i = 0; i < answers.length; i++) {
-    sum += answers[i] + 1;
-  }
-  return sum;
-}

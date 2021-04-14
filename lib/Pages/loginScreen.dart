@@ -68,8 +68,6 @@ class LoginScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-
-
           FlatButton(
             onPressed: () => {
               print("Registration"),

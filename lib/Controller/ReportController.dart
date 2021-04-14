@@ -19,7 +19,7 @@ class ReportController {
   }
 
   Future<bool> createReport(String username) async {
-    print(this._report.scores);
+    print(this._report.score);
     final response = await http.post(
       'http://10.0.2.2:5000/paitent/${username}/report'
       //  'http://192.168.1.28:5000/paitent/${username}/report'
@@ -34,7 +34,7 @@ class ReportController {
         'questions': this._report.questions,
         'answers': this._report.answers,
         'openAnswer': this._report.openAnswers,
-        'score': this._report.scores,
+        'score': this._report.score,
       }),
     );
     if (response.statusCode == 200) {
