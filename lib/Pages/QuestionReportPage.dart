@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:homephiys/Entity/Paitent.dart';
 import 'package:homephiys/Entity/Report.dart';
+import 'package:homephiys/Helpers/LogicHelpers.dart';
 import 'ReportPage.dart';
 
 class QuestionReportPage extends StatefulWidget {
@@ -22,7 +23,7 @@ class _QuestionReportPage extends State<QuestionReportPage> {
 
   @override
   void initState() {
-    reportList = getReprotOfCurrentExerciseAndStage(
+    reportList = LogicHelpers.getReprotOfCurrentExerciseAndStage(
         this.widget.paitent.reportList,
         this.widget.stageIndex,
         this.widget.exercieIndex);
@@ -165,17 +166,4 @@ class _ReusableCard extends State<ReusableCard> {
   }
 }
 
-List<Report> getReprotOfCurrentExerciseAndStage(
-    List<Report> allReport, int stageLevel, int exerciseLevel) {
-  print(stageLevel.toString());
-  print(exerciseLevel.toString());
-  List<Report> reports = [];
-  for (int i = 0; i < allReport.length; i++) {
-    if (allReport[i].stageLevel == stageLevel &&
-        allReport[i].exerciseLevel == exerciseLevel) {
-      reports.add(allReport[i]);
-    }
-  }
-  print(reports.length.toString());
-  return reports;
-}
+

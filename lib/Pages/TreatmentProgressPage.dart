@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homephiys/Entity/Paitent.dart';
+import 'package:homephiys/Entity/Report.dart';
+import 'package:homephiys/Helpers/LogicHelpers.dart';
 import 'package:homephiys/Pages/QuestionReportPage.dart';
 import 'package:toast/toast.dart';
 
@@ -9,154 +13,109 @@ class TreatmentProgressPage extends StatefulWidget {
   final Widget child;
   final Paitent paitent;
   final int stageIndex;
+  final bool animate;
 
-  TreatmentProgressPage({Key key, this.child, this.paitent, this.stageIndex})
+  TreatmentProgressPage({Key key, this.child, this.paitent, this.stageIndex, this.animate})
       : super(key: key);
 
   _TreatmentProgressPage createState() => _TreatmentProgressPage();
 }
 
 class _TreatmentProgressPage extends State<TreatmentProgressPage> {
-  List<charts.Series<Pollution, String>> _seriesData;
-  List<charts.Series<Task, String>> _seriesPieData;
-  List<charts.Series<Sales, int>> _seriesLineData;
+  List<charts.Series<exercises, String>> _seriesData;
+    List<charts.Series<scoreExercise, int>> _seriesLineData;
 
   _generateData() {
-    var data1 = [
-      new Pollution(1980, 'USA', 30),
-      new Pollution(1980, 'Asia', 40),
-      new Pollution(1980, 'Europe', 10),
-    ];
-    var data2 = [
-      new Pollution(1985, 'USA', 100),
-      new Pollution(1980, 'Asia', 150),
-      new Pollution(1985, 'Europe', 80),
-    ];
-    var data3 = [
-      new Pollution(1985, 'USA', 200),
-      new Pollution(1980, 'Asia', 300),
-      new Pollution(1985, 'Europe', 180),
-    ];
+    List<exercises> exerciseList = [];
+    //get all reports of paitnet
+    List<Color> colorsArray=[];
 
-    var piedata = [
-      new Task('Work', 35.8, Color(0xff3366cc)),
-      new Task('Eat', 8.3, Color(0xff990099)),
-      new Task('Commute', 10.8, Color(0xff109618)),
-      new Task('TV', 15.6, Color(0xfffdbe19)),
-      new Task('Sleep', 19.2, Color(0xffff9900)),
-      new Task('Other', 10.3, Color(0xffdc3912)),
-    ];
+    //part 1
+    List<Report>allReport = this.widget.paitent.reportList;
+    for (int i = 0; i <
+        this.widget.paitent.treatmentType.stageList[this.widget.stageIndex]
+            .exerciseList.length; i++) {
+      //random;
+      colorsArray.add(Colors.primaries[Random().nextInt(Colors.primaries.length)]);
+      //get all reports of specific exercise.
+      List<Report>currentReports = LogicHelpers
+          .getReprotOfCurrentExerciseAndStage(
+          allReport, this.widget.stageIndex, i);
 
-    var linesalesdata = [
-      new Sales(0, 45),
-      new Sales(1, 56),
-      new Sales(2, 55),
-      new Sales(3, 60),
-      new Sales(4, 61),
-      new Sales(5, 70),
-    ];
-    var linesalesdata1 = [
-      new Sales(0, 35),
-      new Sales(1, 46),
-      new Sales(2, 45),
-      new Sales(3, 50),
-      new Sales(4, 51),
-      new Sales(5, 60),
-    ];
+      String name = (this.widget.paitent.treatmentType
+          .stageList[this.widget.stageIndex].exerciseList[i].level + 1)
+          .toString();
+      if (currentReports.isNotEmpty) {
+        //get the high score from all the reports of specific exercie.
+        int reportHighScore = LogicHelpers.getHigestScoreOfReport(
+            currentReports);
 
-    var linesalesdata2 = [
-      new Sales(0, 20),
-      new Sales(1, 24),
-      new Sales(2, 25),
-      new Sales(3, 40),
-      new Sales(4, 45),
-      new Sales(5, 60),
-    ];
+        AddedExerciseToGraph(exerciseList, name, i, reportHighScore,colorsArray[i]);
+      } else {
+        AddedExerciseToGraph(exerciseList, name, i, 0,colorsArray[i]);
+      }
+    }
 
-    _seriesData.add(
-      charts.Series(
-        domainFn: (Pollution pollution, _) => pollution.place,
-        measureFn: (Pollution pollution, _) => pollution.quantity,
-        id: '2017',
-        data: data1,
-        fillPatternFn: (_, __) => charts.FillPatternType.solid,
-        fillColorFn: (Pollution pollution, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xff990099)),
-      ),
-    );
 
-    _seriesData.add(
-      charts.Series(
-        domainFn: (Pollution pollution, _) => pollution.place,
-        measureFn: (Pollution pollution, _) => pollution.quantity,
-        id: '2018',
-        data: data2,
-        fillPatternFn: (_, __) => charts.FillPatternType.solid,
-        fillColorFn: (Pollution pollution, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xff109618)),
-      ),
-    );
-
-    _seriesData.add(
-      charts.Series(
-        domainFn: (Pollution pollution, _) => pollution.place,
-        measureFn: (Pollution pollution, _) => pollution.quantity,
-        id: '2019',
-        data: data3,
-        fillPatternFn: (_, __) => charts.FillPatternType.solid,
-        fillColorFn: (Pollution pollution, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xffff9900)),
-      ),
-    );
-
-    _seriesPieData.add(
-      charts.Series(
-        domainFn: (Task task, _) => task.task,
-        measureFn: (Task task, _) => task.taskvalue,
-        colorFn: (Task task, _) =>
-            charts.ColorUtil.fromDartColor(task.colorval),
-        id: 'Air Pollution',
-        data: piedata,
-        labelAccessorFn: (Task row, _) => '${row.taskvalue}',
-      ),
-    );
-
-    _seriesLineData.add(
-      charts.Series(
-        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff990099)),
-        id: 'Air Pollution',
-        data: linesalesdata,
-        domainFn: (Sales sales, _) => sales.yearval,
-        measureFn: (Sales sales, _) => sales.salesval,
-      ),
-    );
-    _seriesLineData.add(
-      charts.Series(
-        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff109618)),
-        id: 'Air Pollution',
-        data: linesalesdata1,
-        domainFn: (Sales sales, _) => sales.yearval,
-        measureFn: (Sales sales, _) => sales.salesval,
-      ),
-    );
-    _seriesLineData.add(
-      charts.Series(
-        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xffff9900)),
-        id: 'Air Pollution',
-        data: linesalesdata2,
-        domainFn: (Sales sales, _) => sales.yearval,
-        measureFn: (Sales sales, _) => sales.salesval,
-      ),
-    );
+    //part 2
+    List<List<scoreExercise>> scoreExerciseList = [];
+  for(int i =0; i<this.widget.paitent.treatmentType.stageList[this.widget.stageIndex].exerciseList.length;i++){
+    List<scoreExercise> subScoreExerciseList=[];
+    List<Report> currentReports=LogicHelpers.getReprotOfCurrentExerciseAndStage(this.widget.paitent.reportList,
+        this.widget.stageIndex, i);
+       Color color = colorsArray[i];
+    for(int j = 0; j<currentReports.length;j++){
+      subScoreExerciseList.add(new scoreExercise(color,new scoreReport(j, currentReports[j].score)));
+    }
+    scoreExerciseList.add(subScoreExerciseList);
   }
+
+    _seriesData.add(
+      charts.Series(
+        domainFn: (exercises exercise, _) => exercise.exName,
+        measureFn: (exercises exercise, _) => exercise.percentage,
+        data: exerciseList,
+
+        fillPatternFn: (_, __) => charts.FillPatternType.solid,
+        fillColorFn: (exercises exercise, _) =>
+            charts.ColorUtil.fromDartColor(exercise.color),
+
+
+
+      ),
+    );
+
+
+    for (int i = 0; i < this.widget.paitent.treatmentType.stageList[this.widget.stageIndex].exerciseList.length; i++) {
+      _seriesLineData.add(
+        new charts.Series<scoreExercise, int>(
+          id: 'Desktop',
+          colorFn: (scoreExercise exercise,_) =>  charts.ColorUtil.fromDartColor(exercise.color),
+          domainFn: (scoreExercise exercise, _) => exercise.report.score,
+          measureFn: (scoreExercise exericse, _) => exericse.report.numberOfTimes,
+          data:scoreExerciseList[i],
+        ),
+      );
+    }
+  }
+
+  void AddedExerciseToGraph(List<exercises> exerciseList, String name, int i, int numberOfReportScore,Color color) {
+
+     exerciseList.add(new exercises(name + " תרגיל",
+        LogicHelpers.calculatePercentage(numberOfReportScore,
+            this.widget.paitent.treatmentType
+                .stageList[this.widget.stageIndex].
+            exerciseList[i].questions.length),color));
+  }
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _seriesData = List<charts.Series<Pollution, String>>();
-    _seriesPieData = List<charts.Series<Task, String>>();
-    _seriesLineData = List<charts.Series<Sales, int>>();
+    _seriesData = [];
+    _seriesLineData = [];
+
     _generateData();
   }
 
@@ -190,7 +149,7 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          'SO₂ emissions, by world region (in million tonnes)',
+                          'קצב ההתקדמות (באחוזים) ',
                           style: TextStyle(
                               fontSize: 24.0, fontWeight: FontWeight.bold),
                         ),
@@ -201,6 +160,14 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
                             barGroupingType: charts.BarGroupingType.grouped,
                             //behaviors: [new charts.SeriesLegend()],
                             animationDuration: Duration(seconds: 5),
+                              behaviors: [
+                                new charts.ChartTitle(' % אחוזים',
+                                    behaviorPosition:
+                                    charts.BehaviorPosition.start,
+                                    titleOutsideJustification: charts
+                                        .OutsideJustification.middleDrawArea),
+                              ]
+
                           ),
                         ),
                       ],
@@ -215,34 +182,28 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          'Sales for the first 5 years',
+                          'קצב התקדמות ביחס למספר התרגילים',
                           style: TextStyle(
-                              fontSize: 24.0, fontWeight: FontWeight.bold),
+                              fontSize: 20.0, fontWeight: FontWeight.bold),
                         ),
                         Expanded(
-                          child: charts.LineChart(_seriesLineData,
-                              defaultRenderer: new charts.LineRendererConfig(
-                                  includeArea: true, stacked: true),
-                              animate: true,
-                              animationDuration: Duration(seconds: 5),
-                              behaviors: [
-                                new charts.ChartTitle('Years',
-                                    behaviorPosition:
-                                        charts.BehaviorPosition.bottom,
-                                    titleOutsideJustification: charts
-                                        .OutsideJustification.middleDrawArea),
-                                new charts.ChartTitle('Sales',
-                                    behaviorPosition:
+                              child:charts.LineChart(_seriesLineData, animate: true,
+                                  behaviors: [
+                                    new charts.ChartTitle(' ניקוד ',
+                                        behaviorPosition:
                                         charts.BehaviorPosition.start,
-                                    titleOutsideJustification: charts
-                                        .OutsideJustification.middleDrawArea),
-                                new charts.ChartTitle(
-                                  'Departments',
-                                  behaviorPosition: charts.BehaviorPosition.end,
-                                  titleOutsideJustification: charts
-                                      .OutsideJustification.middleDrawArea,
-                                )
-                              ]),
+                                        titleOutsideJustification: charts
+                                            .OutsideJustification.middleDrawArea,
+
+                                    ),
+                            new charts.ChartTitle(' מספר התרגילים שבוצעו  ',
+                              behaviorPosition:
+                              charts.BehaviorPosition.bottom,
+                              titleOutsideJustification: charts
+                                  .OutsideJustification.middleDrawArea,),
+
+
+                          ]),
                         ),
                       ],
                     ),
@@ -379,13 +340,27 @@ class ExerciseButton extends StatelessWidget {
   }
 }
 
-class Pollution {
-  String place;
-  int year;
-  int quantity;
+class exercises {
+  String exName;
+  double percentage;
+  Color color;
 
-  Pollution(this.year, this.place, this.quantity);
+
+  exercises(this.exName, this.percentage,this.color);
+
 }
+
+class scoreExercise{
+  Color color;
+  scoreReport report;
+  scoreExercise(this.color, this.report);
+}
+class scoreReport {
+  int score;
+  int numberOfTimes;
+  scoreReport(this.score, this.numberOfTimes);
+}
+
 
 class Task {
   String task;
@@ -395,12 +370,6 @@ class Task {
   Task(this.task, this.taskvalue, this.colorval);
 }
 
-class Sales {
-  int yearval;
-  int salesval;
-
-  Sales(this.yearval, this.salesval);
-}
 
 class ReusableCard extends StatefulWidget {
   final Widget cardChild;
@@ -424,3 +393,4 @@ class _ReusableCard extends State<ReusableCard> {
     );
   }
 }
+
