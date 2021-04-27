@@ -7,11 +7,12 @@ class AccessController {
 
   Future<bool> updateAccess(int stageLevel,int exerciseLevel,String username, bool
   isFinished) async {
+    print(username);
     final response = await http.post(
-       'http://10.0.2.2:5000/paitent/${username}/access'
-     // 'http://192.168.1.28:5000/paitent/${username}/accesses'
-
-      ,
+       //'http://10.0.2.2:5000/paitent/${username}/access'
+    // 'http://192.168.1.28:5000/paitent/${username}/accesses'
+       'http://192.168.43.13:5000/paitent/${username}/accesses'
+    ,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -23,6 +24,7 @@ class AccessController {
 
       }),
     );
+
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON

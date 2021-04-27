@@ -199,14 +199,16 @@ class _QuestionsPage extends State<QuestionsPage> {
                                                       this.widget.stageLevel,
                                                 )))
                                   },
-                              },
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => StagePage(
-                                          paitent: this.widget.paitent,
-                                          stageIndex: this.widget.stageLevel,
-                                        )))
+                              }else{
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => StagePage(
+                                        paitent: this.widget.paitent,
+                                        stageIndex: this.widget.stageLevel,
+                                      )))
+                            },
+
                           },
                           color: Colors.green,
                           padding: EdgeInsets.all(10.0),
