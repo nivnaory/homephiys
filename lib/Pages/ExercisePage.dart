@@ -10,7 +10,7 @@ import 'package:flip_card/flip_card.dart';
 import 'QuestionsPage.dart';
 
 class ExercisePage extends StatefulWidget {
-  final url = 'https://www.youtube.com/watch?v=tr6XsZVb-ZE';
+  final url = 'https://www.youtube.com/watch?v=88LR61WGvEQ';
   final title = 'Player';
   final highScore = 13.0000;
   final Paitent paitent;

@@ -28,7 +28,7 @@ class LoginScreen extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.fromLTRB(10.0, 150.0, 0.0, 50.0),
                     child: Text(
-                      "homePhiys",
+                      "HomePhys",
                       style: TextStyle(
                           fontSize: 70,
                           fontWeight: FontWeight.bold,
