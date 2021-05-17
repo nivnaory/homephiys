@@ -15,8 +15,6 @@ class Paitent {
   String _firstName;
   String _password;
   TreatmentType _treatmentType;
-
-
   List<Report> _reportList;
   List<AccessStage> _accessesStageList;
 
@@ -36,7 +34,6 @@ class Paitent {
   List<Report> get reportList => _reportList;
 
   List<AccessStage> get accessesStageList => _accessesStageList;
-
 
   set password(String value) {
     password = value;
@@ -64,10 +61,10 @@ class Paitent {
     int currentScore = jsonTreatmentType.child('currentScore').as<int>();
     TreatmentType newTreatment = new TreatmentType(
         type, treatmentId, currentScore
-      /*    jsonTreatmentType['type'].toString(),
+        /*    jsonTreatmentType['type'].toString(),
         int.parse(jsonTreatmentType['treatmentId'].toString()),
         int.parse(jsonTreatmentType['currentScore'].toString())*/
-    );
+        );
     List stageList = jsonTreatmentType.child('stageList').asList();
 
     for (int j = 0; j < stageList.length; j++) {
@@ -179,6 +176,4 @@ class Paitent {
     //on the treatment progress page
     return newPaitent;
   }
-
-
 }

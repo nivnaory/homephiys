@@ -4,12 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:homephiys/Controller/PaitentController.dart';
 import 'package:homephiys/Entity/Paitent.dart';
 import 'package:homephiys/Helpers/constant.dart';
-import 'package:homephiys/Pages/RegisterationPage.dart';
-import 'package:toast/toast.dart';
-import 'PatientHomePage.dart';
-import 'PhsiotherapistLoginPage.dart';
 
-class LoginScreen extends StatelessWidget {
+import 'package:toast/toast.dart';
+
+import 'PatientHomePage.dart';
+import 'PhysiotherapistRegistrationPage.dart';
+
+class PhysiotherapistLoginPage extends StatelessWidget {
   final username = TextEditingController();
   final password = TextEditingController();
   PaitentController paitentController = new PaitentController();
@@ -61,7 +62,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 30.0),
                       Text(
-                        'התחברות',
+                        'פיזיותרפיסט',
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Lobster',
@@ -78,11 +79,10 @@ class LoginScreen extends StatelessWidget {
                       _buildForgotPasswordBtn(),
                       _buildLoginBtn(
                           context, paitentController, username, password),
-                      _buildSignupBtn(context),
                       SizedBox(
                         height: 30.0,
                       ),
-                      _buildPhysiotherapistBtn(context),
+                      _buildNewPhysBtn(context),
                     ],
                   ),
                 ),
@@ -213,7 +213,7 @@ Widget _buildLoginBtn(BuildContext context, PaitentController paitentController,
       ),
       color: Colors.white,
       child: Text(
-        'התחברות ',
+        'התחברות',
         style: TextStyle(
           color: Color(0xFF527DAA),
           letterSpacing: 1.5,
@@ -226,11 +226,13 @@ Widget _buildLoginBtn(BuildContext context, PaitentController paitentController,
   );
 }
 
-Widget _buildSignupBtn(BuildContext context) {
+Widget _buildNewPhysBtn(BuildContext context) {
   return GestureDetector(
     onTap: () {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => RegistrationPage()));
+          context,
+          MaterialPageRoute(
+              builder: (context) => PhysiotherapistRegistrationPage()));
     },
     child: RichText(
       text: TextSpan(
@@ -245,37 +247,6 @@ Widget _buildSignupBtn(BuildContext context) {
           ),
           TextSpan(
             text: ' הרשם כאן',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-Widget _buildPhysiotherapistBtn(BuildContext context) {
-  return GestureDetector(
-    onTap: () {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => PhsiotherapistLoginPage()));
-    },
-    child: RichText(
-      text: TextSpan(
-        children: [
-          TextSpan(
-            text: 'פיזיותרפיסט? ',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18.0,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          TextSpan(
-            text: 'לחץ כאן',
             style: TextStyle(
               color: Colors.white,
               fontSize: 18.0,

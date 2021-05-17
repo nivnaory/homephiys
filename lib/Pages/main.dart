@@ -1,11 +1,5 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:homephiys/Pages/PhysiotherapistPage.dart';
-import 'package:homephiys/Pages/RegisterationPage.dart';
-import 'package:homephiys/Pages/test.dart';
-
-import 'QuestionsPage.dart';
 import 'loginScreen.dart';
 
 void main() => runApp(MyApp());
