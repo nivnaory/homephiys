@@ -1,15 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homephiys/Controller/PaitentController.dart';
+import 'package:homephiys/Controller/TherapistController.dart';
+import 'package:homephiys/Entity/Therapist.dart';
 import 'package:toast/toast.dart';
 
 class PhysiotherapistRegistrationPage extends StatelessWidget {
-  final name = TextEditingController();
+  final username = TextEditingController();
   final email = TextEditingController();
   final password = TextEditingController();
   final confirmPassword = TextEditingController();
-  final userNameId = TextEditingController();
-  PaitentController paitentController = new PaitentController();
+
+  TherapistCotroller therapistCotroller = new TherapistCotroller();
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +25,9 @@ class PhysiotherapistRegistrationPage extends StatelessWidget {
               Container(
                 padding: EdgeInsets.fromLTRB(0.0, 70.0, 0.0, 0.0),
                 child: Text(
-                  ":הרשמה",
+                  ":הזן מספר הזדהות במערכת ",
                   style: TextStyle(
-                      fontSize: 50,
+                      fontSize: 30,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Lobster'),
                 ),
@@ -38,45 +40,15 @@ class PhysiotherapistRegistrationPage extends StatelessWidget {
               children: <Widget>[
                 TextField(
                   obscureText: false,
-                  controller: name,
+                  controller: username,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30)),
-                    hintText: ':שם פרטי',
+                    hintText: ':תעוזת זהות',
                   ),
                 ),
-                SizedBox(height: 25.0),
-                TextField(
-                  obscureText: false,
-                  controller: userNameId,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30)),
-                    hintText: ':ת.ז',
-                  ),
-                ),
-                SizedBox(height: 25.0),
-                TextField(
-                  obscureText: false,
-                  controller: password,
-                  textDirection: TextDirection.rtl,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30)),
-                    hintText: ':סיסמא',
-                  ),
-                ),
-                SizedBox(height: 10.0),
-                TextField(
-                  obscureText: false,
-                  controller: confirmPassword,
-                  textDirection: TextDirection.rtl,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30)),
-                    hintText: ':אימות סיסמא',
-                  ),
-                ),
+                SizedBox(height: 30.0),
+
               ],
             ),
           ),
@@ -90,7 +62,17 @@ class PhysiotherapistRegistrationPage extends StatelessWidget {
               elevation: 7.0,
               child: GestureDetector(
                 onTap: () {
-                  //go to threpyist homepage
+                  Future<Therapist> fatchTherapist =
+                  therapistCotroller.getTherapistFromDB(username.text.trim());
+                  fatchTherapist.then((therapist) {
+                    if(therapist!=null){
+                      print("im not null");
+                    }else{
+
+                      Toast.show("therapist is not recognize", context,
+                          duration: Toast.LENGTH_LONG, gravity: Toast.CENTER);
+                    }
+                  });
                 },
                 child: Center(
                   child: Text(

@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:homephiys/Controller/PaitentController.dart';
+import 'package:homephiys/Controller/TherapistController.dart';
 import 'package:homephiys/Entity/Paitent.dart';
+import 'package:homephiys/Entity/Therapist.dart';
 import 'package:homephiys/Helpers/constant.dart';
 
 import 'package:toast/toast.dart';
@@ -13,7 +15,7 @@ import 'PhysiotherapistRegistrationPage.dart';
 class PhysiotherapistLoginPage extends StatelessWidget {
   final username = TextEditingController();
   final password = TextEditingController();
-  PaitentController paitentController = new PaitentController();
+  TherapistCotroller therapisController = new TherapistCotroller();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +80,7 @@ class PhysiotherapistLoginPage extends StatelessWidget {
                       _buildPasswordTF(password),
                       _buildForgotPasswordBtn(),
                       _buildLoginBtn(
-                          context, paitentController, username, password),
+                          context, therapisController, username, password),
                       SizedBox(
                         height: 30.0,
                       ),
@@ -181,7 +183,7 @@ Widget _buildForgotPasswordBtn() {
   );
 }
 
-Widget _buildLoginBtn(BuildContext context, PaitentController paitentController,
+Widget _buildLoginBtn(BuildContext context, TherapistCotroller therapistCotroller,
     TextEditingController username, TextEditingController password) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 25.0),
@@ -189,17 +191,14 @@ Widget _buildLoginBtn(BuildContext context, PaitentController paitentController,
     child: RaisedButton(
       elevation: 5.0,
       onPressed: () {
-        Future f = paitentController.loginPaitent(
+        Future f = therapistCotroller.loginTherapist(
             username.text.trim(), password.text.trim());
         f.then((value) {
           if (value == true) {
-            Future<Paitent> fatchPaitent =
-                paitentController.getPaitentFromDB(username.text.trim());
-            fatchPaitent.then((paitent) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => PatientHomePage(paitent: paitent)));
+            Future<Therapist> fatchTherapist =
+            therapistCotroller.getTherapistFromDB(username.text.trim());
+            fatchTherapist.then((therapist) {
+               print("im here!");
             });
           } else {
             Toast.show("Login Failed", context,
@@ -238,7 +237,7 @@ Widget _buildNewPhysBtn(BuildContext context) {
       text: TextSpan(
         children: [
           TextSpan(
-            text: 'אין לך משתמש עדיין ? ',
+            text: 'פעם ראשונה באפליקציה ? ',
             style: TextStyle(
               color: Colors.white,
               fontSize: 18.0,
@@ -246,7 +245,7 @@ Widget _buildNewPhysBtn(BuildContext context) {
             ),
           ),
           TextSpan(
-            text: ' הרשם כאן',
+            text: ' לחץ כאן',
             style: TextStyle(
               color: Colors.white,
               fontSize: 18.0,
