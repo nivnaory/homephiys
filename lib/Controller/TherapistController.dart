@@ -49,4 +49,33 @@ class TherapistCotroller {
       return null;
     }
   }
+
+
+Future<bool> setNewPassword(String username,String newPassword) async {
+    print(newPassword.toString());
+  final response = await http.put(
+      'http://10.0.2.2:5000/therapist/${username}'
+    //'http://192.168.1.28:5000/paitent/${username}'
+    //'http://192.168.43.13:5000/paitent/${username}'
+    ,
+      headers: <String, String>{
+    'Content-Type': 'application/json; charset=UTF-8',
+
+     },
+    body: jsonEncode(<String, String>{
+      'password': newPassword,
+      }),
+  );
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON
+
+    return Future.value(true);
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+
+    return Future.value(false);
+  }
+}
 }

@@ -5,6 +5,8 @@ import 'package:homephiys/Controller/TherapistController.dart';
 import 'package:homephiys/Entity/Therapist.dart';
 import 'package:toast/toast.dart';
 
+import 'newPasswrodPage.dart';
+
 class PhysiotherapistRegistrationPage extends StatelessWidget {
   final username = TextEditingController();
   final email = TextEditingController();
@@ -66,7 +68,10 @@ class PhysiotherapistRegistrationPage extends StatelessWidget {
                   therapistCotroller.getTherapistFromDB(username.text.trim());
                   fatchTherapist.then((therapist) {
                     if(therapist!=null){
-                      print("im not null");
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PhysiotherapistNewPassword(username:username.text)));
                     }else{
 
                       Toast.show("therapist is not recognize", context,
