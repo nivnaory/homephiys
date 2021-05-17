@@ -7,7 +7,7 @@ import 'package:homephiys/Helpers/constant.dart';
 import 'package:homephiys/Pages/RegisterationPage.dart';
 import 'package:toast/toast.dart';
 import 'PatientHomePage.dart';
-import 'PhsiotherapistLoginPage.dart';
+import 'PhysiotherapistLoginPage.dart';
 
 class LoginScreen extends StatelessWidget {
   final username = TextEditingController();
@@ -261,7 +261,7 @@ Widget _buildPhysiotherapistBtn(BuildContext context) {
   return GestureDetector(
     onTap: () {
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => PhsiotherapistLoginPage()));
+          MaterialPageRoute(builder: (context) => PhysiotherapistLoginPage()));
     },
     child: RichText(
       text: TextSpan(
