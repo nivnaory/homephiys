@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:homephiys/Controller/PaitentController.dart';
 import 'package:toast/toast.dart';
 
-class PhsiotherapistRegistrationPage extends StatelessWidget {
+class PhysiotherapistRegistrationPage extends StatelessWidget {
   final name = TextEditingController();
   final email = TextEditingController();
   final password = TextEditingController();
