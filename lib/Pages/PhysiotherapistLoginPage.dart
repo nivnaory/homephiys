@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:homephiys/Controller/PaitentController.dart';
 import 'package:homephiys/Controller/TherapistController.dart';
-import 'package:homephiys/Entity/Paitent.dart';
 import 'package:homephiys/Entity/Therapist.dart';
 import 'package:homephiys/Helpers/constant.dart';
-
 import 'package:toast/toast.dart';
 
-import 'PatientHomePage.dart';
+import 'PhysiotherapistPage.dart';
 import 'PhysiotherapistRegistrationPage.dart';
 
 class PhysiotherapistLoginPage extends StatelessWidget {
@@ -183,8 +180,11 @@ Widget _buildForgotPasswordBtn() {
   );
 }
 
-Widget _buildLoginBtn(BuildContext context, TherapistCotroller therapistCotroller,
-    TextEditingController username, TextEditingController password) {
+Widget _buildLoginBtn(
+    BuildContext context,
+    TherapistCotroller therapistCotroller,
+    TextEditingController username,
+    TextEditingController password) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 25.0),
     width: double.infinity,
@@ -196,9 +196,12 @@ Widget _buildLoginBtn(BuildContext context, TherapistCotroller therapistCotrolle
         f.then((value) {
           if (value == true) {
             Future<Therapist> fatchTherapist =
-            therapistCotroller.getTherapistFromDB(username.text.trim());
+                therapistCotroller.getTherapistFromDB(username.text.trim());
             fatchTherapist.then((therapist) {
-               print("im here!");
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PhysiotherapistPage()));
             });
           } else {
             Toast.show("Login Failed", context,

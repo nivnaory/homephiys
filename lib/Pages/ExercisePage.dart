@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import 'package:homephiys/Entity/Paitent.dart';
+import 'package:homephiys/Entity/Patient.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import 'QuestionsPage.dart';
@@ -11,11 +11,11 @@ class ExercisePage extends StatefulWidget {
   final url = 'https://www.youtube.com/watch?v=88LR61WGvEQ';
   final title = 'Player';
   final highScore = 13.0000;
-  final Paitent paitent;
+  final Paitent patient;
   final int stageIndex;
   final int exerciseIndex;
 
-  ExercisePage({this.paitent, this.stageIndex, this.exerciseIndex});
+  ExercisePage({this.patient, this.stageIndex, this.exerciseIndex});
 
   _ExercisePage createState() => _ExercisePage();
 }
@@ -135,7 +135,7 @@ class _ExercisePage extends State<ExercisePage> {
                       title: "הסבר תרגיל ",
                       descritpion: this
                           .widget
-                          .paitent
+                          .patient
                           .treatmentType
                           .stageList[this.widget.stageIndex]
                           .exerciseList[this.widget.exerciseIndex]
@@ -167,14 +167,14 @@ class _ExercisePage extends State<ExercisePage> {
                         builder: (context) => QuestionsPage(
                               questions: this
                                   .widget
-                                  .paitent
+                                  .patient
                                   .treatmentType
                                   .stageList[this.widget.stageIndex]
                                   .exerciseList[this.widget.exerciseIndex]
                                   .questions,
                               exerciseLevel: this.widget.exerciseIndex,
                               stageLevel: this.widget.stageIndex,
-                              paitent: this.widget.paitent,
+                              paitent: this.widget.patient,
                             )))
               },
               color: Colors.green,

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:homephiys/Entity/Paitent.dart';
+import 'package:homephiys/Entity/Patient.dart';
 import 'package:homephiys/Pages/ChatPage.dart';
 import 'package:homephiys/Pages/TreatmentProgressPage.dart';
 
@@ -9,8 +9,8 @@ import 'MedicalInspectionStage.dart';
 import 'TreatmentAndProtocolPage.dart';
 
 class PatientHomePage extends StatefulWidget {
-  final Paitent paitent;
-  PatientHomePage({@required this.paitent});
+  final Paitent patient;
+  PatientHomePage({@required this.patient});
   _PatientHomePageState createState() => _PatientHomePageState();
 }
 
@@ -40,7 +40,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => TreatmentAndProtocolPage(
-                          paitent: this.widget.paitent))),
+                          paitent: this.widget.patient))),
             },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
@@ -66,7 +66,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          MedicalInspectionStage(this.widget.paitent, false)))
+                          MedicalInspectionStage(this.widget.patient, false)))
             },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:homephiys/Entity/Paitent.dart';
+import 'package:homephiys/Entity/Patient.dart';
 
 import 'MedicalInspectionStage.dart';
 import 'ProtocolsPage.dart';
@@ -58,8 +58,7 @@ class TreatmentAndProtocolPage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => ProtocolsPage(
-                                  protocol:
-                                      paitent.treatmentType.protocol)));
+                                  protocol: paitent.treatmentType.protocol)));
                     },
                     child: Container(
                       margin: EdgeInsets.all(15.0),

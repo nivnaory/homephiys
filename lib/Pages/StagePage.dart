@@ -1,18 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homephiys/Entity/Exercise.dart';
-import 'package:homephiys/Entity/Paitent.dart';
+import 'package:homephiys/Entity/Patient.dart';
 
-import 'package:homephiys/Entity/Stage.dart';
 import 'package:toast/toast.dart';
 import 'ExercisePage.dart';
-import 'QuestionsPage.dart';
 
 class StagePage extends StatefulWidget {
-  final Paitent paitent;
+  final Paitent patient;
   final int stageIndex;
 
-  StagePage({this.paitent, this.stageIndex});
+  StagePage({this.patient, this.stageIndex});
 
   _StagePage createState() => _StagePage();
 }
@@ -32,21 +30,21 @@ class _StagePage extends State<StagePage> {
           children: List.generate(
               this
                   .widget
-                  .paitent
+                  .patient
                   .treatmentType
                   .stageList[this.widget.stageIndex]
                   .exerciseList
                   .length, (index) {
             if (this
                     .widget
-                    .paitent
+                    .patient
                     .accessesStageList[this.widget.stageIndex]
                     .exerciseAccess[index] ==
                 true) {
               return ExerciseButton(
                 color: Colors.white,
                 enable: true,
-                paitent: this.widget.paitent,
+                paitent: this.widget.patient,
                 stageIndex: this.widget.stageIndex,
                 exerciseIndex: index,
               );
@@ -54,7 +52,7 @@ class _StagePage extends State<StagePage> {
               return ExerciseButton(
                 color: Colors.grey,
                 enable: false,
-                paitent: this.widget.paitent,
+                paitent: this.widget.patient,
                 stageIndex: this.widget.stageIndex,
                 exerciseIndex: index,
               );
@@ -96,13 +94,10 @@ class _ExerciseButton extends State<ExerciseButton> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => ExercisePage(
-
-                                paitent: this.widget.paitent,
+                                patient: this.widget.paitent,
                                 stageIndex: this.widget.stageIndex,
                                 exerciseIndex: this.widget.exerciseIndex,
-                              )
-                      )
-                  );
+                              )));
                 } else {
                   Toast.show("not have access yet", context,
                       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -130,6 +125,7 @@ class _ExerciseButton extends State<ExerciseButton> {
     );
   }
 }
+
 class ReusableCard extends StatefulWidget {
   final Widget cardChild;
   final Color color;

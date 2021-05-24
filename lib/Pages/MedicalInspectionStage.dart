@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:homephiys/Entity/Paitent.dart';
+import 'package:homephiys/Entity/Patient.dart';
 import 'package:homephiys/Pages/TreatmentProgressPage.dart';
 import 'package:toast/toast.dart';
 import 'StagePage.dart';
 
 class MedicalInspectionStage extends StatefulWidget {
-  final Paitent paitent;
+  final Paitent patient;
   final bool StagePageBool;
-  MedicalInspectionStage(this.paitent, this.StagePageBool);
+  MedicalInspectionStage(this.patient, this.StagePageBool);
 
   _MedicalInspectionStage createState() => _MedicalInspectionStage();
 }
@@ -26,17 +26,12 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
       backgroundColor: Colors.lightBlue,
       body: Column(
         children: List.generate(
-            this
-                .widget
-                .paitent
-                .treatmentType
-                .protocol
-                .subProtocolsList
-                .length, (index) {
-          if (this.widget.paitent.accessesStageList[index].stageAccess ==
+            this.widget.patient.treatmentType.protocol.subProtocolsList.length,
+            (index) {
+          if (this.widget.patient.accessesStageList[index].stageAccess ==
               true) {
             return StageWidget(
-              paitent: this.widget.paitent,
+              paitent: this.widget.patient,
               enable: true,
               color: Colors.white,
               index: index,
@@ -44,7 +39,7 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
             );
           } else {
             return StageWidget(
-              paitent: this.widget.paitent,
+              paitent: this.widget.patient,
               color: Colors.grey,
               enable: false,
               index: index,
@@ -91,7 +86,7 @@ class _StageWidget extends State<StageWidget> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => StagePage(
-                                paitent: this.widget.paitent,
+                                patient: this.widget.paitent,
                                 stageIndex: this.widget.index)));
                   else {
                     Navigator.push(

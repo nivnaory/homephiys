@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:homephiys/Entity/Paitent.dart';
+import 'package:homephiys/Entity/Patient.dart';
 import 'package:homephiys/Entity/Report.dart';
 import 'package:homephiys/Helpers/LogicHelpers.dart';
 import 'package:homephiys/Pages/QuestionReportPage.dart';
@@ -15,7 +15,8 @@ class TreatmentProgressPage extends StatefulWidget {
   final int stageIndex;
   final bool animate;
 
-  TreatmentProgressPage({Key key, this.child, this.paitent, this.stageIndex, this.animate})
+  TreatmentProgressPage(
+      {Key key, this.child, this.paitent, this.stageIndex, this.animate})
       : super(key: key);
 
   _TreatmentProgressPage createState() => _TreatmentProgressPage();
@@ -23,91 +24,129 @@ class TreatmentProgressPage extends StatefulWidget {
 
 class _TreatmentProgressPage extends State<TreatmentProgressPage> {
   List<charts.Series<exercises, String>> _seriesData;
-    List<charts.Series<scoreExercise, int>> _seriesLineData;
+  List<charts.Series<scoreExercise, int>> _seriesLineData;
 
   _generateData() {
     List<exercises> exerciseList = [];
     //get all reports of paitnet
-    List<Color> colorsArray=[];
+    List<Color> colorsArray = [];
 
     //part 1
-    List<Report>allReport = this.widget.paitent.reportList;
-    for (int i = 0; i <
-        this.widget.paitent.treatmentType.stageList[this.widget.stageIndex]
-            .exerciseList.length; i++) {
+    List<Report> allReport = this.widget.paitent.reportList;
+    for (int i = 0;
+        i <
+            this
+                .widget
+                .paitent
+                .treatmentType
+                .stageList[this.widget.stageIndex]
+                .exerciseList
+                .length;
+        i++) {
       //random;
-      colorsArray.add(Colors.primaries[Random().nextInt(Colors.primaries.length)]);
+      colorsArray
+          .add(Colors.primaries[Random().nextInt(Colors.primaries.length)]);
       //get all reports of specific exercise.
-      List<Report>currentReports = LogicHelpers
-          .getReprotOfCurrentExerciseAndStage(
-          allReport, this.widget.stageIndex, i);
+      List<Report> currentReports =
+          LogicHelpers.getReprotOfCurrentExerciseAndStage(
+              allReport, this.widget.stageIndex, i);
 
-      String name = (this.widget.paitent.treatmentType
-          .stageList[this.widget.stageIndex].exerciseList[i].level + 1)
+      String name = (this
+                  .widget
+                  .paitent
+                  .treatmentType
+                  .stageList[this.widget.stageIndex]
+                  .exerciseList[i]
+                  .level +
+              1)
           .toString();
       if (currentReports.isNotEmpty) {
         //get the high score from all the reports of specific exercie.
-        int reportHighScore = LogicHelpers.getHigestScoreOfReport(
-            currentReports);
+        int reportHighScore =
+            LogicHelpers.getHigestScoreOfReport(currentReports);
 
-        AddedExerciseToGraph(exerciseList, name, i, reportHighScore,colorsArray[i]);
+        AddedExerciseToGraph(
+            exerciseList, name, i, reportHighScore, colorsArray[i]);
       } else {
-        AddedExerciseToGraph(exerciseList, name, i, 0,colorsArray[i]);
+        AddedExerciseToGraph(exerciseList, name, i, 0, colorsArray[i]);
       }
     }
 
-
     //part 2
     List<List<scoreExercise>> scoreExerciseList = [];
-  for(int i =0; i<this.widget.paitent.treatmentType.stageList[this.widget.stageIndex].exerciseList.length;i++){
-    List<scoreExercise> subScoreExerciseList=[];
-    List<Report> currentReports=LogicHelpers.getReprotOfCurrentExerciseAndStage(this.widget.paitent.reportList,
-        this.widget.stageIndex, i);
-       Color color = colorsArray[i];
-    for(int j = 0; j<currentReports.length;j++){
-      subScoreExerciseList.add(new scoreExercise(color,new scoreReport(j, currentReports[j].score)));
+    for (int i = 0;
+        i <
+            this
+                .widget
+                .paitent
+                .treatmentType
+                .stageList[this.widget.stageIndex]
+                .exerciseList
+                .length;
+        i++) {
+      List<scoreExercise> subScoreExerciseList = [];
+      List<Report> currentReports =
+          LogicHelpers.getReprotOfCurrentExerciseAndStage(
+              this.widget.paitent.reportList, this.widget.stageIndex, i);
+      Color color = colorsArray[i];
+      for (int j = 0; j < currentReports.length; j++) {
+        subScoreExerciseList.add(new scoreExercise(
+            color, new scoreReport(j, currentReports[j].score)));
+      }
+      scoreExerciseList.add(subScoreExerciseList);
     }
-    scoreExerciseList.add(subScoreExerciseList);
-  }
 
     _seriesData.add(
       charts.Series(
         domainFn: (exercises exercise, _) => exercise.exName,
         measureFn: (exercises exercise, _) => exercise.percentage,
         data: exerciseList,
-
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
         fillColorFn: (exercises exercise, _) =>
             charts.ColorUtil.fromDartColor(exercise.color),
-
-
-
       ),
     );
 
-
-    for (int i = 0; i < this.widget.paitent.treatmentType.stageList[this.widget.stageIndex].exerciseList.length; i++) {
+    for (int i = 0;
+        i <
+            this
+                .widget
+                .paitent
+                .treatmentType
+                .stageList[this.widget.stageIndex]
+                .exerciseList
+                .length;
+        i++) {
       _seriesLineData.add(
         new charts.Series<scoreExercise, int>(
           id: 'Desktop',
-          colorFn: (scoreExercise exercise,_) =>  charts.ColorUtil.fromDartColor(exercise.color),
+          colorFn: (scoreExercise exercise, _) =>
+              charts.ColorUtil.fromDartColor(exercise.color),
           domainFn: (scoreExercise exercise, _) => exercise.report.score,
-          measureFn: (scoreExercise exericse, _) => exericse.report.numberOfTimes,
-          data:scoreExerciseList[i],
+          measureFn: (scoreExercise exericse, _) =>
+              exericse.report.numberOfTimes,
+          data: scoreExerciseList[i],
         ),
       );
     }
   }
 
-  void AddedExerciseToGraph(List<exercises> exerciseList, String name, int i, int numberOfReportScore,Color color) {
-
-     exerciseList.add(new exercises(name + " תרגיל",
-        LogicHelpers.calculatePercentage(numberOfReportScore,
-            this.widget.paitent.treatmentType
-                .stageList[this.widget.stageIndex].
-            exerciseList[i].questions.length),color));
+  void AddedExerciseToGraph(List<exercises> exerciseList, String name, int i,
+      int numberOfReportScore, Color color) {
+    exerciseList.add(new exercises(
+        name + " תרגיל",
+        LogicHelpers.calculatePercentage(
+            numberOfReportScore,
+            this
+                .widget
+                .paitent
+                .treatmentType
+                .stageList[this.widget.stageIndex]
+                .exerciseList[i]
+                .questions
+                .length),
+        color));
   }
-
 
   @override
   void initState() {
@@ -154,21 +193,18 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
                               fontSize: 24.0, fontWeight: FontWeight.bold),
                         ),
                         Expanded(
-                          child: charts.BarChart(
-                            _seriesData,
-                            animate: true,
-                            barGroupingType: charts.BarGroupingType.grouped,
-                            //behaviors: [new charts.SeriesLegend()],
-                            animationDuration: Duration(seconds: 5),
+                          child: charts.BarChart(_seriesData,
+                              animate: true,
+                              barGroupingType: charts.BarGroupingType.grouped,
+                              //behaviors: [new charts.SeriesLegend()],
+                              animationDuration: Duration(seconds: 5),
                               behaviors: [
                                 new charts.ChartTitle(' % אחוזים',
                                     behaviorPosition:
-                                    charts.BehaviorPosition.start,
+                                        charts.BehaviorPosition.start,
                                     titleOutsideJustification: charts
                                         .OutsideJustification.middleDrawArea),
-                              ]
-
-                          ),
+                              ]),
                         ),
                       ],
                     ),
@@ -187,23 +223,24 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
                               fontSize: 20.0, fontWeight: FontWeight.bold),
                         ),
                         Expanded(
-                              child:charts.LineChart(_seriesLineData, animate: true,
-                                  behaviors: [
-                                    new charts.ChartTitle(' ניקוד ',
-                                        behaviorPosition:
-                                        charts.BehaviorPosition.start,
-                                        titleOutsideJustification: charts
-                                            .OutsideJustification.middleDrawArea,
-
-                                    ),
-                            new charts.ChartTitle(' מספר התרגילים שבוצעו  ',
-                              behaviorPosition:
-                              charts.BehaviorPosition.bottom,
-                              titleOutsideJustification: charts
-                                  .OutsideJustification.middleDrawArea,),
-
-
-                          ]),
+                          child: charts.LineChart(_seriesLineData,
+                              animate: true,
+                              behaviors: [
+                                new charts.ChartTitle(
+                                  ' ניקוד ',
+                                  behaviorPosition:
+                                      charts.BehaviorPosition.start,
+                                  titleOutsideJustification: charts
+                                      .OutsideJustification.middleDrawArea,
+                                ),
+                                new charts.ChartTitle(
+                                  ' מספר התרגילים שבוצעו  ',
+                                  behaviorPosition:
+                                      charts.BehaviorPosition.bottom,
+                                  titleOutsideJustification: charts
+                                      .OutsideJustification.middleDrawArea,
+                                ),
+                              ]),
                         ),
                       ],
                     ),
@@ -240,29 +277,29 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
                                   .exerciseAccess[index] ==
                               true) {
                             return ExerciseButton(
-                                paitent: this.widget.paitent,
-                                exerciseIndex: this
-                                    .widget
-                                    .paitent
-                                    .treatmentType
-                                    .stageList[this.widget.stageIndex]
-                                    .exerciseList[index]
-                                    .level,
-                                stageIndex: this.widget.stageIndex,
+                              paitent: this.widget.paitent,
+                              exerciseIndex: this
+                                  .widget
+                                  .paitent
+                                  .treatmentType
+                                  .stageList[this.widget.stageIndex]
+                                  .exerciseList[index]
+                                  .level,
+                              stageIndex: this.widget.stageIndex,
                               color: Colors.blue,
                               enable: true,
                             );
                           } else {
                             return ExerciseButton(
-                                paitent: this.widget.paitent,
-                                exerciseIndex: this
-                                    .widget
-                                    .paitent
-                                    .treatmentType
-                                    .stageList[this.widget.stageIndex]
-                                    .exerciseList[index]
-                                    .level,
-                                stageIndex: this.widget.stageIndex,
+                              paitent: this.widget.paitent,
+                              exerciseIndex: this
+                                  .widget
+                                  .paitent
+                                  .treatmentType
+                                  .stageList[this.widget.stageIndex]
+                                  .exerciseList[index]
+                                  .level,
+                              stageIndex: this.widget.stageIndex,
                               color: Colors.grey,
                               enable: false,
                             );
@@ -303,19 +340,18 @@ class ExerciseButton extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               onTap: () {
-           if (this.enable) {
-             Navigator.push(
-                 context,
-                 MaterialPageRoute(
-                     builder: (context) =>
-                         QuestionReportPage(
-                             paitent: this.paitent,
-                             stageIndex: this.stageIndex,
-                             exercieIndex: this.exerciseIndex)));
-           }else{
-             Toast.show("not have access yet", context,
-                 duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-           }
+                if (this.enable) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => QuestionReportPage(
+                              patient: this.paitent,
+                              stageIndex: this.stageIndex,
+                              exercieIndex: this.exerciseIndex)));
+                } else {
+                  Toast.show("not have access yet", context,
+                      duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                }
               },
               child: ReusableCard(
                 cardChild: Column(
@@ -345,22 +381,20 @@ class exercises {
   double percentage;
   Color color;
 
-
-  exercises(this.exName, this.percentage,this.color);
-
+  exercises(this.exName, this.percentage, this.color);
 }
 
-class scoreExercise{
+class scoreExercise {
   Color color;
   scoreReport report;
   scoreExercise(this.color, this.report);
 }
+
 class scoreReport {
   int score;
   int numberOfTimes;
   scoreReport(this.score, this.numberOfTimes);
 }
-
 
 class Task {
   String task;
@@ -369,7 +403,6 @@ class Task {
 
   Task(this.task, this.taskvalue, this.colorval);
 }
-
 
 class ReusableCard extends StatefulWidget {
   final Widget cardChild;
@@ -393,4 +426,3 @@ class _ReusableCard extends State<ReusableCard> {
     );
   }
 }
-

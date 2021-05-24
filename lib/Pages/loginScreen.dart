@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:homephiys/Controller/PaitentController.dart';
-import 'package:homephiys/Entity/Paitent.dart';
+import 'package:homephiys/Entity/Patient.dart';
 import 'package:homephiys/Helpers/constant.dart';
 import 'package:homephiys/Pages/RegisterationPage.dart';
 import 'package:toast/toast.dart';
@@ -189,17 +189,17 @@ Widget _buildLoginBtn(BuildContext context, PaitentController paitentController,
     child: RaisedButton(
       elevation: 5.0,
       onPressed: () {
-        Future f = paitentController.loginPaitent(
+        Future f = paitentController.loginPatient(
             username.text.trim(), password.text.trim());
         f.then((value) {
           if (value == true) {
             Future<Paitent> fatchPaitent =
-                paitentController.getPaitentFromDB(username.text.trim());
-            fatchPaitent.then((paitent) {
+                paitentController.getPatientFromDB(username.text.trim());
+            fatchPaitent.then((patient) {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => PatientHomePage(paitent: paitent)));
+                      builder: (context) => PatientHomePage(patient: patient)));
             });
           } else {
             Toast.show("Login Failed", context,

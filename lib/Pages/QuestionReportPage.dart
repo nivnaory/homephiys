@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:homephiys/Entity/Paitent.dart';
+import 'package:homephiys/Entity/Patient.dart';
 import 'package:homephiys/Entity/Report.dart';
 import 'package:homephiys/Helpers/LogicHelpers.dart';
 import 'ReportPage.dart';
 
 class QuestionReportPage extends StatefulWidget {
-  final Paitent paitent;
+  final Paitent patient;
   final int stageIndex;
   final int exercieIndex;
 
   const QuestionReportPage(
-      {Key key, this.paitent, this.stageIndex, this.exercieIndex})
+      {Key key, this.patient, this.stageIndex, this.exercieIndex})
       : super(key: key);
 
   _QuestionReportPage createState() => _QuestionReportPage();
@@ -24,7 +24,7 @@ class _QuestionReportPage extends State<QuestionReportPage> {
   @override
   void initState() {
     reportList = LogicHelpers.getReprotOfCurrentExerciseAndStage(
-        this.widget.paitent.reportList,
+        this.widget.patient.reportList,
         this.widget.stageIndex,
         this.widget.exercieIndex);
     super.initState();
@@ -58,7 +58,7 @@ class _QuestionReportPage extends State<QuestionReportPage> {
                 child: Column(
                   children: List.generate(this.reportList.length, (index) {
                     return ExerciseButton(
-                      paitent: this.widget.paitent,
+                      paitent: this.widget.patient,
                       reportIndex: index,
                       reprot: this.reportList[index],
                     );
@@ -95,8 +95,7 @@ class ExerciseButton extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            ReportPage(reprot:this.reprot)));
+                        builder: (context) => ReportPage(reprot: this.reprot)));
               },
               child: ReusableCard(
                 cardChild: Column(
@@ -106,7 +105,7 @@ class ExerciseButton extends StatelessWidget {
                       width: 400.0,
                     ),
                     Text(
-                      "שאלון מספר " + (this.reportIndex+1).toString(),
+                      "שאלון מספר " + (this.reportIndex + 1).toString(),
                       style: TextStyle(fontSize: 25.0),
                     ),
                   ],
@@ -165,5 +164,3 @@ class _ReusableCard extends State<ReusableCard> {
     );
   }
 }
-
-

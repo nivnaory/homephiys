@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:homephiys/Controller/AccessController.dart';
 import 'package:homephiys/Controller/ReportController.dart';
-import 'package:homephiys/Entity/Paitent.dart';
+import 'package:homephiys/Entity/Patient.dart';
 import 'package:homephiys/Entity/Report.dart';
 import 'package:homephiys/Helpers/LogicHelpers.dart';
 import 'package:homephiys/Pages/MedicalInspectionStage.dart';
@@ -18,11 +18,11 @@ class QuestionsPage extends StatefulWidget {
   final stageIndex;
 
   final List<String> option_answers = [
-    "במידה מועטה מאוד",//0
-    "במידה מועטה",//1
-    "מידה בינונית",//2
+    "במידה מועטה מאוד", //0
+    "במידה מועטה", //1
+    "מידה בינונית", //2
     " במידה רבה ", //3
-    " במידה רבה מאוד ",//4
+    " במידה רבה מאוד ", //4
   ];
 
   QuestionsPage(
@@ -134,8 +134,8 @@ class _QuestionsPage extends State<QuestionsPage> {
                               side: BorderSide(color: Colors.black26),
                               borderRadius: BorderRadius.circular(50)),
                           onPressed: () => {
-                            score =
-                                LogicHelpers.calculateScoreOfQuestions(this.widget.answers),
+                            score = LogicHelpers.calculateScoreOfQuestions(
+                                this.widget.answers),
                             report = new Report(
                                 this.widget.stageLevel,
                                 this.widget.exerciseLevel,
@@ -156,7 +156,6 @@ class _QuestionsPage extends State<QuestionsPage> {
                                         0,
                                         this.widget.paitent.username,
                                         true),
-
                                     this
                                         .widget
                                         .paitent
@@ -194,21 +193,23 @@ class _QuestionsPage extends State<QuestionsPage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => StagePage(
-                                                  paitent: this.widget.paitent,
+                                                  patient: this.widget.paitent,
                                                   stageIndex:
                                                       this.widget.stageLevel,
                                                 )))
                                   },
-                              }else{
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => StagePage(
-                                        paitent: this.widget.paitent,
-                                        stageIndex: this.widget.stageLevel,
-                                      )))
-                            },
-
+                              }
+                            else
+                              {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => StagePage(
+                                              patient: this.widget.paitent,
+                                              stageIndex:
+                                                  this.widget.stageLevel,
+                                            )))
+                              },
                           },
                           color: Colors.green,
                           padding: EdgeInsets.all(10.0),
@@ -232,4 +233,3 @@ class _QuestionsPage extends State<QuestionsPage> {
     );
   }
 }
-
