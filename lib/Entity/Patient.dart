@@ -56,6 +56,7 @@ class Paitent {
   }
 
   static TreatmentType createTreatmentTypeFromJson(var jsonTreatmentType) {
+    print(jsonTreatmentType);
     String type = jsonTreatmentType.child('type').as<String>();
     int treatmentId = jsonTreatmentType.child('treatmentId').as<int>();
     int currentScore = jsonTreatmentType.child('currentScore').as<int>();
@@ -139,6 +140,7 @@ class Paitent {
   //read from json
   factory Paitent.fromJson(Map<String, dynamic> json) {
     //create newPaitnet
+    //  print(json);
     Paitent newPaitent = new Paitent(json['username'].toString(),
         json['password'].toString(), json['name'].toString());
 

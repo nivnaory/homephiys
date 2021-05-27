@@ -191,17 +191,25 @@ Widget _buildLoginBtn(
     child: RaisedButton(
       elevation: 5.0,
       onPressed: () {
-        Future f = therapistCotroller.loginTherapist(
+        //login theraphist
+        Future loginTheraphist = therapistCotroller.loginTherapist(
             username.text.trim(), password.text.trim());
-        f.then((value) {
+        loginTheraphist.then((value) {
           if (value == true) {
+            //get therapshit from db
             Future<Therapist> fatchTherapist =
                 therapistCotroller.getTherapistFromDB(username.text.trim());
             fatchTherapist.then((therapist) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => PhysiotherapistPage()));
+              //get allPatient fron db
+              Future patientList =
+                  therapistCotroller.getAllPatientsFromDB(username.text.trim());
+              patientList.then((allPatient) {
+                print(allPatient);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PhysiotherapistPage()));
+              });
             });
           } else {
             Toast.show("Login Failed", context,
