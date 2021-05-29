@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:homephiys/Controller/PaitentController.dart';
+import 'package:homephiys/Controller/PatientController.dart';
 import 'package:homephiys/Entity/Patient.dart';
 import 'package:homephiys/Helpers/constant.dart';
-import 'package:homephiys/Pages/RegisterationPage.dart';
+import 'package:homephiys/Pages/PatientRegistrationPage.dart';
 import 'package:toast/toast.dart';
 import 'PatientHomePage.dart';
 import 'PhysiotherapistLoginPage.dart';
@@ -12,7 +12,7 @@ import 'PhysiotherapistLoginPage.dart';
 class LoginScreen extends StatelessWidget {
   final username = TextEditingController();
   final password = TextEditingController();
-  PaitentController paitentController = new PaitentController();
+  final PatientController patientController = new PatientController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +77,7 @@ class LoginScreen extends StatelessWidget {
                       _buildPasswordTF(password),
                       _buildForgotPasswordBtn(),
                       _buildLoginBtn(
-                          context, paitentController, username, password),
+                          context, patientController, username, password),
                       _buildSignupBtn(context),
                       SizedBox(
                         height: 30.0,
@@ -181,7 +181,7 @@ Widget _buildForgotPasswordBtn() {
   );
 }
 
-Widget _buildLoginBtn(BuildContext context, PaitentController paitentController,
+Widget _buildLoginBtn(BuildContext context, PatientController patientController,
     TextEditingController username, TextEditingController password) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 25.0),
@@ -189,13 +189,13 @@ Widget _buildLoginBtn(BuildContext context, PaitentController paitentController,
     child: RaisedButton(
       elevation: 5.0,
       onPressed: () {
-        Future f = paitentController.loginPatient(
+        Future f = patientController.loginPatient(
             username.text.trim(), password.text.trim());
         f.then((value) {
           if (value == true) {
-            Future<Paitent> fatchPaitent =
-                paitentController.getPatientFromDB(username.text.trim());
-            fatchPaitent.then((patient) {
+            Future<Patient> fatchPatient =
+                patientController.getPatientFromDB(username.text.trim());
+            fatchPatient.then((patient) {
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -230,7 +230,7 @@ Widget _buildSignupBtn(BuildContext context) {
   return GestureDetector(
     onTap: () {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => RegistrationPage()));
+          context, MaterialPageRoute(builder: (context) => PatientRegistrationPage()));
     },
     child: RichText(
       text: TextSpan(

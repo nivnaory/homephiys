@@ -204,11 +204,11 @@ Widget _buildLoginBtn(
               Future patientList =
                   therapistCotroller.getAllPatientsFromDB(username.text.trim());
               patientList.then((allPatient) {
-                print(allPatient);
+
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => PhysiotherapistPage()));
+                        builder: (context) => PhysiotherapistPage(allPatients:allPatient)));
               });
             });
           } else {

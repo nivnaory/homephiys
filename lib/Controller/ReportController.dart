@@ -22,8 +22,8 @@ class ReportController {
     print(this._report.score);
     final response = await http.post(
       'http://10.0.2.2:5000/patient/${username}/report'
-      // 'http://192.168.1.28:5000/paitent/${username}/report'
-      // 'http://192.168.43.13:5000/paitent/${username}/report'
+      // 'http://192.168.1.28:5000/patient/${username}/report'
+      // 'http://192.168.43.13:5000/patient/${username}/report'
 
       ,
       headers: <String, String>{
@@ -46,7 +46,7 @@ class ReportController {
       // If the server did not return a 200 OK response,
       // then throw an exception.
       return Future.value(false);
-      throw Exception('Failed to load Paitent');
+      throw Exception('Failed to load patient');
     }
   }
 }

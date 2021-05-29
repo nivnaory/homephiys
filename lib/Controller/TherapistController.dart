@@ -33,8 +33,9 @@ class TherapistCotroller {
 
   Future<Therapist> getTherapistFromDB(String username) async {
     final response = await http.get('http://10.0.2.2:5000/therapist/${username}'
-        //'http://192.168.1.28:5000/paitent/${username}'
-        //'http://192.168.43.13:5000/paitent/${username}'
+      //final response = await http.get('http://192.168.1.28:5000/therapist/${username}'
+      //final response = await http.get('http://192.168.43.13:5000/therapist/${username}'
+
 
         );
     if (response.statusCode == 200) {
@@ -54,8 +55,8 @@ class TherapistCotroller {
     print(newPassword.toString());
     final response = await http.put(
       'http://10.0.2.2:5000/therapist/${username}'
-      //'http://192.168.1.28:5000/paitent/${username}'
-      //'http://192.168.43.13:5000/paitent/${username}'
+      //'http://192.168.1.28:5000/therapist/${username}'
+      //'http://192.168.43.13:5000/therapist/${username}''
       ,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -77,24 +78,30 @@ class TherapistCotroller {
     }
   }
 
-  Future<List<Paitent>> getAllPatientsFromDB(String username) async {
+  Future<List<Patient>> getAllPatientsFromDB(String username) async {
     final response =
         await http.get('http://10.0.2.2:5000/therapist/${username}/allPatient'
-            //'http://192.168.1.28:5000/paitent/${username}'
-            //'http://192.168.43.13:5000/paitent/${username}'
+          //await http.get('http://192.168.1.28:5000/therapist/${username}/allPatient'
+          // await http.get('http://192.168.43.13:5000/therapist/${username}/allPatient'
+
 
             );
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON
-      List<Paitent> patients = [];
-      print(response.body);
-      //  Fact fact = Fact.fromJson(list[0]);
+      List<Patient> patients = [];
+      //print(response.body);
+      List<dynamic>list=jsonDecode(response.body);
+     for ( dynamic value in list){
+       patients.add(Patient.fromJson(value));
+     }
+
+
       return patients;
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
-      throw Exception('Failed to load Paitent');
+      throw Exception('Failed to load patient');
     }
   }
 }

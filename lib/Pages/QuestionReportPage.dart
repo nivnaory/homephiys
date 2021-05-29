@@ -7,7 +7,7 @@ import 'package:homephiys/Helpers/LogicHelpers.dart';
 import 'ReportPage.dart';
 
 class QuestionReportPage extends StatefulWidget {
-  final Paitent patient;
+  final Patient patient;
   final int stageIndex;
   final int exercieIndex;
 
@@ -58,7 +58,7 @@ class _QuestionReportPage extends State<QuestionReportPage> {
                 child: Column(
                   children: List.generate(this.reportList.length, (index) {
                     return ExerciseButton(
-                      paitent: this.widget.patient,
+                      patient: this.widget.patient,
                       reportIndex: index,
                       reprot: this.reportList[index],
                     );
@@ -74,12 +74,12 @@ class _QuestionReportPage extends State<QuestionReportPage> {
 }
 
 class ExerciseButton extends StatelessWidget {
-  final Paitent paitent;
+  final Patient patient;
   final int reportIndex;
   final Report reprot;
   const ExerciseButton({
     Key key,
-    this.paitent,
+    this.patient,
     this.reportIndex,
     this.reprot,
   }) : super(key: key);

@@ -7,7 +7,7 @@ import 'package:toast/toast.dart';
 import 'ExercisePage.dart';
 
 class StagePage extends StatefulWidget {
-  final Paitent patient;
+  final Patient patient;
   final int stageIndex;
 
   StagePage({this.patient, this.stageIndex});
@@ -44,7 +44,7 @@ class _StagePage extends State<StagePage> {
               return ExerciseButton(
                 color: Colors.white,
                 enable: true,
-                paitent: this.widget.patient,
+                patient: this.widget.patient,
                 stageIndex: this.widget.stageIndex,
                 exerciseIndex: index,
               );
@@ -52,7 +52,7 @@ class _StagePage extends State<StagePage> {
               return ExerciseButton(
                 color: Colors.grey,
                 enable: false,
-                paitent: this.widget.patient,
+                patient: this.widget.patient,
                 stageIndex: this.widget.stageIndex,
                 exerciseIndex: index,
               );
@@ -67,14 +67,14 @@ class ExerciseButton extends StatefulWidget {
     Key key,
     this.enable,
     this.color,
-    this.paitent,
+    this.patient,
     this.exerciseIndex,
     this.stageIndex,
   }) : super(key: key);
 
   final Color color;
   final bool enable;
-  final Paitent paitent;
+  final Patient patient;
   final int exerciseIndex;
   final int stageIndex;
   _ExerciseButton createState() => _ExerciseButton();
@@ -94,7 +94,7 @@ class _ExerciseButton extends State<ExerciseButton> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => ExercisePage(
-                                patient: this.widget.paitent,
+                                patient: this.widget.patient,
                                 stageIndex: this.widget.stageIndex,
                                 exerciseIndex: this.widget.exerciseIndex,
                               )));

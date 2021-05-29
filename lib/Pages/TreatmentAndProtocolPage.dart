@@ -7,8 +7,8 @@ import 'MedicalInspectionStage.dart';
 import 'ProtocolsPage.dart';
 
 class TreatmentAndProtocolPage extends StatelessWidget {
-  final Paitent paitent;
-  TreatmentAndProtocolPage({@required this.paitent});
+  final Patient patient;
+  TreatmentAndProtocolPage({@required this.patient});
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -27,7 +27,7 @@ class TreatmentAndProtocolPage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  MedicalInspectionStage(paitent, true)));
+                                  MedicalInspectionStage(patient, true)));
                     },
                     child: Container(
                       margin: EdgeInsets.all(15.0),
@@ -58,7 +58,7 @@ class TreatmentAndProtocolPage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => ProtocolsPage(
-                                  protocol: paitent.treatmentType.protocol)));
+                                  protocol: patient.treatmentType.protocol)));
                     },
                     child: Container(
                       margin: EdgeInsets.all(15.0),

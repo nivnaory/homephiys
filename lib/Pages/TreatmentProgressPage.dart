@@ -11,12 +11,12 @@ import 'package:toast/toast.dart';
 
 class TreatmentProgressPage extends StatefulWidget {
   final Widget child;
-  final Paitent paitent;
+  final Patient patient;
   final int stageIndex;
   final bool animate;
 
   TreatmentProgressPage(
-      {Key key, this.child, this.paitent, this.stageIndex, this.animate})
+      {Key key, this.child, this.patient, this.stageIndex, this.animate})
       : super(key: key);
 
   _TreatmentProgressPage createState() => _TreatmentProgressPage();
@@ -32,12 +32,12 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
     List<Color> colorsArray = [];
 
     //part 1
-    List<Report> allReport = this.widget.paitent.reportList;
+    List<Report> allReport = this.widget.patient.reportList;
     for (int i = 0;
         i <
             this
                 .widget
-                .paitent
+                .patient
                 .treatmentType
                 .stageList[this.widget.stageIndex]
                 .exerciseList
@@ -53,7 +53,7 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
 
       String name = (this
                   .widget
-                  .paitent
+                  .patient
                   .treatmentType
                   .stageList[this.widget.stageIndex]
                   .exerciseList[i]
@@ -78,7 +78,7 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
         i <
             this
                 .widget
-                .paitent
+                .patient
                 .treatmentType
                 .stageList[this.widget.stageIndex]
                 .exerciseList
@@ -87,7 +87,7 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
       List<scoreExercise> subScoreExerciseList = [];
       List<Report> currentReports =
           LogicHelpers.getReprotOfCurrentExerciseAndStage(
-              this.widget.paitent.reportList, this.widget.stageIndex, i);
+              this.widget.patient.reportList, this.widget.stageIndex, i);
       Color color = colorsArray[i];
       for (int j = 0; j < currentReports.length; j++) {
         subScoreExerciseList.add(new scoreExercise(
@@ -111,7 +111,7 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
         i <
             this
                 .widget
-                .paitent
+                .patient
                 .treatmentType
                 .stageList[this.widget.stageIndex]
                 .exerciseList
@@ -139,7 +139,7 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
             numberOfReportScore,
             this
                 .widget
-                .paitent
+                .patient
                 .treatmentType
                 .stageList[this.widget.stageIndex]
                 .exerciseList[i]
@@ -265,22 +265,22 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
                         children: List.generate(
                             this
                                 .widget
-                                .paitent
+                                .patient
                                 .treatmentType
                                 .stageList[this.widget.stageIndex]
                                 .exerciseList
                                 .length, (index) {
                           if (this
                                   .widget
-                                  .paitent
+                                  .patient
                                   .accessesStageList[this.widget.stageIndex]
                                   .exerciseAccess[index] ==
                               true) {
                             return ExerciseButton(
-                              paitent: this.widget.paitent,
+                              patient: this.widget.patient,
                               exerciseIndex: this
                                   .widget
-                                  .paitent
+                                  .patient
                                   .treatmentType
                                   .stageList[this.widget.stageIndex]
                                   .exerciseList[index]
@@ -291,10 +291,10 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
                             );
                           } else {
                             return ExerciseButton(
-                              paitent: this.widget.paitent,
+                              patient: this.widget.patient,
                               exerciseIndex: this
                                   .widget
-                                  .paitent
+                                  .patient
                                   .treatmentType
                                   .stageList[this.widget.stageIndex]
                                   .exerciseList[index]
@@ -317,7 +317,7 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
 }
 
 class ExerciseButton extends StatelessWidget {
-  final Paitent paitent;
+  final Patient patient;
   final int stageIndex;
   final int exerciseIndex;
   final Color color;
@@ -325,7 +325,7 @@ class ExerciseButton extends StatelessWidget {
 
   const ExerciseButton({
     Key key,
-    this.paitent,
+    this.patient,
     this.exerciseIndex,
     this.stageIndex,
     this.color,
@@ -345,7 +345,7 @@ class ExerciseButton extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => QuestionReportPage(
-                              patient: this.paitent,
+                              patient: this.patient,
                               stageIndex: this.stageIndex,
                               exercieIndex: this.exerciseIndex)));
                 } else {

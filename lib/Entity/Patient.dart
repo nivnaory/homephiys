@@ -8,7 +8,7 @@ import 'Stage.dart';
 import 'SubProtocol.dart';
 import 'TreatmentType.dart';
 
-class Paitent {
+class Patient {
   String _username;
 
   String get username => _username;
@@ -18,7 +18,7 @@ class Paitent {
   List<Report> _reportList;
   List<AccessStage> _accessesStageList;
 
-  Paitent(String userName, String password, String firstName) {
+  Patient(String userName, String password, String firstName) {
     this._username = userName;
     this._password = password;
     this._firstName = firstName;
@@ -56,16 +56,10 @@ class Paitent {
   }
 
   static TreatmentType createTreatmentTypeFromJson(var jsonTreatmentType) {
-    print(jsonTreatmentType);
     String type = jsonTreatmentType.child('type').as<String>();
     int treatmentId = jsonTreatmentType.child('treatmentId').as<int>();
     int currentScore = jsonTreatmentType.child('currentScore').as<int>();
-    TreatmentType newTreatment = new TreatmentType(
-        type, treatmentId, currentScore
-        /*    jsonTreatmentType['type'].toString(),
-        int.parse(jsonTreatmentType['treatmentId'].toString()),
-        int.parse(jsonTreatmentType['currentScore'].toString())*/
-        );
+    TreatmentType newTreatment = new TreatmentType(type, treatmentId, currentScore);
     List stageList = jsonTreatmentType.child('stageList').asList();
 
     for (int j = 0; j < stageList.length; j++) {
@@ -97,13 +91,13 @@ class Paitent {
     String name = jsonProtocol.child('name').as<String>();
     int protocolId = jsonProtocol.child('protocolId').as<int>();
     Protocol protocol = new Protocol(name, protocolId);
-    List subProtocolLits = jsonProtocol.child('subProtocols').asList();
+    List subProtocolLists = jsonProtocol.child('subProtocols').asList();
 
-    for (int i = 0; i < subProtocolLits.length; i++) {
+    for (int i = 0; i < subProtocolLists.length; i++) {
       SubProtocol subProtocol = new SubProtocol(
-          subProtocolLits[i]['name'].toString(),
-          int.parse(subProtocolLits[i]['level'].toString()));
-      List des = subProtocolLits[i]['description'];
+          subProtocolLists[i]['name'].toString(),
+          int.parse(subProtocolLists[i]['level'].toString()));
+      List des = subProtocolLists[i]['description'];
       subProtocol.descriptions = (des.cast<String>());
       protocol.addSubProtocol(subProtocol);
     }
@@ -138,29 +132,28 @@ class Paitent {
   }
 
   //read from json
-  factory Paitent.fromJson(Map<String, dynamic> json) {
+  factory Patient.fromJson(Map<String, dynamic> json) {
+
     //create newPaitnet
-    //  print(json);
-    Paitent newPaitent = new Paitent(json['username'].toString(),
+    Patient newPatient = new Patient(json['username'].toString(),
         json['password'].toString(), json['name'].toString());
 
     //create treament type
     var treatmentJson = Snapshot.fromJson(json['treatmentType']);
-    TreatmentType newTreatmentType = createTreatmentTypeFromJson(treatmentJson);
-    newPaitent.treatmentType = newTreatmentType;
 
-    //create protocol
-    // print(json);
-    var porotocolJson = Snapshot.fromJson(json['protocol']);
-    Protocol newProtocol = createProtocolFromJson(porotocolJson);
-    newPaitent.treatmentType.protocol = (newProtocol);
+    TreatmentType newTreatmentType = createTreatmentTypeFromJson(treatmentJson);
+    newPatient.treatmentType = newTreatmentType;
+
+     var protocolJson = treatmentJson.child('protocol');
+    Protocol newProtocol = createProtocolFromJson(protocolJson);
+    newPatient.treatmentType.protocol = (newProtocol);
 
     //create Access
     var a = Snapshot.fromJson(json['accesses']);
     List accessList = List.from(a.asList());
     for (int i = 0; i < accessList.length; i++) {
       AccessStage newAccess = createAccessFromJson(accessList[i]);
-      newPaitent.addAccess(newAccess);
+      newPatient.addAccess(newAccess);
     }
 
     var r = Snapshot.fromJson(json['reports']);
@@ -170,12 +163,12 @@ class Paitent {
     if (reportList.isNotEmpty) {
       for (int i = 0; i < reportList.length; i++) {
         Report newReport = createReportFromJson(reportList[i]);
-        newPaitent.addReport(newReport);
+        newPatient.addReport(newReport);
       }
     }
 
     //here add createReportFunctions;
     //on the treatment progress page
-    return newPaitent;
+    return newPatient;
   }
 }

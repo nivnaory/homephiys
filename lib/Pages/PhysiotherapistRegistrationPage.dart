@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:homephiys/Controller/PaitentController.dart';
+import 'package:homephiys/Controller/PatientController.dart';
 import 'package:homephiys/Controller/TherapistController.dart';
 import 'package:homephiys/Entity/Therapist.dart';
 import 'package:toast/toast.dart';
 
-import 'newPasswrodPage.dart';
+import 'PhysiotherapistNewPassword.dart';
 
 class PhysiotherapistRegistrationPage extends StatelessWidget {
   final username = TextEditingController();

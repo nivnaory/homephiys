@@ -2,15 +2,15 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../Entity/Patient.dart';
 
-class PaitentController {
-  PaitentController();
+class PatientController {
+  PatientController();
 
 //this function  handel the connection to database
   Future<bool> loginPatient(String username, String password) async {
     final http.Response response = await http.post(
       'http://10.0.2.2:5000/user/login/patient'
-      //  'http://192.168.1.28:5000/user/login/paitent'
-      // 'http://192.168.43.13:5000/user/login/paitent'
+      //  'http://192.168.1.28:5000/user/login/patient'
+      // 'http://192.168.43.13:5000/user/login/patient'
 
       ,
       headers: <String, String>{
@@ -35,31 +35,31 @@ class PaitentController {
     return Future.value(false);
   }
 
-  Future<Paitent> getPatientFromDB(String username) async {
+  Future<Patient> getPatientFromDB(String username) async {
     final response = await http.get('http://10.0.2.2:5000/patient/${username}'
-        //'http://192.168.1.28:5000/paitent/${username}'
-        //'http://192.168.43.13:5000/paitent/${username}'
+        //'http://192.168.1.28:5000/patient/${username}'
+        //'http://192.168.43.13:5000/patient/${username}'
 
         );
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON
       print(response.body);
-      return Paitent.fromJson(jsonDecode(response.body));
+      return Patient.fromJson(jsonDecode(response.body));
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
-      throw Exception('Failed to load Paitent');
+      throw Exception('Failed to load patient');
     }
   }
 
   Future<bool> createPatient(String usernameId, String password, String name,
       String email, int treatmentTypeNumber) async {
-    print("niv the dick");
+
     final response = await http.post(
       'http://10.0.2.2:5000/user/register/patient/'
-      // 'http://192.168.1.28:5000/user/register/paitent/'
-      // 'http://192.168.43.13:5000/user/register/paitent/'
+      // 'http://192.168.1.28:5000/user/register/patient/'
+      // 'http://192.168.43.13:5000/user/register/patient/'
       ,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -81,7 +81,7 @@ class PaitentController {
       // If the server did not return a 200 OK response,
       // then throw an exception.
 
-      throw Exception('Failed to load Patient');
+      return Future.value(true);
     }
   }
 }

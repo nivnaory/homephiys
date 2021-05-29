@@ -8,8 +8,8 @@ class AccessController {
     print(username);
     final response = await http.post(
        'http://10.0.2.2:5000/patient/${username}/access'
-    // 'http://192.168.1.28:5000/paitent/${username}/accesses'
-       //'http://192.168.43.13:5000/paitent/${username}/accesses'
+    // 'http://192.168.1.28:5000/patient/${username}/accesses'
+       //'http://192.168.43.13:5000/patient/${username}/accesses'
     ,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -31,7 +31,7 @@ class AccessController {
       // If the server did not return a 200 OK response,
       // then throw an exception.
       return Future.value(false);
-      throw Exception('Failed to load Paitent');
+      throw Exception('Failed to load patient');
     }
   }
 }

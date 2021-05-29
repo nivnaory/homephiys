@@ -11,7 +11,7 @@ class ExercisePage extends StatefulWidget {
   final url = 'https://www.youtube.com/watch?v=88LR61WGvEQ';
   final title = 'Player';
   final highScore = 13.0000;
-  final Paitent patient;
+  final Patient patient;
   final int stageIndex;
   final int exerciseIndex;
 
@@ -174,7 +174,7 @@ class _ExercisePage extends State<ExercisePage> {
                                   .questions,
                               exerciseLevel: this.widget.exerciseIndex,
                               stageLevel: this.widget.stageIndex,
-                              paitent: this.widget.patient,
+                              patient: this.widget.patient,
                             )))
               },
               color: Colors.green,

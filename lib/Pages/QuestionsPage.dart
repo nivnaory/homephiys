@@ -14,7 +14,7 @@ class QuestionsPage extends StatefulWidget {
   final int stageLevel;
   List<int> answers = [];
   final int exerciseLevel;
-  final Paitent paitent;
+  final Patient patient;
   final stageIndex;
 
   final List<String> option_answers = [
@@ -29,7 +29,7 @@ class QuestionsPage extends StatefulWidget {
       {@required this.questions,
       this.stageLevel,
       this.exerciseLevel,
-      this.paitent,
+      this.patient,
       this.stageIndex});
 
   @override
@@ -50,7 +50,7 @@ class _QuestionsPage extends State<QuestionsPage> {
 
     numberOfExercises = this
             .widget
-            .paitent
+            .patient
             .treatmentType
             .stageList[this.widget.stageLevel]
             .exerciseList
@@ -145,7 +145,7 @@ class _QuestionsPage extends State<QuestionsPage> {
                                 score),
                             reportController = new ReportController(report),
                             f = reportController
-                                .createReport(this.widget.paitent.username),
+                                .createReport(this.widget.patient.username),
                             if (score > threshold)
                               {
                                 if (this.widget.exerciseLevel ==
@@ -154,17 +154,17 @@ class _QuestionsPage extends State<QuestionsPage> {
                                     f1 = accessController.updateAccess(
                                         this.widget.stageLevel + 1,
                                         0,
-                                        this.widget.paitent.username,
+                                        this.widget.patient.username,
                                         true),
                                     this
                                         .widget
-                                        .paitent
+                                        .patient
                                         .accessesStageList[
                                             this.widget.stageLevel + 1]
                                         .stageAccess = true,
                                     this
                                         .widget
-                                        .paitent
+                                        .patient
                                         .accessesStageList[
                                             this.widget.stageLevel + 1]
                                         .exerciseAccess[0] = true,
@@ -173,18 +173,18 @@ class _QuestionsPage extends State<QuestionsPage> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 MedicalInspectionStage(
-                                                    this.widget.paitent, true)))
+                                                    this.widget.patient, true)))
                                   }
                                 else
                                   {
                                     f1 = accessController.updateAccess(
                                         this.widget.stageLevel,
                                         this.widget.exerciseLevel + 1,
-                                        this.widget.paitent.username,
+                                        this.widget.patient.username,
                                         false),
                                     this
                                             .widget
-                                            .paitent
+                                            .patient
                                             .accessesStageList[
                                                 this.widget.stageLevel]
                                             .exerciseAccess[
@@ -193,7 +193,7 @@ class _QuestionsPage extends State<QuestionsPage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => StagePage(
-                                                  patient: this.widget.paitent,
+                                                  patient: this.widget.patient,
                                                   stageIndex:
                                                       this.widget.stageLevel,
                                                 )))
@@ -205,7 +205,7 @@ class _QuestionsPage extends State<QuestionsPage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => StagePage(
-                                              patient: this.widget.paitent,
+                                              patient: this.widget.patient,
                                               stageIndex:
                                                   this.widget.stageLevel,
                                             )))

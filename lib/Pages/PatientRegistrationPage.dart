@@ -1,25 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:homephiys/Controller/PaitentController.dart';
+import 'package:homephiys/Controller/PatientController.dart';
 import 'package:toast/toast.dart';
 
-import 'loginScreen.dart';
+import 'LoginScreen.dart';
 
-class RegistrationPage extends StatefulWidget {
+class PatientRegistrationPage extends StatefulWidget {
   final username;
 
-  RegistrationPage({@required this.username});
+  PatientRegistrationPage({this.username});
 
-  _RegistrationPage createState() => _RegistrationPage();
+  _PatientRegistrationPage createState() => _PatientRegistrationPage();
 }
 
-class _RegistrationPage extends State<RegistrationPage> {
+class _PatientRegistrationPage extends State<PatientRegistrationPage> {
   final name = TextEditingController();
   final email = TextEditingController();
   final password = TextEditingController();
   final confirmPassword = TextEditingController();
   final userNameId = TextEditingController();
-  PaitentController paitentController = new PaitentController();
+  PatientController patientController = new PatientController();
 
   List<ListItem> _dropdownItems = [
     ListItem(1, "1"),
@@ -146,7 +146,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                 onTap: () {
                   if (password.text.trim() == confirmPassword.text.trim()) {
                     if (validateEmail(email.text.trim()) == email.text.trim()) {
-                      Future f = paitentController.createPatient(
+                      Future f = patientController.createPatient(
                           userNameId.text.trim(),
                           password.text.trim(),
                           name.text.trim(),
@@ -155,6 +155,10 @@ class _RegistrationPage extends State<RegistrationPage> {
                       print("successful registration");
                       Toast.show("נרשם בהצלחה", context,
                           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()));
                     }
                   } else {
                     Toast.show(

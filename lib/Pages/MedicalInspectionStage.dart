@@ -6,7 +6,7 @@ import 'package:toast/toast.dart';
 import 'StagePage.dart';
 
 class MedicalInspectionStage extends StatefulWidget {
-  final Paitent patient;
+  final Patient patient;
   final bool StagePageBool;
   MedicalInspectionStage(this.patient, this.StagePageBool);
 
@@ -31,7 +31,7 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
           if (this.widget.patient.accessesStageList[index].stageAccess ==
               true) {
             return StageWidget(
-              paitent: this.widget.patient,
+              patient: this.widget.patient,
               enable: true,
               color: Colors.white,
               index: index,
@@ -39,7 +39,7 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
             );
           } else {
             return StageWidget(
-              paitent: this.widget.patient,
+              patient: this.widget.patient,
               color: Colors.grey,
               enable: false,
               index: index,
@@ -57,14 +57,14 @@ class StageWidget extends StatefulWidget {
     Key key,
     this.enable,
     this.color,
-    this.paitent,
+    this.patient,
     this.index,
     this.StagePageBool,
   }) : super(key: key);
   final bool StagePageBool;
   final Color color;
   final bool enable;
-  final Paitent paitent;
+  final Patient patient;
   final int index;
 
   _StageWidget createState() => _StageWidget();
@@ -86,14 +86,14 @@ class _StageWidget extends State<StageWidget> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => StagePage(
-                                patient: this.widget.paitent,
+                                patient: this.widget.patient,
                                 stageIndex: this.widget.index)));
                   else {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => TreatmentProgressPage(
-                                paitent: this.widget.paitent,
+                                patient: this.widget.patient,
                                 stageIndex: this.widget.index)));
                   }
                 } else {
@@ -111,7 +111,7 @@ class _StageWidget extends State<StageWidget> {
                     Text(
                       this
                           .widget
-                          .paitent
+                          .patient
                           .treatmentType
                           .protocol
                           .subProtocolsList[this.widget.index]

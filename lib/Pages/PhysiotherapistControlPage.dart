@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:homephiys/Entity/Patient.dart';
 import 'package:homephiys/Pages/ChatPage.dart';
+import 'package:homephiys/Pages/ProtocolsPage.dart';
 import 'package:homephiys/Pages/TreatmentProgressPage.dart';
 
 import 'MedicalInspectionStage.dart';
 import 'TreatmentAndProtocolPage.dart';
 
-class PatientHomePage extends StatelessWidget {
+class PhysiotherapistControlPage extends StatelessWidget {
   final Patient patient;
-  PatientHomePage({@required this.patient});
+  PhysiotherapistControlPage({@required this.patient});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,8 +36,8 @@ class PatientHomePage extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => TreatmentAndProtocolPage(
-                          patient: this.patient))),
+                      builder: (context) =>
+                          MedicalInspectionStage(this.patient, false)))
             },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
@@ -46,7 +47,7 @@ class PatientHomePage extends StatelessWidget {
               children: <Widget>[
                 Icon(Icons.directions_run, size: 50.0, color: Colors.black),
                 Text(
-                  "תרגיל ביתי",
+                   "צפה בהתקדמות טיפול",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20, color: Colors.black),
                 ),
@@ -57,12 +58,8 @@ class PatientHomePage extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 side: BorderSide(color: Colors.white),
                 borderRadius: BorderRadius.circular(100)),
-            onPressed: () => {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          MedicalInspectionStage(this.patient, false)))
+            onPressed: () =>
+            {
             },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
@@ -71,7 +68,7 @@ class PatientHomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(Icons.bookmark, size: 50, color: Colors.deepOrange),
-                Text("התקדמות טיפול",
+                Text(" שלב נוכחי",
                     style: TextStyle(fontSize: 20, color: Colors.deepOrange)),
               ],
             ),
@@ -81,9 +78,11 @@ class PatientHomePage extends StatelessWidget {
                 side: BorderSide(color: Colors.black26),
                 borderRadius: BorderRadius.circular(100)),
             onPressed: () => {
-              print("chat"),
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => ChatPage()))
+            Navigator.push(
+            context,
+            MaterialPageRoute(
+            builder: (context) => ProtocolsPage(
+            protocol: this.patient.treatmentType.protocol)))
             },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
@@ -92,7 +91,7 @@ class PatientHomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(Icons.chat, size: 50, color: Colors.green),
-                Text("צור קשר",
+                Text("פרוטוקל המטופל",
                     style: TextStyle(fontSize: 20, color: Colors.green))
               ],
             ),
