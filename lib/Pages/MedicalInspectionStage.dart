@@ -19,8 +19,8 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'home Exercise',
-          style: TextStyle(color: Colors.white),
+          'שלבי התרגיל הביתי',
+          style: TextStyle(color: Colors.black),
         ),
       ),
       backgroundColor: Colors.lightBlue,

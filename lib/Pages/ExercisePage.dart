@@ -56,8 +56,8 @@ class _ExercisePage extends State<ExercisePage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            ' Exercise',
-            style: TextStyle(color: Colors.white),
+            ' תרגול מספר ' + (this.widget.exerciseIndex+1).toString(),
+            style: TextStyle(color: Colors.black),
           ),
         ),
         body: StaggeredGridView.count(
@@ -105,25 +105,7 @@ class _ExercisePage extends State<ExercisePage> {
                 ],
               ),
             ),
-            FlatButton(
-              shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.black26),
-                  borderRadius: BorderRadius.circular(50)),
-              onPressed: () => {},
-              color: Colors.white,
-              padding: EdgeInsets.all(10.0),
-              child: Column(
-                // Replace with a Row for horizontal icon + text
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "שעון",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20, color: Colors.black),
-                  ),
-                ],
-              ),
-            ),
+
             FlatButton(
               shape: RoundedRectangleBorder(
                   side: BorderSide(color: Colors.black26),
@@ -160,6 +142,25 @@ class _ExercisePage extends State<ExercisePage> {
               shape: RoundedRectangleBorder(
                   side: BorderSide(color: Colors.black26),
                   borderRadius: BorderRadius.circular(50)),
+              onPressed: () => {},
+              color: Colors.redAccent,
+              padding: EdgeInsets.all(10.0),
+              child: Column(
+                // Replace with a Row for horizontal icon + text
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "התחל תרגיל",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20, color: Colors.black),
+                  ),
+                ],
+              ),
+            ),
+            FlatButton(
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.black26),
+                  borderRadius: BorderRadius.circular(50)),
               onPressed: () => {
                 Navigator.push(
                     context,
@@ -184,7 +185,7 @@ class _ExercisePage extends State<ExercisePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    ":המשך",
+                    "סיים תרגיל",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, color: Colors.black),
                   ),

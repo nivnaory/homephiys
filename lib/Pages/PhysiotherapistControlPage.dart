@@ -17,8 +17,8 @@ class PhysiotherapistControlPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Patient',
-          style: TextStyle(color: Colors.white),
+          'תפריט',
+          style: TextStyle(color: Colors.black),
         ),
       ),
       backgroundColor: Colors.lightBlue,

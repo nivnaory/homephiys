@@ -13,8 +13,8 @@ class TreatmentAndProtocolPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Patient Page',
-            style: TextStyle(color: Colors.white),
+            ' התרגיל הביתי  ',
+            style: TextStyle(color: Colors.black),
           ),
         ),
         backgroundColor: Colors.lightBlue,
@@ -39,7 +39,7 @@ class TreatmentAndProtocolPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            ":רשימת תרגילים",
+                            "רשימת תרגילים",
                             style: TextStyle(
                                 fontSize: 30, color: Colors.deepOrange),
                           ),
@@ -70,7 +70,7 @@ class TreatmentAndProtocolPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            ":פרוטוקולים ",
+                            "פרוטוקולים ",
                             style: TextStyle(fontSize: 30, color: Colors.green),
                           ),
                           SizedBox(

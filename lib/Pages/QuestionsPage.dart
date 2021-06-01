@@ -63,7 +63,7 @@ class _QuestionsPage extends State<QuestionsPage> {
     this.widget.answers = List<int>.filled(this.widget.questions.length, 0);
     return Scaffold(
       appBar: AppBar(
-        title: Text("HomePhiys Questions:"),
+        title: Text("שאלון עבור תרגיל מספר " + (this.widget.exerciseLevel+1).toString()),
       ),
       body: _body(),
     );

@@ -49,7 +49,7 @@ class _PatientRegistrationPage extends State<PatientRegistrationPage> {
               Container(
                 padding: EdgeInsets.fromLTRB(0.0, 70.0, 0.0, 0.0),
                 child: Text(
-                  ":הרשמה",
+                  "הרשמה",
                   style: TextStyle(
                       fontSize: 50,
                       fontWeight: FontWeight.bold,
@@ -85,7 +85,6 @@ class _PatientRegistrationPage extends State<PatientRegistrationPage> {
                 TextField(
                   obscureText: false,
                   controller: email,
-                  textDirection: TextDirection.rtl,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30)),
@@ -168,7 +167,7 @@ class _PatientRegistrationPage extends State<PatientRegistrationPage> {
                 },
                 child: Center(
                   child: Text(
-                    " :אישור והמשך",
+                    " אשר והמשך",
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,

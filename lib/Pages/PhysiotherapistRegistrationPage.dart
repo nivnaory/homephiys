@@ -27,7 +27,7 @@ class PhysiotherapistRegistrationPage extends StatelessWidget {
               Container(
                 padding: EdgeInsets.fromLTRB(0.0, 70.0, 0.0, 0.0),
                 child: Text(
-                  ":הזן מספר הזדהות במערכת ",
+                  "אנא הזן את תעודת הזהות ",
                   style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -46,7 +46,7 @@ class PhysiotherapistRegistrationPage extends StatelessWidget {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30)),
-                    hintText: ':תעוזת זהות',
+                    hintText: 'תעודת זהות',
                   ),
                 ),
                 SizedBox(height: 30.0),
@@ -81,7 +81,7 @@ class PhysiotherapistRegistrationPage extends StatelessWidget {
                 },
                 child: Center(
                   child: Text(
-                    " :אישור והמשך",
+                    " אשר והמשך",
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,

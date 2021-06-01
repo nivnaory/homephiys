@@ -7,8 +7,8 @@ class ChatPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            "Assistance Page",
-            style: TextStyle(color: Colors.white),
+            "יצירת קשר",
+            style: TextStyle(color: Colors.black),
           ),
         ),
       body: Column(
@@ -16,7 +16,7 @@ class ChatPage extends StatelessWidget {
                    Container(
           padding: EdgeInsets.fromLTRB(10.0, 150.0, 10.0, 50.0),
                     child: Text(
-                       "לתמיכה טכנית, יש לפנות לניב נאורי , אימייל: naoryniv@gmail.com ",
+                       "לתמיכה טכנית, יש לפנות למנהלי המערכת  בכתובת האימייל: help@homephys.com  או בטלפון:03-5753636",
                     style: TextStyle(
                         fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -28,7 +28,7 @@ class ChatPage extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.fromLTRB(10.0, 150.0, 10.0, 50.0),
                     child: Text(
-                "לתמיכה בטיפולי הפיזיותרפיה, יש לפנות לבית החולים  ",
+                "לתמיכה בטיפולי הפיזיותרפיה, יש לפנות לבית החולים בטלפון:09-747-2555 או בכתובת האימייל: physio@meir-hospital.com  ",
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

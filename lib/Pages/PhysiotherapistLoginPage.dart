@@ -99,7 +99,7 @@ Widget _buildUserNameTF(TextEditingController email) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       Text(
-        'תעדות זהות ',
+        'תעודת זהות ',
         style: kLabelStyle,
       ),
       SizedBox(height: 10.0),

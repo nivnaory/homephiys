@@ -16,8 +16,8 @@ class PatientHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Patient',
-          style: TextStyle(color: Colors.white),
+          'תפריט המטופל',
+          style: TextStyle(color: Colors.black),
         ),
       ),
       backgroundColor: Colors.lightBlue,

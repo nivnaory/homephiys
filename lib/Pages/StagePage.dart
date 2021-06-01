@@ -21,8 +21,8 @@ class _StagePage extends State<StagePage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            'home Exercise',
-            style: TextStyle(color: Colors.white),
+            'רשימת התרגולים הביתיים',
+            style: TextStyle(color: Colors.black),
           ),
         ),
         backgroundColor: Colors.lightBlue,
@@ -111,7 +111,7 @@ class _ExerciseButton extends State<ExerciseButton> {
                       width: 400.0,
                     ),
                     Text(
-                      "תרגיל :" + (this.widget.exerciseIndex + 1).toString(),
+                      "תרגול מספר " + (this.widget.exerciseIndex + 1).toString(),
                       style: TextStyle(fontSize: 25.0),
                     ),
                   ],

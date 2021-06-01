@@ -24,7 +24,7 @@ class PhysiotherapistNewPassword extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.fromLTRB(0.0, 70.0, 0.0, 0.0),
                     child: Text(
-                      ":יצירת סיסמא חדשה  ",
+                      "יצירת סיסמא חדשה  ",
                       style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
@@ -43,7 +43,7 @@ class PhysiotherapistNewPassword extends StatelessWidget {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30)),
-                    hintText: 'סיסמא',
+                    hintText: 'הכנס סיסמא חדשה',
                   ),
                 ),
                 SizedBox(height: 30.0),
@@ -53,7 +53,7 @@ class PhysiotherapistNewPassword extends StatelessWidget {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30)),
-                    hintText: 'אימות סיסמא',
+                    hintText: 'אימות סיסמא חדשה',
                   ),
                 ),
 
