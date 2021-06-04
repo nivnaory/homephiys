@@ -6,9 +6,9 @@ class AccessController {
   Future<bool> updateAccess(int stageLevel,int exerciseLevel,String username, bool
   isFinished) async {
     print(username);
-    final response = await http.post(
-       'http://10.0.2.2:5000/patient/${username}/access'
-    // 'http://192.168.1.28:5000/patient/${username}/accesses'
+    final response = await http.put(
+       'http://10.0.2.2:5000/patient/${username}/accesses'
+     //'http://172.20.19.56:5000/patient/${username}/accesses'
        //'http://192.168.43.13:5000/patient/${username}/accesses'
     ,
       headers: <String, String>{

@@ -12,7 +12,7 @@ class TherapistCotroller {
     print(password);
     final http.Response response = await http.post(
       'http://10.0.2.2:5000/user/login/therapist'
-      //  'http://192.168.1.28:5000/user/login/therapist'
+     //   'http://172.20.19.56:5000/user/login/therapist'
       // 'http://192.168.43.13:5000/user/login/therapist'
       ,
       headers: <String, String>{
@@ -33,7 +33,7 @@ class TherapistCotroller {
 
   Future<Therapist> getTherapistFromDB(String username) async {
     final response = await http.get('http://10.0.2.2:5000/therapist/${username}'
-      //final response = await http.get('http://192.168.1.28:5000/therapist/${username}'
+      //final response = await http.get('http://172.20.19.56:5000/therapist/${username}'
       //final response = await http.get('http://192.168.43.13:5000/therapist/${username}'
 
 
@@ -54,8 +54,8 @@ class TherapistCotroller {
   Future<bool> setNewPassword(String username, String newPassword) async {
     print(newPassword.toString());
     final response = await http.put(
-      'http://10.0.2.2:5000/therapist/${username}'
-      //'http://192.168.1.28:5000/therapist/${username}'
+      'http://10.0.2.2:5000/therapist/${username}/passwrod'
+     // 'http://172.20.19.56:5000/therapist/${username}'
       //'http://192.168.43.13:5000/therapist/${username}''
       ,
       headers: <String, String>{
@@ -81,7 +81,7 @@ class TherapistCotroller {
   Future<List<Patient>> getAllPatientsFromDB(String username) async {
     final response =
         await http.get('http://10.0.2.2:5000/therapist/${username}/allPatient'
-          //await http.get('http://192.168.1.28:5000/therapist/${username}/allPatient'
+        //  await http.get('http://172.20.19.56:5000/therapist/${username}/allPatient'
           // await http.get('http://192.168.43.13:5000/therapist/${username}/allPatient'
 
 

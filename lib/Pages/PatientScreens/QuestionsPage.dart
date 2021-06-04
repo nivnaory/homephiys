@@ -6,16 +6,17 @@ import 'package:homephiys/Controller/ReportController.dart';
 import 'package:homephiys/Entity/Patient.dart';
 import 'package:homephiys/Entity/Report.dart';
 import 'package:homephiys/Helpers/LogicHelpers.dart';
-import 'package:homephiys/Pages/MedicalInspectionStage.dart';
-import 'package:homephiys/Pages/StagePage.dart';
+
+import 'MedicalInspectionStage.dart';
+import 'StagePage.dart';
+
 
 class QuestionsPage extends StatefulWidget {
   final List<String> questions; //no need for this
   final int stageLevel;
-  List<int> answers = [];
   final int exerciseLevel;
+  List<int> answers = [];
   final Patient patient;
-  final stageIndex;
 
   final List<String> option_answers = [
     "במידה מועטה מאוד", //0
@@ -25,12 +26,11 @@ class QuestionsPage extends StatefulWidget {
     " במידה רבה מאוד ", //4
   ];
 
-  QuestionsPage(
-      {@required this.questions,
-      this.stageLevel,
-      this.exerciseLevel,
-      this.patient,
-      this.stageIndex});
+  QuestionsPage({@required this.questions,
+    this.stageLevel,
+    this.exerciseLevel,
+    this.patient,
+  });
 
   @override
   _QuestionsPage createState() => _QuestionsPage();
@@ -63,7 +63,7 @@ class _QuestionsPage extends State<QuestionsPage> {
     this.widget.answers = List<int>.filled(this.widget.questions.length, 0);
     return Scaffold(
       appBar: AppBar(
-        title: Text("שאלון עבור תרגיל מספר " + (this.widget.exerciseLevel+1).toString()),
+        title: Text("שאלון עבור תרגיל מספר " + (this.widget.patient.treatmentType.stageList[this.widget.stageLevel].exerciseList[this.widget.exerciseLevel]).toString()),
       ),
       body: _body(),
     );
@@ -85,7 +85,7 @@ class _QuestionsPage extends State<QuestionsPage> {
                     Future<bool> f1;
                     int score = 0;
                     String openAnswer;
-                    // List<int>answers=List();
+
                     return Column(children: <Widget>[
                       Container(
                         padding: const EdgeInsets.only(left: 14.0, top: 14.0),

@@ -7,6 +7,8 @@ import 'package:toast/toast.dart';
 
 import 'PhysiotherapistNewPassword.dart';
 
+
+
 class PhysiotherapistRegistrationPage extends StatelessWidget {
   final username = TextEditingController();
   final email = TextEditingController();

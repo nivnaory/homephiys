@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:homephiys/Entity/Patient.dart';
-import 'package:homephiys/Pages/ChatPage.dart';
-import 'package:homephiys/Pages/ProtocolsPage.dart';
-import 'package:homephiys/Pages/TreatmentProgressPage.dart';
+import 'package:homephiys/Pages/PatientScreens/ChatPage.dart';
+import 'package:homephiys/Pages/PatientScreens/MedicalInspectionStage.dart';
+import 'package:homephiys/Pages/PatientScreens/ProtocolsPage.dart';
 
-import 'MedicalInspectionStage.dart';
-import 'TreatmentAndProtocolPage.dart';
+import 'PhysiotherapistMedicalInspectionStage.dart';
+
 
 class PhysiotherapistControlPage extends StatelessWidget {
   final Patient patient;
@@ -60,6 +60,11 @@ class PhysiotherapistControlPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100)),
             onPressed: () =>
             {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          PhysiotherapistMedicalInspectionStage(this.patient)))
             },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
@@ -68,7 +73,7 @@ class PhysiotherapistControlPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(Icons.bookmark, size: 50, color: Colors.deepOrange),
-                Text(" שלב נוכחי",
+                Text("תוכנית הטיפול",
                     style: TextStyle(fontSize: 20, color: Colors.deepOrange)),
               ],
             ),

@@ -4,10 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:homephiys/Controller/PatientController.dart';
 import 'package:homephiys/Entity/Patient.dart';
 import 'package:homephiys/Helpers/constant.dart';
-import 'package:homephiys/Pages/PatientRegistrationPage.dart';
+import 'package:homephiys/Pages/PatientScreens/PatientRegistrationPage.dart';
+import 'package:homephiys/Pages/PhysiotherapistScreens/PhysiotherapistLoginPage.dart';
 import 'package:toast/toast.dart';
+
 import 'PatientHomePage.dart';
-import 'PhysiotherapistLoginPage.dart';
+
 
 class LoginScreen extends StatelessWidget {
   final username = TextEditingController();

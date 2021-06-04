@@ -9,7 +9,7 @@ class PatientController {
   Future<bool> loginPatient(String username, String password) async {
     final http.Response response = await http.post(
       'http://10.0.2.2:5000/user/login/patient'
-      //  'http://192.168.1.28:5000/user/login/patient'
+     //   'http://172.20.19.56:5000/user/login/patient'
       // 'http://192.168.43.13:5000/user/login/patient'
 
       ,
@@ -36,15 +36,16 @@ class PatientController {
   }
 
   Future<Patient> getPatientFromDB(String username) async {
-    final response = await http.get('http://10.0.2.2:5000/patient/${username}'
-        //'http://192.168.1.28:5000/patient/${username}'
+    final response = await http.get(
+        'http://10.0.2.2:5000/patient/${username}'
+       // 'http://172.20.19.56:5000/patient/${username}'
         //'http://192.168.43.13:5000/patient/${username}'
 
         );
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON
-      print(response.body);
+
       return Patient.fromJson(jsonDecode(response.body));
     } else {
       // If the server did not return a 200 OK response,
@@ -58,7 +59,7 @@ class PatientController {
 
     final response = await http.post(
       'http://10.0.2.2:5000/user/register/patient/'
-      // 'http://192.168.1.28:5000/user/register/patient/'
+      // 'http://172.20.19.56:5000/user/register/patient/'
       // 'http://192.168.43.13:5000/user/register/patient/'
       ,
       headers: <String, String>{

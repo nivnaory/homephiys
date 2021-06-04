@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homephiys/Controller/PatientController.dart';
 import 'package:homephiys/Entity/Patient.dart';
-import 'package:homephiys/Pages/PhysiotherapistControlPage.dart';
+import 'package:homephiys/Pages/PhysiotherapistScreens/PhysiotherapistControlPage.dart';
 
 class PhysiotherapistPage extends StatefulWidget {
   final usernameID = TextEditingController();

@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homephiys/Entity/Patient.dart';
 import 'package:homephiys/Entity/Report.dart';
 import 'package:homephiys/Helpers/LogicHelpers.dart';
-import 'package:homephiys/Pages/QuestionReportPage.dart';
+import 'package:homephiys/Pages/PatientScreens/QuestionReportPage.dart';
 import 'package:toast/toast.dart';
 
 class TreatmentProgressPage extends StatefulWidget {

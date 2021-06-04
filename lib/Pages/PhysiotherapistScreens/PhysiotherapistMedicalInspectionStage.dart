@@ -1,19 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homephiys/Entity/Patient.dart';
-import 'package:homephiys/Pages/TreatmentProgressPage.dart';
+
 import 'package:toast/toast.dart';
-import 'StagePage.dart';
 
-class MedicalInspectionStage extends StatefulWidget {
+import 'PhysiotherapistStagePage.dart';
+
+
+class PhysiotherapistMedicalInspectionStage extends StatefulWidget {
   final Patient patient;
-  final bool StagePageBool;
-  MedicalInspectionStage(this.patient, this.StagePageBool);
+  PhysiotherapistMedicalInspectionStage(this.patient);
 
-  _MedicalInspectionStage createState() => _MedicalInspectionStage();
+  _PhysiotherapistMedicalInspectionStage createState() => _PhysiotherapistMedicalInspectionStage();
 }
 
-class _MedicalInspectionStage extends State<MedicalInspectionStage> {
+class _PhysiotherapistMedicalInspectionStage extends State<PhysiotherapistMedicalInspectionStage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,26 +28,14 @@ class _MedicalInspectionStage extends State<MedicalInspectionStage> {
       body: Column(
         children: List.generate(
             this.widget.patient.treatmentType.protocol.subProtocolsList.length,
-            (index) {
-          if (this.widget.patient.accessesStageList[index].stageAccess ==
-              true) {
-            return StageWidget(
-              patient: this.widget.patient,
-              enable: true,
-              color: Colors.white,
-              index: index,
-              StagePageBool: this.widget.StagePageBool,
-            );
-          } else {
-            return StageWidget(
-              patient: this.widget.patient,
-              color: Colors.grey,
-              enable: false,
-              index: index,
-              StagePageBool: this.widget.StagePageBool,
-            );
-          }
-        }),
+                (index) {
+                return StageWidget(
+                  patient: this.widget.patient,
+                  enable: true,
+                  color: Colors.white,
+                  index: index,
+                );
+            }),
       ),
     );
   }
@@ -59,9 +48,8 @@ class StageWidget extends StatefulWidget {
     this.color,
     this.patient,
     this.index,
-    this.StagePageBool,
+
   }) : super(key: key);
-  final bool StagePageBool;
   final Color color;
   final bool enable;
   final Patient patient;
@@ -80,26 +68,10 @@ class _StageWidget extends State<StageWidget> {
             child: GestureDetector(
               //stage1 stag
               onTap: () {
-                if (this.widget.enable == true) {
-                  if (this.widget.StagePageBool)
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => StagePage(
-                                patient: this.widget.patient,
-                                stageIndex: this.widget.index)));
-                  else {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TreatmentProgressPage(
-                                patient: this.widget.patient,
-                                stageIndex: this.widget.index)));
-                  }
-                } else {
-                  Toast.show("not have access yet", context,
-                      duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                }
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PhysiotherapistStagePage(patient:this.widget.patient,stageIndex:this.widget.index,)));
               },
               child: ReusableCard(
                 cardChild: Column(

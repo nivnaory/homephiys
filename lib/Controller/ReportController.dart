@@ -22,7 +22,7 @@ class ReportController {
     print(this._report.score);
     final response = await http.post(
       'http://10.0.2.2:5000/patient/${username}/report'
-      // 'http://192.168.1.28:5000/patient/${username}/report'
+      // 'http://172.20.19.56:5000/patient/${username}/report'
       // 'http://192.168.43.13:5000/patient/${username}/report'
 
       ,

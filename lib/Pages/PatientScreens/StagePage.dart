@@ -4,11 +4,14 @@ import 'package:homephiys/Entity/Exercise.dart';
 import 'package:homephiys/Entity/Patient.dart';
 
 import 'package:toast/toast.dart';
+
 import 'ExercisePage.dart';
+
 
 class StagePage extends StatefulWidget {
   final Patient patient;
   final int stageIndex;
+
 
   StagePage({this.patient, this.stageIndex});
 
@@ -96,7 +99,7 @@ class _ExerciseButton extends State<ExerciseButton> {
                           builder: (context) => ExercisePage(
                                 patient: this.widget.patient,
                                 stageIndex: this.widget.stageIndex,
-                                exerciseIndex: this.widget.exerciseIndex,
+                                exerciseIndex:this.widget.exerciseIndex,
                               )));
                 } else {
                   Toast.show("not have access yet", context,

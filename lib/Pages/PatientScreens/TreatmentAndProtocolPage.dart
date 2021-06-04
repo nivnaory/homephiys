@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:homephiys/Entity/Patient.dart';
 
-import 'MedicalInspectionStage.dart';
 import 'ProtocolsPage.dart';
+import 'MedicalInspectionStage.dart';
 
 class TreatmentAndProtocolPage extends StatelessWidget {
   final Patient patient;

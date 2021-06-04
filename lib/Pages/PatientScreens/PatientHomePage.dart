@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:homephiys/Entity/Patient.dart';
-import 'package:homephiys/Pages/ChatPage.dart';
-import 'package:homephiys/Pages/TreatmentProgressPage.dart';
+import 'package:homephiys/Pages/PatientScreens/ChatPage.dart';
+
 
 import 'MedicalInspectionStage.dart';
 import 'TreatmentAndProtocolPage.dart';
@@ -81,7 +81,7 @@ class PatientHomePage extends StatelessWidget {
                 side: BorderSide(color: Colors.black26),
                 borderRadius: BorderRadius.circular(100)),
             onPressed: () => {
-              print("chat"),
+
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => ChatPage()))
             },
