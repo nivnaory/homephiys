@@ -72,8 +72,6 @@ class _ExercisePage extends State<ExercisePage> {
           this.widget.timeRecord = formatTime(_stopwatch.elapsedMilliseconds);
         });
       });
-      //this.widget.timeRecord = formatTime(_stopwatch.elapsedMilliseconds);
-      // re-rende
     }
   }
 
