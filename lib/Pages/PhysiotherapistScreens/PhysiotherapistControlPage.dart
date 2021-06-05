@@ -1,16 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:homephiys/Controller/ReportController.dart';
 import 'package:homephiys/Entity/Patient.dart';
-import 'package:homephiys/Pages/PatientScreens/ChatPage.dart';
+import 'package:homephiys/Entity/Report.dart';
 import 'package:homephiys/Pages/PatientScreens/MedicalInspectionStage.dart';
+
 import 'package:homephiys/Pages/PatientScreens/ProtocolsPage.dart';
 
 import 'PhysiotherapistMedicalInspectionStage.dart';
 
-
 class PhysiotherapistControlPage extends StatelessWidget {
   final Patient patient;
+  ReportController reportController = new ReportController();
   PhysiotherapistControlPage({@required this.patient});
   @override
   Widget build(BuildContext context) {
@@ -32,12 +34,17 @@ class PhysiotherapistControlPage extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 side: BorderSide(color: Colors.black26),
                 borderRadius: BorderRadius.circular(100)),
-            onPressed: () => {
+            onPressed: () {
+              Future<List<Report>> futureReports =
+                  reportController.getReportSFromDB(this.patient.username);
+              futureReports.then((allReport) {
+                this.patient.reportList = allReport;
+              });
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          MedicalInspectionStage(this.patient, false)))
+                          MedicalInspectionStage(this.patient, false)));
             },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
@@ -47,7 +54,7 @@ class PhysiotherapistControlPage extends StatelessWidget {
               children: <Widget>[
                 Icon(Icons.directions_run, size: 50.0, color: Colors.black),
                 Text(
-                   "צפה בהתקדמות טיפול",
+                  "צפה בהתקדמות טיפול",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20, color: Colors.black),
                 ),
@@ -58,8 +65,7 @@ class PhysiotherapistControlPage extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 side: BorderSide(color: Colors.white),
                 borderRadius: BorderRadius.circular(100)),
-            onPressed: () =>
-            {
+            onPressed: () => {
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -83,11 +89,11 @@ class PhysiotherapistControlPage extends StatelessWidget {
                 side: BorderSide(color: Colors.black26),
                 borderRadius: BorderRadius.circular(100)),
             onPressed: () => {
-            Navigator.push(
-            context,
-            MaterialPageRoute(
-            builder: (context) => ProtocolsPage(
-            protocol: this.patient.treatmentType.protocol)))
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ProtocolsPage(
+                          protocol: this.patient.treatmentType.protocol)))
             },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),

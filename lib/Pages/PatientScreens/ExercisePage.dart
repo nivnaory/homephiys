@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -15,8 +17,9 @@ class ExercisePage extends StatefulWidget {
   final Patient patient;
   final int stageIndex;
   final int exerciseIndex;
+  String timeRecord = "";
 
-  ExercisePage({this.patient, this.stageIndex,this.exerciseIndex});
+  ExercisePage({this.patient, this.stageIndex, this.exerciseIndex});
 
   _ExercisePage createState() => _ExercisePage();
 }
@@ -33,6 +36,7 @@ class _ExercisePage extends State<ExercisePage> {
           autoPlay: false,
         ));
   }
+
   Stopwatch _stopwatch;
   @override
   void initState() {
@@ -56,27 +60,44 @@ class _ExercisePage extends State<ExercisePage> {
   void handleStartStop() {
     if (_stopwatch.isRunning) {
       _stopwatch.stop();
-      String timeRecord = formatTime(_stopwatch.elapsedMilliseconds);
-      print(timeRecord);
-      if(this.widget.highScore<_stopwatch.elapsedMilliseconds){
+      this.widget.timeRecord = formatTime(_stopwatch.elapsedMilliseconds);
+      if (this.widget.highScore < _stopwatch.elapsedMilliseconds) {
         this.widget.highScore = _stopwatch.elapsedMilliseconds;
-        print(this.widget.highScore);
       }
     } else {
       _stopwatch.start();
+      this.widget.timeRecord = formatTime(_stopwatch.elapsedMilliseconds);
+      Timer.periodic(Duration(seconds: 1), (timer) {
+        setState(() {
+          this.widget.timeRecord = formatTime(_stopwatch.elapsedMilliseconds);
+        });
+      });
+      //this.widget.timeRecord = formatTime(_stopwatch.elapsedMilliseconds);
+      // re-rende
     }
-    setState(() {});    // re-render the page
   }
+
+  void reset() {
+    _stopwatch.reset();
+    setState(() {
+      this.widget.timeRecord = formatTime(_stopwatch.elapsedMilliseconds);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            ' תרגול מספר ' + (this
-                .widget
-                .patient
-                .treatmentType
-                .stageList[this.widget.stageIndex].currentLevel+1).toString(),
+            ' תרגול מספר ' +
+                (this
+                            .widget
+                            .patient
+                            .treatmentType
+                            .stageList[this.widget.stageIndex]
+                            .currentLevel +
+                        1)
+                    .toString(),
             style: TextStyle(color: Colors.black),
           ),
         ),
@@ -125,7 +146,6 @@ class _ExercisePage extends State<ExercisePage> {
                 ],
               ),
             ),
-
             FlatButton(
               shape: RoundedRectangleBorder(
                   side: BorderSide(color: Colors.black26),
@@ -140,11 +160,12 @@ class _ExercisePage extends State<ExercisePage> {
                           .patient
                           .treatmentType
                           .stageList[this.widget.stageIndex]
-                          .exerciseList[ this
-                          .widget
-                          .patient
-                          .treatmentType
-                          .stageList[this.widget.stageIndex].currentLevel]
+                          .exerciseList[this
+                              .widget
+                              .patient
+                              .treatmentType
+                              .stageList[this.widget.stageIndex]
+                              .currentLevel]
                           .description),
                 )
               },
@@ -162,44 +183,47 @@ class _ExercisePage extends State<ExercisePage> {
                 ],
               ),
             ),
-            Column(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(formatTime(_stopwatch.elapsedMilliseconds), style: TextStyle(fontSize: 48.0)),
-                ElevatedButton(onPressed: handleStartStop,
-                    child: Text(_stopwatch.isRunning ? 'עצור' : 'התחל'),
+                Text(this.widget.timeRecord, style: TextStyle(fontSize: 48.0)),
+                ElevatedButton(
+                  onPressed: handleStartStop,
+                  child: Text(_stopwatch.isRunning ? 'עצור' : 'התחל'),
                 ),
-               ],
-              ),
-                FlatButton(
-                  shape: RoundedRectangleBorder(
-                      side: BorderSide(color: Colors.black26),
-                      borderRadius: BorderRadius.circular(30)),
-                  onPressed: () => {
-                    showDialog(
-                      context: context,
-                      builder: (context) => CustomDialog(
-                          title: "הסבר פיזיותרפיסט ",
-                          descritpion: this
+                SizedBox(width: 10),
+                ElevatedButton(onPressed: reset, child: Text("איפוס")),
+              ],
+            ),
+            FlatButton(
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.black26),
+                  borderRadius: BorderRadius.circular(30)),
+              onPressed: () => {
+                showDialog(
+                  context: context,
+                  builder: (context) => CustomDialog(
+                      title: "הסבר פיזיותרפיסט ",
+                      descritpion: this
                               .widget
-                              .patient.therapistNote[this.widget.stageIndex][this.widget.exerciseIndex]
-                           ),
-                    )
-
-                  },
-                  color: Colors.blueGrey,
-                  child: Column(
-                    // Replace with a Row for horizontal icon + text
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "הערות פיזיותרפיסט",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 20, color: Colors.black),
-                      ),
-                    ],
+                              .patient
+                              .therapistNote[this.widget.stageIndex]
+                          [this.widget.exerciseIndex]),
+                )
+              },
+              color: Colors.blueGrey,
+              child: Column(
+                // Replace with a Row for horizontal icon + text
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "הערות פיזיותרפיסט",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20, color: Colors.black),
                   ),
-                ),
+                ],
+              ),
+            ),
             FlatButton(
               shape: RoundedRectangleBorder(
                   side: BorderSide(color: Colors.black26),
@@ -215,19 +239,18 @@ class _ExercisePage extends State<ExercisePage> {
                                   .treatmentType
                                   .stageList[this.widget.stageIndex]
                                   .exerciseList[this
-                                  .widget
-                                  .patient
-                                  .treatmentType
-                                  .stageList[this.widget.stageIndex].currentLevel]
+                                      .widget
+                                      .patient
+                                      .treatmentType
+                                      .stageList[this.widget.stageIndex]
+                                      .currentLevel]
                                   .questions,
-                              exerciseLevel: this
-                                  .widget.exerciseIndex,
+                              exerciseLevel: this.widget.exerciseIndex,
                               stageLevel: this.widget.stageIndex,
                               patient: this.widget.patient,
                             )))
               },
               color: Colors.green,
-
               child: Column(
                 // Replace with a Row for horizontal icon + text
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -240,12 +263,11 @@ class _ExercisePage extends State<ExercisePage> {
                 ],
               ),
             ),
-
           ],
           staggeredTiles: [
-            StaggeredTile.extent(2, 200.0),//video
-            StaggeredTile.extent(1, 100.0),//זמן שיא
-            StaggeredTile.extent(1, 100.0),//הסבר תרגיל
+            StaggeredTile.extent(2, 200.0), //video
+            StaggeredTile.extent(1, 100.0), //זמן שיא
+            StaggeredTile.extent(1, 100.0), //הסבר תרגיל
             StaggeredTile.extent(2, 110.0),
             StaggeredTile.extent(2, 50.0),
             StaggeredTile.extent(2, 50.0),
@@ -305,6 +327,7 @@ class CustomDialog extends StatelessWidget {
     );
   }
 }
+
 String formatTime(int milliseconds) {
   var secs = (milliseconds ~/ 1000);
   var hours = (secs ~/ 3600).toString().padLeft(2, '0');
@@ -312,10 +335,6 @@ String formatTime(int milliseconds) {
   var seconds = (secs % 60).toString().padLeft(2, '0');
   return "$hours:$minutes:$seconds";
 }
-
-
-
-
 
 /*  FlatButton(
               shape: RoundedRectangleBorder(
@@ -337,3 +356,8 @@ String formatTime(int milliseconds) {
               ),
 
  */
+/*
+this
+                              .widget
+                              .patient.therapistNote[this.widget.stageIndex][this.widget.exerciseIndex]
+                              */

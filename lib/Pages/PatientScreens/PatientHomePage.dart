@@ -1,15 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:homephiys/Controller/ReportController.dart';
 import 'package:homephiys/Entity/Patient.dart';
+import 'package:homephiys/Entity/Report.dart';
 import 'package:homephiys/Pages/PatientScreens/ChatPage.dart';
-
-
-import 'MedicalInspectionStage.dart';
+import 'package:homephiys/Pages/PatientScreens/MedicalInspectionStage.dart';
 import 'TreatmentAndProtocolPage.dart';
 
 class PatientHomePage extends StatelessWidget {
   final Patient patient;
+  ReportController reportController = new ReportController();
+  //PatientController patientController = new PatientController();
   PatientHomePage({@required this.patient});
   @override
   Widget build(BuildContext context) {
@@ -35,8 +37,8 @@ class PatientHomePage extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => TreatmentAndProtocolPage(
-                          patient: this.patient))),
+                      builder: (context) =>
+                          TreatmentAndProtocolPage(patient: this.patient))),
             },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
@@ -57,12 +59,17 @@ class PatientHomePage extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 side: BorderSide(color: Colors.white),
                 borderRadius: BorderRadius.circular(100)),
-            onPressed: () => {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          MedicalInspectionStage(this.patient, false)))
+            onPressed: () {
+              Future<List<Report>> futureReports =
+                  reportController.getReportSFromDB(this.patient.username);
+              futureReports.then((allReport) {
+                this.patient.reportList = allReport;
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            MedicalInspectionStage(this.patient, false)));
+              });
             },
             color: Colors.white,
             padding: EdgeInsets.all(10.0),
@@ -81,7 +88,6 @@ class PatientHomePage extends StatelessWidget {
                 side: BorderSide(color: Colors.black26),
                 borderRadius: BorderRadius.circular(100)),
             onPressed: () => {
-
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => ChatPage()))
             },

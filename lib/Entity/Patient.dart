@@ -25,7 +25,7 @@ class Patient {
     this._firstName = firstName;
     this._accessesStageList = [];
     this._reportList = [];
-    this._therapistNote=[];
+    this._therapistNote = [];
   }
   String get firstName => _firstName;
 
@@ -49,9 +49,15 @@ class Patient {
   set treatmentType(TreatmentType value) {
     _treatmentType = value;
   }
+
   set therapistNote(List<List<String>> therapistNotes) {
-    _therapistNote=therapistNotes;
+    _therapistNote = therapistNotes;
   }
+
+  set reportList(List<Report> reportList) {
+    _reportList = reportList;
+  }
+
   void addReport(Report report) {
     this._reportList.add(report);
   }
@@ -64,7 +70,8 @@ class Patient {
     String type = jsonTreatmentType.child('type').as<String>();
     int treatmentId = jsonTreatmentType.child('treatmentId').as<int>();
     int currentScore = jsonTreatmentType.child('currentScore').as<int>();
-    TreatmentType newTreatment = new TreatmentType(type, treatmentId, currentScore);
+    TreatmentType newTreatment =
+        new TreatmentType(type, treatmentId, currentScore);
     List stageList = jsonTreatmentType.child('stageList').asList();
 
     for (int j = 0; j < stageList.length; j++) {
@@ -134,12 +141,12 @@ class Patient {
 
     return newReport;
   }
-  static List<String> getTherapistNotesFromJson(var jsonNotes){
 
-    List<String> notes=[];
+  static List<String> getTherapistNotesFromJson(var jsonNotes) {
+    List<String> notes = [];
     var l = Snapshot.fromJson(jsonNotes['noteForExercise']);
     List notesList = List.from(l.asList());
-    for(int i=0;i<notesList.length;i++){
+    for (int i = 0; i < notesList.length; i++) {
       notes.add(notesList[i].toString());
     }
 
@@ -148,7 +155,6 @@ class Patient {
 
   //read from json
   factory Patient.fromJson(Map<String, dynamic> json) {
-
     //create newPaitnet
     Patient newPatient = new Patient(json['username'].toString(),
         json['password'].toString(), json['name'].toString());
@@ -158,9 +164,8 @@ class Patient {
     TreatmentType newTreatmentType = createTreatmentTypeFromJson(treatmentJson);
     newPatient.treatmentType = newTreatmentType;
 
-
     //create protocol
-     var protocolJson = treatmentJson.child('protocol');
+    var protocolJson = treatmentJson.child('protocol');
     Protocol newProtocol = createProtocolFromJson(protocolJson);
     newPatient.treatmentType.protocol = (newProtocol);
 
@@ -172,30 +177,17 @@ class Patient {
       newPatient.addAccess(newAccess);
     }
 
-
-
-    //create reports
-    var r = Snapshot.fromJson(json['reports']);
-    List reportList = List.from(r.asList());
-    if (reportList.isNotEmpty) {
-      for (int i = 0; i < reportList.length; i++) {
-        Report newReport = createReportFromJson(reportList[i]);
-        newPatient.addReport(newReport);
-      }
-    }
-
-    //creaete TherapistNote
-    List<List<String>>therapistNotesList=[];
+    //create TherapistNote
+    List<List<String>> therapistNotesList = [];
     var n = Snapshot.fromJson(json['therapistNotes']);
-    //print(n);
+
     List notesList = List.from(n.asList());
-    for(int i=0;i<notesList.length;i++){
-    List<String> therapistNotes=getTherapistNotesFromJson(notesList[i]);
-    print("hello niv"+therapistNotes.toString());
-    therapistNotesList.add(therapistNotes);
+    for (int i = 0; i < notesList.length; i++) {
+      List<String> therapistNotes = getTherapistNotesFromJson(notesList[i]);
+      therapistNotesList.add(therapistNotes);
     }
-    newPatient._therapistNote=therapistNotesList;
-   // print(newPatient._therapistNote);
+    newPatient._therapistNote = therapistNotesList;
+
     return newPatient;
   }
 }

@@ -10,7 +10,6 @@ import 'package:toast/toast.dart';
 
 import 'PatientHomePage.dart';
 
-
 class LoginScreen extends StatelessWidget {
   final username = TextEditingController();
   final password = TextEditingController();
@@ -193,6 +192,7 @@ Widget _buildLoginBtn(BuildContext context, PatientController patientController,
       onPressed: () {
         Future f = patientController.loginPatient(
             username.text.trim(), password.text.trim());
+
         f.then((value) {
           if (value == true) {
             Future<Patient> fatchPatient =
@@ -231,8 +231,8 @@ Widget _buildLoginBtn(BuildContext context, PatientController patientController,
 Widget _buildSignupBtn(BuildContext context) {
   return GestureDetector(
     onTap: () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => PatientRegistrationPage()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => PatientRegistrationPage()));
     },
     child: RichText(
       text: TextSpan(

@@ -1,10 +1,13 @@
 import 'dart:convert';
 
+import 'package:homephiys/Entity/Patient.dart';
 import 'package:homephiys/Entity/Report.dart';
 import 'package:http/http.dart' as http;
+import 'package:snapshot/snapshot.dart';
 
 class ReportController {
   Report _report;
+  ReportController();
 
   set report(Report value) {
     _report = value;
@@ -14,12 +17,7 @@ class ReportController {
     return this._report;
   }
 
-  ReportController(Report report) {
-    this._report = report;
-  }
-
   Future<bool> createReport(String username) async {
-    print(this._report.score);
     final response = await http.post(
       'http://10.0.2.2:5000/patient/${username}/report'
       // 'http://172.20.19.56:5000/patient/${username}/report'
@@ -46,6 +44,34 @@ class ReportController {
       // If the server did not return a 200 OK response,
       // then throw an exception.
       return Future.value(false);
+      throw Exception('Failed to load patient');
+    }
+  }
+
+  Future<List<Report>> getReportSFromDB(String username) async {
+    final response =
+        await http.get('http://10.0.2.2:5000/patient/${username}/allReports'
+            // 'http://172.20.19.56:5000/patient/${username}'
+            //'http://192.168.43.13:5000/patient/${username}'
+
+            );
+    List<Report> reportList = [];
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON
+      var r = Snapshot.fromJson(jsonDecode(response.body)['reports']);
+
+      List jsonReportList = List.from(r.asList());
+      if (jsonReportList.isNotEmpty) {
+        for (int i = 0; i < jsonReportList.length; i++) {
+          Report newReport = Patient.createReportFromJson(jsonReportList[i]);
+          reportList.add(newReport);
+        }
+      }
+      return Future.value(reportList);
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
       throw Exception('Failed to load patient');
     }
   }

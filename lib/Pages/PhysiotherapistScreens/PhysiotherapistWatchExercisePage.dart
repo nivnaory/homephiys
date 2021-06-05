@@ -127,17 +127,18 @@ class _PhysiotherapistWatchExercisePage
                         content: TextField(
                           onChanged: (value) {},
                           controller: this.widget.notesController,
-                          decoration:
-                              InputDecoration(hintText: this
+                          decoration: InputDecoration(
+                              hintText: this
                                   .widget
                                   .patient
                                   .treatmentType
                                   .stageList[this.widget.stageIndex]
-                                  .exerciseList[ this
-                                  .widget
-                                  .patient
-                                  .treatmentType
-                                  .stageList[this.widget.stageIndex].currentLevel]
+                                  .exerciseList[this
+                                      .widget
+                                      .patient
+                                      .treatmentType
+                                      .stageList[this.widget.stageIndex]
+                                      .currentLevel]
                                   .description),
                         ),
                       );

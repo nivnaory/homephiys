@@ -10,7 +10,6 @@ import 'package:homephiys/Helpers/LogicHelpers.dart';
 import 'MedicalInspectionStage.dart';
 import 'StagePage.dart';
 
-
 class QuestionsPage extends StatefulWidget {
   final List<String> questions; //no need for this
   final int stageLevel;
@@ -26,7 +25,8 @@ class QuestionsPage extends StatefulWidget {
     " במידה רבה מאוד ", //4
   ];
 
-  QuestionsPage({@required this.questions,
+  QuestionsPage({
+    @required this.questions,
     this.stageLevel,
     this.exerciseLevel,
     this.patient,
@@ -63,7 +63,14 @@ class _QuestionsPage extends State<QuestionsPage> {
     this.widget.answers = List<int>.filled(this.widget.questions.length, 0);
     return Scaffold(
       appBar: AppBar(
-        title: Text("שאלון עבור תרגיל מספר " + (this.widget.patient.treatmentType.stageList[this.widget.stageLevel].exerciseList[this.widget.exerciseLevel]).toString()),
+        title: Text("שאלון עבור תרגיל מספר " +
+            (this
+                    .widget
+                    .patient
+                    .treatmentType
+                    .stageList[this.widget.stageLevel]
+                    .exerciseList[this.widget.exerciseLevel])
+                .toString()),
       ),
       body: _body(),
     );
@@ -134,6 +141,9 @@ class _QuestionsPage extends State<QuestionsPage> {
                               side: BorderSide(color: Colors.black26),
                               borderRadius: BorderRadius.circular(50)),
                           onPressed: () => {
+                            Navigator.of(context).pop(),
+                            Navigator.of(context).pop(),
+                            Navigator.of(context).pop(),
                             score = LogicHelpers.calculateScoreOfQuestions(
                                 this.widget.answers),
                             report = new Report(
@@ -143,7 +153,8 @@ class _QuestionsPage extends State<QuestionsPage> {
                                 this.widget.answers,
                                 textController.text,
                                 score),
-                            reportController = new ReportController(report),
+                            reportController = new ReportController(),
+                            reportController.report = report,
                             f = reportController
                                 .createReport(this.widget.patient.username),
                             if (score > threshold)
