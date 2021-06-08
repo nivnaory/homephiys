@@ -212,7 +212,7 @@ Widget _buildLoginBtn(
               });
             });
           } else {
-            Toast.show("Login Failed", context,
+            Toast.show("התחברות נכשלה", context,
                 duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
           }
         });

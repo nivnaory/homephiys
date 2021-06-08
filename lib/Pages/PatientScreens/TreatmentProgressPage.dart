@@ -161,7 +161,7 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 3,
+        length: 2,
         child: Scaffold(
           appBar: AppBar(
             title: Text(
@@ -172,7 +172,7 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
               //indicatorColor: Color(0xff9962D0),
               tabs: <Widget>[
                 Tab(icon: Icon(FontAwesomeIcons.solidChartBar)),
-                Tab(icon: Icon(FontAwesomeIcons.chartLine)),
+               // Tab(icon: Icon(FontAwesomeIcons.chartLine)),
                 Tab(icon: Icon(FontAwesomeIcons.book)),
               ],
             ),
@@ -209,9 +209,9 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
                   ),
                 ),
               ),
-              Padding(
+              /*Padding(
                 padding: EdgeInsets.all(8.0),
-                /*child: Container(
+                child: Container(
                   child: Center(
                     child: Column(
                      /* children: <Widget>[
@@ -243,8 +243,8 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
                       ],*/
                     ),
                   ),
-                ),*/
-              ),
+                ),
+              ),*/
               Column(children: <Widget>[
                 Flexible(
                     flex: 1,

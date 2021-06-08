@@ -185,7 +185,7 @@ class _QuestionsPage extends State<QuestionsPage> {
                                             this.widget.stageLevel + 1]
                                         .exerciseAccess[0] = true,
                                     Toast.show("מזל טוב!!! עברת שלב", context,
-                                        duration: Toast.LENGTH_LONG, gravity: Toast.CENTER,backgroundColor: Colors.red),
+                                        duration: Toast.LENGTH_LONG, gravity: Toast.CENTER,backgroundColor: Colors.greenAccent),
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -221,6 +221,8 @@ class _QuestionsPage extends State<QuestionsPage> {
                               }
                             else
                               {
+                                Toast.show("לא עברת את התרגיל הנוכחי. אנא נסה שוב", context,
+                                    duration: Toast.LENGTH_LONG, gravity: Toast.CENTER,backgroundColor: Colors.red),
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
