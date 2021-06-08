@@ -2,15 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:homephiys/Entity/Patient.dart';
+import 'package:homephiys/Pages/PatientScreens/ExercisePage.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+import 'DescriptionPage.dart';
 
 class PhysiotherapistWatchExercisePage extends StatefulWidget {
   final url = 'https://www.youtube.com/watch?v=88LR61WGvEQ';
   final title = 'Player';
-  final highScore = 13.0000;
   final Patient patient;
   final int stageIndex;
   final int exerciseIndex;
+  int highScore = 0;
   TextEditingController notesController;
 
   PhysiotherapistWatchExercisePage(
@@ -36,6 +39,7 @@ class _PhysiotherapistWatchExercisePage
 
   @override
   void initState() {
+   this.widget.highScore= this.widget.patient.highScores[this.widget.stageIndex][this.widget.exerciseIndex];
     runYoutubePlayer();
     super.initState();
   }
@@ -107,7 +111,7 @@ class _PhysiotherapistWatchExercisePage
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "זמן שיא של המטופל  :" + widget.highScore.toString(),
+                    "זמן שיא של המטופל: " + formatTime(this.widget.highScore).toString(),
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, color: Colors.black),
                   ),
@@ -120,29 +124,22 @@ class _PhysiotherapistWatchExercisePage
                   borderRadius: BorderRadius.circular(60)),
               onPressed: () => {
                 showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: Text('הסבר תרגיל '),
-                        content: TextField(
-                          onChanged: (value) {},
-                          controller: this.widget.notesController,
-                          decoration: InputDecoration(
-                              hintText: this
-                                  .widget
-                                  .patient
-                                  .treatmentType
-                                  .stageList[this.widget.stageIndex]
-                                  .exerciseList[this
-                                      .widget
-                                      .patient
-                                      .treatmentType
-                                      .stageList[this.widget.stageIndex]
-                                      .currentLevel]
-                                  .description),
-                        ),
-                      );
-                    }),
+                  context: context,
+                  builder: (context) => CustomDialog(
+                      title: "הסבר תרגיל ",
+                      descritpion: this
+                          .widget
+                          .patient
+                          .treatmentType
+                          .stageList[this.widget.stageIndex]
+                          .exerciseList[this
+                          .widget
+                          .patient
+                          .treatmentType
+                          .stageList[this.widget.stageIndex]
+                          .currentLevel]
+                          .description),
+                ),
               },
               color: Colors.green,
               padding: EdgeInsets.all(10.0),
@@ -163,16 +160,12 @@ class _PhysiotherapistWatchExercisePage
                   side: BorderSide(color: Colors.black26),
                   borderRadius: BorderRadius.circular(60)),
               onPressed: () => {
-                showDialog(
-                  context: context,
-                  builder: (context) => CustomDialog(
-                      title: "הסבר פיזיותרפיסט ",
-                      descritpion: this
-                              .widget
-                              .patient
-                              .therapistNote[this.widget.stageIndex]
-                          [this.widget.exerciseIndex]),
-                )
+              Navigator.push(
+              context,
+              MaterialPageRoute(
+              builder: (context) => DescriptionPage(
+                  this.widget.patient.therapistNote[this.widget.stageIndex][this.widget.exerciseIndex],
+                  isPhysioNoteChange:true,patientUserName: this.widget.patient.username,exerciseIndex: this.widget.exerciseIndex,stageIndex: this.widget.stageIndex))),
               },
               color: Colors.green,
               child: Column(
@@ -212,7 +205,13 @@ class CustomDialog extends StatelessWidget {
       child: dialogContent(context),
     );
   }
-
+  String formatTime(int milliseconds) {
+    var secs = (milliseconds ~/ 1000);
+    var hours = (secs ~/ 3600).toString().padLeft(2, '0');
+    var minutes = ((secs % 3600) ~/ 60).toString().padLeft(2, '0');
+    var seconds = (secs % 60).toString().padLeft(2, '0');
+    return "$hours:$minutes:$seconds";
+  }
   dialogContent(BuildContext context) {
     return Stack(
       children: <Widget>[

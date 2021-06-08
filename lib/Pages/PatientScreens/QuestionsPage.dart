@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
@@ -7,15 +9,16 @@ import 'package:homephiys/Entity/Patient.dart';
 import 'package:homephiys/Entity/Report.dart';
 import 'package:homephiys/Helpers/LogicHelpers.dart';
 
+import 'ExercisePage.dart';
 import 'MedicalInspectionStage.dart';
 import 'StagePage.dart';
 
 class QuestionsPage extends StatefulWidget {
-  final List<String> questions; //no need for this
   final int stageLevel;
   final int exerciseLevel;
   List<int> answers = [];
   final Patient patient;
+   List<String> questions;
 
   final List<String> option_answers = [
     "במידה מועטה מאוד", //0
@@ -26,11 +29,12 @@ class QuestionsPage extends StatefulWidget {
   ];
 
   QuestionsPage({
-    @required this.questions,
     this.stageLevel,
     this.exerciseLevel,
-    this.patient,
-  });
+    this.patient})
+     {
+      this.questions= this.patient.treatmentType.stageList[this.stageLevel].exerciseList[this.exerciseLevel].questions;
+     }
 
   @override
   _QuestionsPage createState() => _QuestionsPage();
@@ -64,12 +68,12 @@ class _QuestionsPage extends State<QuestionsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("שאלון עבור תרגיל מספר " +
-            (this
+            ((this
                     .widget
                     .patient
                     .treatmentType
                     .stageList[this.widget.stageLevel]
-                    .exerciseList[this.widget.exerciseLevel])
+                    .exerciseList[this.widget.exerciseLevel]).level+1)
                 .toString()),
       ),
       body: _body(),
@@ -97,7 +101,7 @@ class _QuestionsPage extends State<QuestionsPage> {
                       Container(
                         padding: const EdgeInsets.only(left: 14.0, top: 14.0),
                         child: Text(
-                          this.widget.questions[itemIndex],
+                         this.widget.questions[itemIndex],
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
                         ),
@@ -179,6 +183,8 @@ class _QuestionsPage extends State<QuestionsPage> {
                                         .accessesStageList[
                                             this.widget.stageLevel + 1]
                                         .exerciseAccess[0] = true,
+
+                                  //  sleep(Duration(seconds: 3)),
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(

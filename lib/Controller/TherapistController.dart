@@ -54,7 +54,7 @@ class TherapistCotroller {
   Future<bool> setNewPassword(String username, String newPassword) async {
     print(newPassword.toString());
     final response = await http.put(
-      'http://10.0.2.2:5000/therapist/${username}/passwrod'
+      'http://10.0.2.2:5000/therapist/${username}/password'
      // 'http://172.20.19.56:5000/therapist/${username}'
       //'http://192.168.43.13:5000/therapist/${username}''
       ,
@@ -104,4 +104,6 @@ class TherapistCotroller {
       throw Exception('Failed to load patient');
     }
   }
+
+
 }

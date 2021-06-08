@@ -37,8 +37,8 @@ class _QuestionReportPage extends State<QuestionReportPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Reports',
-          style: TextStyle(color: Colors.white),
+          'שאלונים קודמים',
+          style: TextStyle(color: Colors.black),
         ),
       ),
       backgroundColor: Colors.white,
@@ -97,7 +97,7 @@ class ExerciseButton extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ReportPage(reprot: this.reprot)));
+                        builder: (context) => ReportPage(report: this.reprot)));
               },
               child: ReusableCard(
                 cardChild: Column(

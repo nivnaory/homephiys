@@ -68,7 +68,7 @@ class _PatientRegistrationPage extends State<PatientRegistrationPage> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30)),
-                    hintText: ':שם פרטי',
+                    hintText: 'שם פרטי',
                   ),
                 ),
                 SizedBox(height: 25.0),
@@ -78,7 +78,7 @@ class _PatientRegistrationPage extends State<PatientRegistrationPage> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30)),
-                    hintText: ':ת.ז',
+                    hintText: 'ת.ז',
                   ),
                 ),
                 SizedBox(height: 25.0),
@@ -88,7 +88,7 @@ class _PatientRegistrationPage extends State<PatientRegistrationPage> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30)),
-                    hintText: ':אימייל',
+                    hintText: 'אימייל',
                   ),
                 ),
                 SizedBox(height: 25.0),
@@ -99,7 +99,7 @@ class _PatientRegistrationPage extends State<PatientRegistrationPage> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30)),
-                    hintText: ':סיסמא',
+                    hintText: 'סיסמא',
                   ),
                 ),
                 SizedBox(height: 10.0),
@@ -145,20 +145,30 @@ class _PatientRegistrationPage extends State<PatientRegistrationPage> {
                 onTap: () {
                   if (password.text.trim() == confirmPassword.text.trim()) {
                     if (validateEmail(email.text.trim()) == email.text.trim()) {
+                      if(isNumeric(userNameId.text)){
                       Future f = patientController.createPatient(
                           userNameId.text.trim(),
                           password.text.trim(),
                           name.text.trim(),
                           email.text.trim(),
                           selected);
-                      print("successful registration");
-                      Toast.show("נרשם בהצלחה", context,
-                          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()));
+                      f.then((value){
+                        if(value==true){
+                        print("successful registration");
+                        Toast.show("נרשם בהצלחה", context,
+                            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()));
+                        }else{
+                          Toast.show(
+                              "שגיאה - לא ניתן להירשם למערכת", context,
+                              duration: Toast.LENGTH_LONG, gravity: Toast.CENTER);
+                        }
+                      });
                     }
+                  }
                   } else {
                     Toast.show(
                         "הסיסמאות לא תואמות, אנא בדוק את הסיסמאות", context,
@@ -196,6 +206,18 @@ class _PatientRegistrationPage extends State<PatientRegistrationPage> {
     }
   }
 
+  /// check if the string contains only numbers
+  bool isNumeric(String str) {
+    RegExp _numeric = RegExp(r'^-?[0-9]+$');
+    if( !_numeric.hasMatch(str) || str.length!=9){
+      Toast.show("תעודת הזהות לא הוזנה כמו שצריך, אנא בדוק זאת", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      return false;
+
+    }
+    return true;
+
+  }
   List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
     List<DropdownMenuItem<ListItem>> items = List();
     for (ListItem listItem in listItems) {

@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:homephiys/Controller/PatientController.dart';
+import 'package:homephiys/Controller/TherapistController.dart';
+import 'package:homephiys/Pages/PhysiotherapistScreens/PhysiotherapistWatchExercisePage.dart';
 
 //Define "root widget"
-void main() => runApp(new DescriptionPage()); //one-line function
+ //one-line function
 
 class DescriptionPage extends StatelessWidget {
   //Stateless = immutable = cannot change object's properties
   //Every UI components are widgets
+  final textController = TextEditingController();
+  final patientController= new PatientController();
+  bool isPhysioNoteChange;
+  String patientUserName = "";
+  int exerciseIndex;
+  int stageIndex;
+  DescriptionPage(String inputText,{this.isPhysioNoteChange,this.patientUserName, this.exerciseIndex, this.stageIndex}){
+    textController.text=inputText;
+
+  }
+
   @override
   Widget build(BuildContext context) {
     //Now we need multiple widgets into a parent = "Container" widget
@@ -15,36 +29,72 @@ class DescriptionPage extends StatelessWidget {
         children: <Widget>[
           new Expanded(
             child: new Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 new Container(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: new Text("הסבר התרגיל ",
+                  alignment: Alignment.centerRight,
+                  padding: const EdgeInsets.only(bottom: 50.0),
+                  child: new Text("הסבר: ",
                       style: new TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18.0)),
+                          fontWeight: FontWeight.bold, fontSize: 30.0),
+                    textDirection: TextDirection.rtl,
+                  ),
+
                 ),
                 //Need to add space below this Text ?
-                new Text(
-                  "  כבר בתקופת לימודיו בבית הספר התיכון ניבאו לו קריירה מוצלחת ב-NBA. כשהיה בן 18 בלבד הוא נבחר בבחירה מספר 1 בדראפט 2003, ועוד לפני משחק הבכורה שלו חתם על חוזה חסות עם נייקי בשווי 90 מיליון דולר. הוא זכה בתואר רוקי השנה בעונת 2003/2004, ומאז 2005 נכלל כל עונה באחת מחמישיות העונה ב-NBA והשתתף בקביעות במשחק האולסטאר. במהלך שבע שנותיו בקבוצה, ג'יימס היה שחקן ההתקפה המרכזי של קליבלנד, והוביל את הקבוצה להופעות רצופות בפלייאוף בין השנים 2006–2010; בשנת 2007 העפילה קליבלנד עד לגמר האזור המזרחי של ה-NBA לראשונה מאז 1992, ולסדרת הגמר הכללית לראשונה בתולדות הקבוצה, שבה הפסידה לסן אנטוניו ספרס (0–4). הוא זכה בתואר ה-MVP של העונה הסדירה ב-2009, ב-2010, ב-2012 וב-2013, והגיע למקום השני בבחירות ל-MVP ב-2006.  ",
-                  style: new TextStyle(color: Colors.grey[850], fontSize: 16.0),
+
+                  TextField(
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 20,
+                    maxLength: 1000,
+                    onChanged: (value) {},
+                      controller: textController,
+                      textDirection: TextDirection.rtl,
+
+                    ),
+
+                SizedBox(height:40),
+                FlatButton(
+                  shape: RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.black26),
+                      borderRadius: BorderRadius.circular(50)),
+                  onPressed: ()  {
+                  if(isPhysioNoteChange){
+                    //put
+                    Future<bool> futureTherapistNote = this.patientController.setNewNoteForPatient(this.patientUserName,this.textController.text.trim(),
+                    this.exerciseIndex,this.stageIndex);
+                    print(this.textController.text.trim());
+                    Navigator.of(context).pop();
+
+                  }
+                    //put
+                  },
+                   color: Colors.redAccent,
+                  padding: EdgeInsets.all(30.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "עריכה",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 20, color: Colors.black),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
-          new Icon(Icons.favorite, color: Colors.red),
-          new Text(
-            " 100",
-            style: new TextStyle(fontSize: 16.0),
-          ),
+
         ],
       ),
     );
     //build function returns a "Widget"
-    return new MaterialApp(
-        title: "",
-        home: new Scaffold(
-            appBar: new AppBar(
-              title: new Text('Flutter App'),
+    return new Scaffold(
+            appBar: AppBar(
+              title: Text("הערות פיזיותרפיסט",
+                style: TextStyle(color: Colors.black),
+              ),
             ),
             body: new ListView(
               children: <Widget>[
@@ -53,6 +103,8 @@ class DescriptionPage extends StatelessWidget {
                 //You can add more widget bellow
                 titleSection
               ],
-            ))); //Widget with "Material design"
+            )); //Widget with "Material design"
   }
+
+
 }

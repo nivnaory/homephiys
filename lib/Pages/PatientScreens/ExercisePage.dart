@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:homephiys/Controller/PatientController.dart';
 
 import 'package:homephiys/Entity/Patient.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -13,11 +14,12 @@ import 'QuestionsPage.dart';
 class ExercisePage extends StatefulWidget {
   final url = 'https://www.youtube.com/watch?v=88LR61WGvEQ';
   final title = 'Player';
-  int highScore = 0;
   final Patient patient;
   final int stageIndex;
   final int exerciseIndex;
   String timeRecord = "";
+  int highScore = 0;
+  PatientController patientController = new PatientController();
 
   ExercisePage({this.patient, this.stageIndex, this.exerciseIndex});
 
@@ -26,6 +28,7 @@ class ExercisePage extends StatefulWidget {
 
 class _ExercisePage extends State<ExercisePage> {
   YoutubePlayerController _controller;
+
 
   void runYoutubePlayer() {
     _controller = YoutubePlayerController(
@@ -42,6 +45,8 @@ class _ExercisePage extends State<ExercisePage> {
   void initState() {
     runYoutubePlayer();
     _stopwatch = Stopwatch();
+     this.widget.highScore =
+     this.widget.patient.highScores[this.widget.stageIndex][this.widget.exerciseIndex];
     super.initState();
   }
 
@@ -59,11 +64,10 @@ class _ExercisePage extends State<ExercisePage> {
 
   void handleStartStop() {
     if (_stopwatch.isRunning) {
+
       _stopwatch.stop();
       this.widget.timeRecord = formatTime(_stopwatch.elapsedMilliseconds);
-      if (this.widget.highScore < _stopwatch.elapsedMilliseconds) {
-        this.widget.highScore = _stopwatch.elapsedMilliseconds;
-      }
+
     } else {
       _stopwatch.start();
       this.widget.timeRecord = formatTime(_stopwatch.elapsedMilliseconds);
@@ -76,6 +80,15 @@ class _ExercisePage extends State<ExercisePage> {
   }
 
   void reset() {
+    if (this.widget.highScore < _stopwatch.elapsedMilliseconds) {
+      showDialog(
+        context: context,
+        builder: (context) => CustomDialog(
+            title: "!!!!!מזל טוב ",
+            descritpion: "שברת את השיא"
+      ));
+      this.widget.highScore = _stopwatch.elapsedMilliseconds;
+    }
     _stopwatch.reset();
     setState(() {
       this.widget.timeRecord = formatTime(_stopwatch.elapsedMilliseconds);
@@ -88,13 +101,12 @@ class _ExercisePage extends State<ExercisePage> {
         appBar: AppBar(
           title: Text(
             ' תרגול מספר ' +
-                (this
-                            .widget
-                            .patient
-                            .treatmentType
-                            .stageList[this.widget.stageIndex]
-                            .currentLevel +
-                        1)
+                ((this
+                    .widget
+                    .patient
+                    .treatmentType
+                    .stageList[this.widget.stageIndex]
+                    .exerciseList[this.widget.exerciseIndex]).level+1)
                     .toString(),
             style: TextStyle(color: Colors.black),
           ),
@@ -226,27 +238,26 @@ class _ExercisePage extends State<ExercisePage> {
               shape: RoundedRectangleBorder(
                   side: BorderSide(color: Colors.black26),
                   borderRadius: BorderRadius.circular(50)),
-              onPressed: () => {
+              onPressed: () {
+    if(this.widget.highScore>this.widget.patient.highScores[this.widget.stageIndex][this.widget.exerciseIndex]) {
+      //put
+      this.widget.patient.highScores[this.widget.stageIndex][this.widget.exerciseIndex] = this.widget.highScore;
+      Future<bool> futureHighScore = this.widget.patientController.saveHighScore
+        (this.widget.highScore, this.widget.patient.username,
+          this.widget.stageIndex, this.widget.exerciseIndex);
+      futureHighScore.then((value) {
+        //need this
+      });
+    }
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => QuestionsPage(
-                              questions: this
-                                  .widget
-                                  .patient
-                                  .treatmentType
-                                  .stageList[this.widget.stageIndex]
-                                  .exerciseList[this
-                                      .widget
-                                      .patient
-                                      .treatmentType
-                                      .stageList[this.widget.stageIndex]
-                                      .currentLevel]
-                                  .questions,
+
                               exerciseLevel: this.widget.exerciseIndex,
                               stageLevel: this.widget.stageIndex,
                               patient: this.widget.patient,
-                            )))
+                            )));
               },
               color: Colors.green,
               child: Column(
@@ -334,28 +345,3 @@ String formatTime(int milliseconds) {
   return "$hours:$minutes:$seconds";
 }
 
-/*  FlatButton(
-              shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.black26),
-                  borderRadius: BorderRadius.circular(50)),
-              onPressed: () => {},
-              color: Colors.redAccent,
-              padding: EdgeInsets.all(10.0),
-              child: Column(
-                // Replace with a Row for horizontal icon + text
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "התחל תרגיל",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20, color: Colors.black),
-                  ),
-                ],
-              ),
-
- */
-/*
-this
-                              .widget
-                              .patient.therapistNote[this.widget.stageIndex][this.widget.exerciseIndex]
-                              */

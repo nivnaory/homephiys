@@ -18,6 +18,8 @@ class Patient {
   List<Report> _reportList;
   List<AccessStage> _accessesStageList;
   List<List<String>> _therapistNote;
+  List<List<int>>_highScores;
+
 
   Patient(String userName, String password, String firstName) {
     this._username = userName;
@@ -26,6 +28,7 @@ class Patient {
     this._accessesStageList = [];
     this._reportList = [];
     this._therapistNote = [];
+    this._highScores=[];
   }
   String get firstName => _firstName;
 
@@ -37,6 +40,8 @@ class Patient {
 
   List<AccessStage> get accessesStageList => _accessesStageList;
   List<List<String>> get therapistNote => _therapistNote;
+  List<List<int>> get highScores => _highScores;
+
 
   set password(String value) {
     password = value;
@@ -58,6 +63,11 @@ class Patient {
     _reportList = reportList;
   }
 
+
+  set highScores(List<List<int>> value) {
+    _highScores = value;
+  }
+
   void addReport(Report report) {
     this._reportList.add(report);
   }
@@ -76,8 +86,7 @@ class Patient {
 
     for (int j = 0; j < stageList.length; j++) {
       Stage newStage = new Stage(
-          int.parse(stageList[j]['currentLevel'].toString()),
-          int.parse(stageList[j]['currentScore'].toString()));
+          int.parse(stageList[j]['currentLevel'].toString()));
 
       List exerciseList = List.from(stageList[j]['exerciseList']);
       for (int k = 0; k < exerciseList.length; k++) {
@@ -153,6 +162,17 @@ class Patient {
     return notes;
   }
 
+  static List<int> getHighScoreFromJson(var jsonScores) {
+    List<int> scores = [];
+    var l = Snapshot.fromJson(jsonScores['highScoreList']);
+    List scoresList = List.from(l.asList());
+    for (int i = 0; i < scoresList.length; i++) {
+      scores.add(scoresList[i]);
+    }
+
+    return scores;
+  }
+
   //read from json
   factory Patient.fromJson(Map<String, dynamic> json) {
     //create newPaitnet
@@ -180,13 +200,25 @@ class Patient {
     //create TherapistNote
     List<List<String>> therapistNotesList = [];
     var n = Snapshot.fromJson(json['therapistNotes']);
-
     List notesList = List.from(n.asList());
     for (int i = 0; i < notesList.length; i++) {
       List<String> therapistNotes = getTherapistNotesFromJson(notesList[i]);
       therapistNotesList.add(therapistNotes);
     }
     newPatient._therapistNote = therapistNotesList;
+
+
+
+    //create scoreList
+    List<List<int>> HighScoreList = [];
+    var m = Snapshot.fromJson(json['scoreList']);
+    List scoresList = List.from(m.asList());
+    for (int i = 0; i < scoresList.length; i++) {
+      List<int> PatientScoreList = getHighScoreFromJson(scoresList[i]);
+      HighScoreList.add(PatientScoreList);
+    }
+    newPatient._highScores= HighScoreList;
+    print(HighScoreList);
 
     return newPatient;
   }

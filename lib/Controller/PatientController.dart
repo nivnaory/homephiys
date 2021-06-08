@@ -77,12 +77,72 @@ class PatientController {
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON
+      print("ok");
       return Future.value(true);
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
 
       return Future.value(true);
+    }
+  }
+
+  Future<bool> saveHighScore(int highScore, String username, int stageIndex, int exerciseIndex) async {
+
+    final response = await http.put(
+      'http://10.0.2.2:5000/patient/${username}/highScore'
+      // 'http://172.20.19.56:5000/patient/${userName}/highScore'
+      // 'http://192.168.43.13:5000/patient/${userName}/highScore'
+      ,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, Object>{
+        "stageIndex":stageIndex,
+        "exerciseIndex": exerciseIndex,
+        "highScore": highScore,
+
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON
+      return Future.value(true);
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+
+      return Future.value(true);
+    }
+  }
+
+  Future<bool> setNewNoteForPatient(String username, String newNote,int exerciseIndex,int stageIndex) async {
+    print(newNote);
+    final response = await http.put(
+      'http://10.0.2.2:5000/patient/${username}/updateNote'
+      // 'http://172.20.19.56:5000/patient/${username}/updateNote'
+      //'http://192.168.43.13:5000/patient/${username}/updateNote'
+      ,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, Object>{
+        "stageIndex":stageIndex,
+        "exerciseIndex":exerciseIndex,
+        "note":newNote,
+      }),
+    );
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON
+
+      return Future.value(true);
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+
+      return Future.value(false);
     }
   }
 }

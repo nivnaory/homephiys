@@ -5,7 +5,7 @@ import 'package:homephiys/Controller/AccessController.dart';
 import 'package:homephiys/Entity/Report.dart';
 
 class ReportPage extends StatefulWidget {
-  final Report reprot;
+  final Report report;
   final List<String> option_answers = [
     "במידה מועטה מאוד", //0
     "במידה מועטה", //1
@@ -14,7 +14,7 @@ class ReportPage extends StatefulWidget {
     " במידה רבה מאוד ", //4
   ];
 
-  ReportPage({this.reprot});
+  ReportPage({this.report});
 
   @override
   _ReportPage createState() => _ReportPage();
@@ -37,7 +37,7 @@ class _ReportPage extends State<ReportPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(" Report:"),
+        title: Text("שאלון"),
       ),
       body: _body(),
     );
@@ -50,14 +50,14 @@ class _ReportPage extends State<ReportPage> {
         children: <Widget>[
           Expanded(
               child: ListView.builder(
-                  itemCount: 3,
+                  itemCount: this.widget.report.questions.length,
                   itemBuilder: (context, itemIndex) {
                     // List<int>answers=List();
                     return Column(children: <Widget>[
                       Container(
                         padding: const EdgeInsets.only(left: 14.0, top: 14.0),
                         child: Text(
-                          "question",
+                          this.widget.report.questions[itemIndex].toString(),
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
                         ),
@@ -66,7 +66,7 @@ class _ReportPage extends State<ReportPage> {
                         // orientation: GroupedButtonsOrientation.VERTICAL,
                         margin: const EdgeInsets.fromLTRB(0, 0, 1, 0),
                         picked: this.widget.option_answers[
-                            this.widget.reprot.answers[itemIndex]],
+                            this.widget.report.answers[itemIndex]],
                         labels: this.widget.option_answers,
                         disabled: this.widget.option_answers,
                       ),
@@ -84,7 +84,7 @@ class _ReportPage extends State<ReportPage> {
                                 builder: (context) => CustomDialog(
                                       title: "תשובה פתוחה",
                                       descritpion:
-                                          this.widget.reprot.openAnswers,
+                                          this.widget.report.openAnswers,
                                     )),
                           },
                           color: Colors.green,

@@ -165,15 +165,13 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
         child: Scaffold(
           appBar: AppBar(
             title: Text(
-              'Treatment Progress',
-              style: TextStyle(color: Colors.white),
+              'התקדמות הטיפול',
+              style: TextStyle(color: Colors.black),
             ),
             bottom: TabBar(
               //indicatorColor: Color(0xff9962D0),
               tabs: <Widget>[
-                Tab(
-                  icon: Icon(FontAwesomeIcons.solidChartBar),
-                ),
+                Tab(icon: Icon(FontAwesomeIcons.solidChartBar)),
                 Tab(icon: Icon(FontAwesomeIcons.chartLine)),
                 Tab(icon: Icon(FontAwesomeIcons.book)),
               ],
@@ -213,10 +211,10 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
               ),
               Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Container(
+                /*child: Container(
                   child: Center(
                     child: Column(
-                      children: <Widget>[
+                     /* children: <Widget>[
                         Text(
                           'קצב התקדמות ביחס למספר התרגילים',
                           style: TextStyle(
@@ -242,10 +240,10 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
                                 ),
                               ]),
                         ),
-                      ],
+                      ],*/
                     ),
                   ),
-                ),
+                ),*/
               ),
               Column(children: <Widget>[
                 Flexible(
@@ -312,7 +310,8 @@ class _TreatmentProgressPage extends State<TreatmentProgressPage> {
               ]),
             ],
           ),
-        ));
+        )
+    );
   }
 }
 
