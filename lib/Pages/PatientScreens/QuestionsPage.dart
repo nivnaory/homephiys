@@ -8,6 +8,7 @@ import 'package:homephiys/Controller/ReportController.dart';
 import 'package:homephiys/Entity/Patient.dart';
 import 'package:homephiys/Entity/Report.dart';
 import 'package:homephiys/Helpers/LogicHelpers.dart';
+import 'package:toast/toast.dart';
 
 import 'ExercisePage.dart';
 import 'MedicalInspectionStage.dart';
@@ -183,8 +184,8 @@ class _QuestionsPage extends State<QuestionsPage> {
                                         .accessesStageList[
                                             this.widget.stageLevel + 1]
                                         .exerciseAccess[0] = true,
-
-                                  //  sleep(Duration(seconds: 3)),
+                                    Toast.show("מזל טוב!!! עברת שלב", context,
+                                        duration: Toast.LENGTH_LONG, gravity: Toast.CENTER,backgroundColor: Colors.red),
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -206,6 +207,8 @@ class _QuestionsPage extends State<QuestionsPage> {
                                                 this.widget.stageLevel]
                                             .exerciseAccess[
                                         this.widget.exerciseLevel + 1] = true,
+                                  Toast.show("מזל טוב!!! עברת לתרגיל הבא", context,
+                                  duration: Toast.LENGTH_LONG, gravity: Toast.CENTER,backgroundColor: Colors.blueAccent),
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(

@@ -204,7 +204,7 @@ Widget _buildLoginBtn(BuildContext context, PatientController patientController,
                       builder: (context) => PatientHomePage(patient: patient)));
             });
           } else {
-            Toast.show("Login Failed", context,
+            Toast.show("ההתחברות נכשלה", context,
                 duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
           }
         });

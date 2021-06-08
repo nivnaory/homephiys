@@ -44,6 +44,7 @@ dependencies:
   stop_watch_timer: ^0.7.0
   custom_timer: ^0.0.3
   easy_localization: ^2.1.0+0
+  fluttertoast: ^8.0.7
 
 
 dev_dependencies:

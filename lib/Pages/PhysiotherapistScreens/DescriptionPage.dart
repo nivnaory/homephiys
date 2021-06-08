@@ -98,8 +98,7 @@ class DescriptionPage extends StatelessWidget {
             ),
             body: new ListView(
               children: <Widget>[
-                new Image.asset('images/tutorialChannel.png',
-                    fit: BoxFit.cover),
+             //   new Image.asset('images/tutorialChannel.png', fit: BoxFit.cover),
                 //You can add more widget bellow
                 titleSection
               ],
